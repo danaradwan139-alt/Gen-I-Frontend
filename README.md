@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # GEN-I
 
 React + Vite implementation of the GEN-I Figma design.
@@ -35,3 +36,6 @@ src/
 - `/shop/:productId` shows variant, price freshness and branch details.
 - `/bag` opens the shopping bag empty state; adding products to a bag is not yet supported.
 - `src/data/products.js` is a local demonstration catalog. Its prices, stock counts and store details are sample data and are not connected to a live inventory service.
+=======
+# Gen-I-Frontend
+>>>>>>> 5a80734569997df703eb7eac7ba1160dee31fa7c
