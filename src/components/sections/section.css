@@ -1,0 +1,3 @@
+/* Shared section shell */
+.sec { display: flex; flex-direction: column; gap: 40px; padding: 72px 120px; background: #fff; }
+.sec-head { display: flex; align-items: center; justify-content: space-between; width: 100%; }

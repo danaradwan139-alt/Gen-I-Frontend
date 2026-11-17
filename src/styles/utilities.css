@@ -1,0 +1,3 @@
+/* Small layout helpers shared across sections */
+.row16 { display: flex; gap: 16px; }
+.stack4 { display: flex; flex-direction: column; gap: 4px; }

@@ -1,0 +1,67 @@
+.reveal {
+  --reveal-duration: 700ms;
+  --reveal-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --reveal-distance: 32px;
+}
+
+/* Clip sideways slides so they never create a horizontal scrollbar */
+.reveal-left,
+.reveal-right { overflow-x: clip; }
+
+/* ---- hidden state ---- */
+.reveal-up,
+.reveal-fade,
+.reveal-zoom,
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transition:
+    opacity var(--reveal-duration) var(--reveal-ease) var(--reveal-delay),
+    transform var(--reveal-duration) var(--reveal-ease) var(--reveal-delay);
+  will-change: opacity, transform;
+}
+.reveal-up    { transform: translate3d(0, var(--reveal-distance), 0); }
+.reveal-zoom  { transform: scale(0.96); }
+.reveal-left  { transform: translate3d(calc(var(--reveal-distance) * -1), 0, 0); }
+.reveal-right { transform: translate3d(var(--reveal-distance), 0, 0); }
+
+/* ---- visible state ---- */
+.reveal-up.is-visible,
+.reveal-fade.is-visible,
+.reveal-zoom.is-visible,
+.reveal-left.is-visible,
+.reveal-right.is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* ---- stagger: container stays put, direct children animate in turn ---- */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity var(--reveal-duration) var(--reveal-ease),
+    transform var(--reveal-duration) var(--reveal-ease);
+  transition-delay: calc(var(--reveal-delay) + var(--i, 0) * 90ms);
+}
+.reveal-stagger.is-visible > * { opacity: 1; transform: none; }
+.reveal-stagger > *:nth-child(1)  { --i: 0; }
+.reveal-stagger > *:nth-child(2)  { --i: 1; }
+.reveal-stagger > *:nth-child(3)  { --i: 2; }
+.reveal-stagger > *:nth-child(4)  { --i: 3; }
+.reveal-stagger > *:nth-child(5)  { --i: 4; }
+.reveal-stagger > *:nth-child(6)  { --i: 5; }
+.reveal-stagger > *:nth-child(7)  { --i: 6; }
+.reveal-stagger > *:nth-child(8)  { --i: 7; }
+.reveal-stagger > *:nth-child(n+9) { --i: 8; }
+
+/* Respect the OS "reduce motion" setting: show everything, no movement */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
