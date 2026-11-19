@@ -28,13 +28,13 @@ function ProductCard({ item }) {
         From {formatPrice(item.price)} · {item.inStock ? 'In stock' : 'Out of stock'}
       </p>
       <div className="result-actions">
-        <Link className="result-view" to={`/shop/${item.id}`}>View</Link>
+        <Link className="result-view" to={`/shop/${item.id}`}>Buy</Link>
         <button
           type="button"
           className="result-compare"
           onClick={() => window.alert('Product comparison will be available soon.')}
         >
-          Compare
+          Reserve in store
         </button>
       </div>
     </article>

@@ -4,7 +4,7 @@ import { products, formatPrice } from '@/data/products'
 import { getIphoneImage } from '@/data/iphoneImages'
 import { useCart } from '@/context/CartContext'
 import AssistantSummary from '@/components/sections/AssistantSummary'
-import ProductResults from '@/components/sections/ProductResults'
+import ProductResults from '@/components/sections/Productresults'
 import './ProductPage.css'
 
 function CheckIcon() {

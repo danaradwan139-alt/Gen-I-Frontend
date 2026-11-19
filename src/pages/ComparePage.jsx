@@ -1,4 +1,5 @@
 
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './ComparePage.css'
 
@@ -6,14 +7,13 @@ const products = [
   {
     id: 'iphone-16',
     name: 'iPhone 16',
-    subtitle: 'A great everyday iPhone.',
+    badge: 'Best for photos',
     image: '/assets/iphone-16.png',
-    price: 'From $699',
-    colors: ['#9bb9d5', '#d6b5a7', '#a9b9a6', '#242424'],
+    price: 'From 69,000 EGP · In stock',
     features: [
+      ['Camera', 'Advanced dual-camera system'],
       ['Display', '6.1-inch Super Retina XDR'],
       ['Chip', 'A18 chip'],
-      ['Camera', 'Advanced dual-camera system'],
       ['Battery', 'All-day battery life'],
       ['Connector', 'USB-C'],
     ],
@@ -21,14 +21,13 @@ const products = [
   {
     id: 'iphone-18-pro',
     name: 'iPhone 18 Pro',
-    subtitle: 'Pro performance. Pro camera.',
+    badge: 'Pro performance',
     image: '/assets/iphone-18-pro.png',
-    price: 'From $999',
-    colors: ['#b7a08b', '#343434', '#d5d5d5'],
+    price: 'From 99,000 EGP · In stock',
     features: [
+      ['Camera', 'Pro triple-camera system'],
       ['Display', 'Advanced Super Retina XDR'],
       ['Chip', 'Latest Pro chip'],
-      ['Camera', 'Pro camera system'],
       ['Battery', 'Long-lasting battery life'],
       ['Connector', 'USB-C'],
     ],
@@ -39,51 +38,105 @@ const lineup = [
   {
     id: 'iphone-air',
     name: 'iPhone Air',
+    description: 'Incredibly light and thin with pro performance.',
     image: '/assets/iphone-air.png',
-    description: 'Thin. Light. Powerful.',
-    link: '/shop',
+    theme: 'dark',
+  },
+  {
+    id: 'iphone-18-pro',
+    name: 'iPhone 18 Pro',
+    description: 'Pro performance. Pro camera.',
+    image: '/assets/iphone-18-pro.png',
+    theme: 'light',
+  },
+  {
+    id: 'iphone-16',
+    name: 'iPhone 16',
+    description: 'A great everyday iPhone.',
+    image: '/assets/iphone-16.png',
+    theme: 'light',
   },
 ]
 
-function ProductImage({ src, alt }) {
+function HeartIcon({ filled }) {
   return (
-    <div className="compare-product-image">
-      <img
-        src={src}
-        alt={alt}
-        onError={(event) => {
-          event.currentTarget.style.display = 'none'
-        }}
+    <svg
+      viewBox="0 0 40 40"
+      width="40"
+      height="40"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M20 33.33S5 24.17 5 14.17C5 9.58 8.58 6 13.17 6C16.08 6 18.67 7.5 20 9.75C21.33 7.5 23.92 6 26.83 6C31.42 6 35 9.58 35 14.17C35 24.17 20 33.33 20 33.33Z"
+        fill={filled ? '#FC3A3A' : 'none'}
+        stroke="#FC3A3A"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
       />
-    </div>
+    </svg>
   )
 }
 
 function ProductCard({ product }) {
+  const [isFavorite, setIsFavorite] = useState(false)
+  const productPage = `/shop/${product.id}`
+
   return (
-    <article className="compare-product-card">
-      <ProductImage src={product.image} alt={product.name} />
-
-      <div className="compare-product-info">
-        <p className="compare-eyebrow">GEN-I COMPARE</p>
-        <h2>{product.name}</h2>
-        <p className="compare-product-subtitle">{product.subtitle}</p>
-
-        <div className="compare-colors" aria-label="Available colors">
-          {product.colors.map((color) => (
-            <span
-              key={color}
-              className="compare-color"
-              style={{ backgroundColor: color }}
-            />
-          ))}
+    <article className="compare-product-column">
+      <div className="compare-product-card">
+        <div className="compare-product-image">
+          <img
+            src={product.image}
+            alt={product.name}
+            onError={(event) => {
+              event.currentTarget.style.display = 'none'
+            }}
+          />
         </div>
 
-        <p className="compare-price">{product.price}</p>
+        <span className="compare-product-badge">
+          {product.badge}
+        </span>
 
-        <Link to={`/shop/${product.id}`} className="compare-buy-link">
-          View details <span aria-hidden="true">→</span>
-        </Link>
+        <h2>{product.name}</h2>
+
+        <p className="compare-product-price">
+          {product.price}
+        </p>
+
+        <div className="compare-product-actions">
+          <Link
+            to={productPage}
+            className="compare-action-primary"
+          >
+            Buy
+          </Link>
+
+          <Link
+            to={productPage}
+            className="compare-action-secondary"
+          >
+            Learn more
+          </Link>
+
+          <button
+            type="button"
+            className={`compare-favorite-button ${
+              isFavorite ? 'is-favorite' : ''
+            }`}
+            onClick={() => setIsFavorite((current) => !current)}
+            aria-label={
+              isFavorite
+                ? `Remove ${product.name} from favorites`
+                : `Add ${product.name} to favorites`
+            }
+            aria-pressed={isFavorite}
+          >
+            <HeartIcon filled={isFavorite} />
+          </button>
+        </div>
       </div>
 
       <div className="compare-features">
@@ -103,35 +156,106 @@ function AddModelCard() {
     <Link to="/shop" className="compare-add-card">
       <span className="compare-add-icon">+</span>
       <strong>Add a model</strong>
-      <span>Choose another iPhone to compare</span>
+      <span>Or ask the assistant to suggest one for you</span>
     </Link>
   )
 }
 
+function LineupCard({ product }) {
+  return (
+    <article className={`lineup-card lineup-card-${product.theme}`}>
+      <div className="lineup-card-content">
+        <h3>{product.name}</h3>
+        <p>{product.description}</p>
+
+        <div className="lineup-card-actions">
+          <Link
+            to="/compare"
+            className="lineup-compare-button"
+          >
+            Compare
+          </Link>
+
+          <Link
+            to={`/shop/${product.id}`}
+            className="lineup-buy-button"
+          >
+            Buy
+          </Link>
+        </div>
+      </div>
+
+      <div className="lineup-card-image">
+        <img src={product.image} alt={product.name} />
+      </div>
+    </article>
+  )
+}
+
 function ComparePage() {
+  const followups = [
+    'Which has the better camera?',
+    'Which one has better battery?',
+    'Show me the main differences',
+  ]
+
+  const sendAssistantMessage = (message) => {
+    window.dispatchEvent(
+      new CustomEvent('open-assistant', {
+        detail: { message },
+      })
+    )
+  }
+
   return (
     <main className="compare-page">
-      <section className="compare-intro">
-        <p className="compare-eyebrow">FIND YOUR PERFECT IPHONE</p>
-        <h1>Compare iPhone models.</h1>
-        <p>
-          See the differences, explore the features, and find the iPhone
-          that is right for you.
-        </p>
+      <section className="compare-header">
+        <div className="compare-breadcrumbs">
+          <Link to="/shop">Shop</Link>
+          <span className="breadcrumb-arrow">›</span>
+          <span className="breadcrumb-current">Compare</span>
+        </div>
+
+        <button
+          className="compare-assistant-prompt"
+          type="button"
+          onClick={() =>
+            sendAssistantMessage(
+              'Help me compare iPhone 16 and iPhone 18 Pro'
+            )
+          }
+        >
+          <span className="compare-assistant-avatar">✦</span>
+          <span>Ask anything about these iPhone models...</span>
+        </button>
+
+        <h1>iPhone 16 vs iPhone 18 Pro</h1>
       </section>
 
-      <section className="compare-summary">
-        <div>
-          <span className="compare-summary-number">01</span>
-          <span>Choose your models</span>
-        </div>
-        <div>
-          <span className="compare-summary-number">02</span>
-          <span>Compare the features</span>
-        </div>
-        <div>
-          <span className="compare-summary-number">03</span>
-          <span>Find your iPhone</span>
+      <section className="compare-summary-wrap">
+        <div className="compare-assistant-summary">
+          <div className="compare-summary-title">
+            <span className="compare-assistant-avatar">✦</span>
+            <h2>Our take for you</h2>
+          </div>
+
+          <p>
+            Choose iPhone 16 for a great everyday experience.
+            Choose iPhone 18 Pro if you want a more advanced camera
+            system and pro-level performance.
+          </p>
+
+          <div className="compare-followups">
+            {followups.map((prompt) => (
+              <button
+                key={prompt}
+                type="button"
+                onClick={() => sendAssistantMessage(prompt)}
+              >
+                {prompt}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -141,6 +265,7 @@ function ComparePage() {
             <p className="compare-eyebrow">SIDE BY SIDE</p>
             <h2>Which iPhone is right for you?</h2>
           </div>
+
           <p>Compare models and discover the differences.</p>
         </div>
 
@@ -148,44 +273,25 @@ function ComparePage() {
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
+
           <AddModelCard />
         </div>
       </section>
 
       <section className="compare-lineup">
-        <div className="compare-section-heading">
-          <div>
-            <p className="compare-eyebrow">EXPLORE THE LINEUP</p>
-            <h2>There’s an iPhone for everyone.</h2>
-          </div>
-          <Link to="/shop" className="compare-text-link">
-            Shop all iPhone models →
+        <div className="lineup-heading">
+          <h2>The lineup.</h2>
+
+          <Link to="/shop" className="lineup-shop-link">
+            Shop all iPhone models <span>→</span>
           </Link>
         </div>
 
-        <div className="compare-lineup-grid">
+        <div className="lineup-grid">
           {lineup.map((product) => (
-            <article className="compare-lineup-card" key={product.id}>
-              <div className="compare-lineup-image">
-                <img src={product.image} alt={product.name} />
-              </div>
-              <div>
-                <h3>{product.name}</h3>
-                <p>{product.description}</p>
-                <Link to={product.link}>Explore {product.name} →</Link>
-              </div>
-            </article>
+            <LineupCard key={product.id} product={product} />
           ))}
         </div>
-      </section>
-
-      <section className="compare-bottom-cta">
-        <p className="compare-eyebrow">READY TO FIND YOURS?</p>
-        <h2>Your next iPhone is waiting.</h2>
-        <p>Explore the collection and find the one that fits your life.</p>
-        <Link to="/shop" className="compare-cta-button">
-          Shop iPhone
-        </Link>
       </section>
     </main>
   )
