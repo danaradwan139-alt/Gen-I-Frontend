@@ -1,4 +1,3 @@
-
 /* =========================
    CATEGORY HEADING
 ========================= */
@@ -350,7 +349,9 @@
   color: #8F8F8F;
 }
 
-/* ASSISTANT SUMMARY */
+/* =========================
+   ASSISTANT SUMMARY
+========================= */
 
 .assistant-summary {
   box-sizing: border-box;
@@ -366,6 +367,7 @@
 }
 
 /* Title row */
+
 .assistant-title-row {
   width: 319px;
   height: 32px;
@@ -415,6 +417,7 @@
 }
 
 /* Description */
+
 .assistant-summary > p {
   width: 100%;
   height: 19px;
@@ -430,6 +433,7 @@
 }
 
 /* Suggested prompts */
+
 .assistant-suggestions {
   width: 412px;
   height: 35px;
@@ -480,6 +484,7 @@
 }
 
 /* Smaller screens */
+
 @media (max-width: 600px) {
   .assistant-summary {
     height: auto;
@@ -497,14 +502,13 @@
     font-size: 16px;
   }
 
-  
-
   .assistant-suggestions {
     width: 100%;
     height: auto;
     flex-wrap: wrap;
   }
 }
+
 /* =========================
    RESULTS TOOLBAR
 ========================= */
@@ -572,7 +576,6 @@
   pointer-events: none;
 }
 
-
 /* =========================
    PRODUCT CARDS
 ========================= */
@@ -585,7 +588,7 @@
 
 .iphone-product-card {
   width: 100%;
-  height: 515px;
+  height: 516px;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -660,8 +663,11 @@
   white-space: nowrap;
 }
 
+/* Product action buttons */
+
 .product-card-buttons {
   width: 100%;
+  height: 95px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -669,16 +675,20 @@
   margin-top: auto;
 }
 
-.product-primary-button,
-.product-secondary-button {
+/* View button — first row */
+
+.product-primary-button {
   width: 100%;
   height: 39px;
+  flex: 0 0 39px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px 16px;
   border: 1px solid #107D93;
   border-radius: 8px;
+  background: #107D93;
+  color: #FFFFFF;
   font-size: 24px;
   line-height: 29px;
   font-weight: 400;
@@ -687,29 +697,107 @@
   transition: background 160ms ease, color 160ms ease;
 }
 
-.product-primary-button {
-  background: #107D93;
-  color: #FFFFFF;
-}
-
 .product-primary-button:hover {
   background: #0B6678;
 }
 
-.product-secondary-button {
-  background: transparent;
-  color: #107D93;
+/* Compare + Heart — second row */
+
+.product-card-secondary-row {
+  width: 100%;
+  height: 40px;
+  flex: 0 0 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  gap: 16px;
 }
 
-.product-secondary-button:hover {
+/* Compare button */
+
+.product-card-secondary-row .product-secondary-button {
+  width: auto;
+  min-width: 0;
+  height: 39px;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 16px;
+  border: 1px solid #107D93;
+  border-radius: 8px;
+  background: transparent;
+  color: #107D93;
+  font-size: 24px;
+  line-height: 29px;
+  font-weight: 400;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.product-card-secondary-row .product-secondary-button:hover {
   background: #DAF5FB;
 }
+
+/* Heart button */
+
+.product-favorite-button {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 160ms ease;
+}
+
+.product-favorite-button:hover {
+  transform: scale(1.08);
+  background: transparent;
+}
+
+.product-favorite-button:focus-visible {
+  outline: 2px solid #FC3A3A;
+  outline-offset: 3px;
+}
+
+.product-favorite-icon {
+  width: 40px;
+  height: 40px;
+  display: block;
+  overflow: visible;
+}
+
+.product-favorite-icon path {
+  fill: transparent;
+  stroke: #FC3A3A;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: fill 160ms ease;
+}
+
+.product-favorite-button.is-favorite .product-favorite-icon path {
+  fill: #FC3A3A;
+}
+
+/* Tablet product grid */
 
 @media (max-width: 1024px) {
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* Mobile product grid */
 
 @media (max-width: 480px) {
   .product-grid {

@@ -1,4 +1,3 @@
-
 import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { products, formatPrice } from '@/data/products';
@@ -42,6 +41,7 @@ export default function ShopPage() {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [sortBy, setSortBy] = useState('recommended');
+  const [favoriteProducts, setFavoriteProducts] = useState([]);
 
   const searchTerm = (searchParams.get('search') || '').trim().toLowerCase();
 
@@ -161,6 +161,14 @@ export default function ShopPage() {
       current.includes(value)
         ? current.filter((item) => item !== value)
         : [...current, value]
+    );
+  }
+
+  function toggleFavorite(productId) {
+    setFavoriteProducts((current) =>
+      current.includes(productId)
+        ? current.filter((id) => id !== productId)
+        : [...current, productId]
     );
   }
 
@@ -512,69 +520,95 @@ export default function ShopPage() {
 
           {filteredProducts.length > 0 ? (
             <div className="product-grid">
-             
-{filteredProducts.map((product) => {
-  const startingPrice = Math.min(
-    ...product.visibleVariants.map((variant) => variant.price)
-  );
+              {filteredProducts.map((product) => {
+                const startingPrice = Math.min(
+                  ...product.visibleVariants.map((variant) => variant.price)
+                );
 
-  const visibleStock = product.visibleVariants.reduce(
-    (total, variant) => total + variant.stock,
-    0
-  );
+                const visibleStock = product.visibleVariants.reduce(
+                  (total, variant) => total + variant.stock,
+                  0
+                );
 
-  const hasStock = visibleStock > 0;
-  const image = getIphoneImage(product) || product.image;
-  return (
-    <article className="iphone-product-card" key={product.id}>
-      <Link
-        className="product-card-image"
-        to={`/shop/${product.id}`}
-      >
-       {image ? (
-  <img src={image} alt={product.name} />
-        ) : (
-          <div className="product-image-placeholder">
-            {product.name}
-          </div>
-        )}
-      </Link>
+                const hasStock = visibleStock > 0;
+                const image = getIphoneImage(product) || product.image;
+                const isFavorite = favoriteProducts.includes(product.id);
 
-      <span className="product-card-badge">
-        Best for photos
-      </span>
+                return (
+                  <article className="iphone-product-card" key={product.id}>
+                    <Link
+                      className="product-card-image"
+                      to={`/shop/${product.id}`}
+                    >
+                      {image ? (
+                        <img src={image} alt={product.name} />
+                      ) : (
+                        <div className="product-image-placeholder">
+                          {product.name}
+                        </div>
+                      )}
+                    </Link>
 
-      <h3 className="product-card-title">
-        {product.name}
-      </h3>
+                    <span className="product-card-badge">
+                      Best for photos
+                    </span>
 
-      <p className="product-card-price">
-        From {formatPrice(startingPrice)} — ·{' '}
-        {hasStock ? 'In stock' : 'Out of stock'}
-      </p>
+                    <h3 className="product-card-title">
+                      {product.name}
+                    </h3>
 
-      <div className="product-card-buttons">
-        <Link
-          className="product-primary-button"
-          to={`/shop/${product.id}`}
-        >
-          View
-        </Link>
+                    <p className="product-card-price">
+                      From {formatPrice(startingPrice)} — ·{' '}
+                      {hasStock ? 'In stock' : 'Out of stock'}
+                    </p>
 
-        <button
-          className="product-secondary-button"
-          type="button"
-          onClick={() =>
-            window.alert('Product comparison will be available soon.')
-          }
-        >
-          Compare
-        </button>
-      </div>
-    </article>
-  );
-})}
+                    <div className="product-card-buttons">
+                      <Link
+                        className="product-primary-button"
+                        to={`/shop/${product.id}`}
+                      >
+                        Reserve in store
+                      </Link>
 
+                      <div className="product-card-secondary-row">
+                        <button
+                          className="product-secondary-button"
+                          type="button"
+                          onClick={() =>
+                            window.alert(
+                              'Product comparison will be available soon.'
+                            )
+                          }
+                        >
+                          Buy
+                        </button>
+
+                        <button
+                          className={`product-favorite-button ${
+                            isFavorite ? 'is-favorite' : ''
+                          }`}
+                          type="button"
+                          aria-label={
+                            isFavorite
+                              ? `Remove ${product.name} from favorites`
+                              : `Add ${product.name} to favorites`
+                          }
+                          aria-pressed={isFavorite}
+                          onClick={() => toggleFavorite(product.id)}
+                        >
+                          <svg
+                            className="product-favorite-icon"
+                            viewBox="0 0 40 40"
+                            aria-hidden="true"
+                          >
+                            <path d="M20 33.33S5 24.17 5 14.17C5 9.58 8.58 6 13.17 6C16.08 6 18.67 7.5 20 9.75C21.33 7.5 23.92 6 26.83 6C31.42 6 35 9.58 35 14.17C35 24.17 20 33.33 20 33.33Z" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           ) : (
             <div className="shop-empty-state">
