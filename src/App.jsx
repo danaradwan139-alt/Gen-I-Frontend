@@ -5,6 +5,7 @@ import LandingPage from '@/pages/LandingPage'
 import NotFoundPage from '@/pages/NotFoundPage'
 import ProductPage from '@/pages/ProductPage'
 import BagPage from '@/pages/BagPage'
+import CheckoutPage from '@/pages/CheckoutPage'
 import ShopPage from '@/pages/ShopPage'
 import ComparePage from '@/pages/ComparePage'
 import RepairPage from '@/pages/RepairPage'
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/shop/:productId" element={<ProductPage />} />
           <Route path="/bag" element={<BagPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/repair" element={<RepairPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

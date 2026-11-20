@@ -1,80 +1,51 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { products, formatPrice } from '@/data/products'
-import { getIphoneImage } from '@/data/iphoneImages'
+import { useMemo, useState } from 'react'
+import { products } from '@/data/products'
+import { ProductCard, ProductGrid } from '@/components/shop/ProductCard'
 import './ProductResults.css'
 
-function toCard(item) {
-  const prices = item.variants?.map((v) => v.price)
-  const stock = item.variants?.reduce((t, v) => t + v.stock, 0)
-  return {
-    id: item.id,
-    name: item.name,
-    image: getIphoneImage(item) || item.image,
-    price: prices ? Math.min(...prices) : item.price,
-    inStock: stock === undefined ? item.inStock : stock > 0,
-  }
-}
+const sortOptions = [
+  { value: 'featured', label: 'Featured' },
+  { value: 'price-asc', label: 'Price: low to high' },
+  { value: 'price-desc', label: 'Price: high to low' },
+]
 
-function ProductCard({ item }) {
-  return (
-    <article className="result-card">
-      <Link className="result-phone" to={`/shop/${item.id}`} aria-label={item.name}>
-        {item.image && <img src={item.image} alt="" />}
-      </Link>
-      <span className="result-badge">Best for photos</span>
-      <h3>{item.name}</h3>
-      <p>
-        From {formatPrice(item.price)} · {item.inStock ? 'In stock' : 'Out of stock'}
-      </p>
-      <div className="result-actions">
-        <Link className="result-view" to={`/shop/${item.id}`}>Buy</Link>
-        <button
-          type="button"
-          className="result-compare"
-          onClick={() => window.alert('Product comparison will be available soon.')}
-        >
-          Reserve in store
-        </button>
-      </div>
-    </article>
-  )
-}
+const fromPrice = (p) => Math.min(...p.variants.map((v) => v.price))
 
+// "More products" grid under the product details, using the same card as the Shop page.
 export default function ProductResults({ currentProduct = {} }) {
   const [sort, setSort] = useState('featured')
 
-  let cards = products
-    .map(toCard)
-    .filter((card) => card.id !== currentProduct.id && card.name !== currentProduct.name)
-    .slice(0, 6)
+  const cards = useMemo(() => {
+    const others = products.filter((p) => p.id !== currentProduct.id && p.variants?.length)
+    // Same category first, then everything else
+    const ranked = [
+      ...others.filter((p) => p.category === currentProduct.category),
+      ...others.filter((p) => p.category !== currentProduct.category),
+    ].slice(0, 6)
+    if (sort === 'price-asc') ranked.sort((a, b) => fromPrice(a) - fromPrice(b))
+    if (sort === 'price-desc') ranked.sort((a, b) => fromPrice(b) - fromPrice(a))
+    return ranked
+  }, [currentProduct.id, currentProduct.category, sort])
 
-  if (sort === 'price') cards = [...cards].sort((a, b) => a.price - b.price)
+  if (cards.length === 0) return null
 
   return (
-    <section className="results">
+    <section className="results" aria-labelledby="results-title">
       <div className="results-toolbar">
-        <h2>{cards.length} products</h2>
-        <div className="results-sort">
+        <h2 id="results-title">You might also like</h2>
+        <label className="results-sort">
           <span>Sort by</span>
-          <button
-            type="button"
-            className="results-sort-button"
-            onClick={() => setSort((s) => (s === 'featured' ? 'price' : 'featured'))}
-          >
-            {sort === 'featured' ? 'Featured' : 'Price'}
-            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-              <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-        </div>
+          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            {sortOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+        </label>
       </div>
 
-      <div className="results-grid">
-        {cards.map((item) => (
-          <ProductCard item={item} key={item.id} />
+      <ProductGrid>
+        {cards.map((product, index) => (
+          <ProductCard key={product.id} product={product} index={index} />
         ))}
-      </div>
+      </ProductGrid>
     </section>
   )
 }

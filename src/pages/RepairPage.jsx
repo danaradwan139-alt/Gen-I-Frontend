@@ -1,6 +1,9 @@
-
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { assets as A } from '@/assets/assets'
+import { Icon } from '@/components/ui/Icon'
+import { Avatar } from '@/components/ui/Avatar'
+import { Button } from '@/components/ui/Button'
 import './RepairPage.css'
 
 const repairServices = [
@@ -12,242 +15,143 @@ const repairServices = [
   'Water damage check',
 ]
 
-const days = ['Today', 'Tomorrow', 'Fri', 'Sat']
-const times = ['09:00', '10:00', '11:00', '12:00', '13:00']
+// Day and time slots from the "5.2 Repair" frame
+const days = ['Today', 'Tomorrow', 'Saturday', 'Sunday']
+const times = ['10:00', '13:00', '15:30', '17:00', '19:00']
 
-function SparkleIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        d="M10.8 2.8L12.7 9.2L19.1 11.1L12.7 13L10.8 19.4L8.9 13L2.5 11.1L8.9 9.2L10.8 2.8Z"
-        fill="white"
-      />
-      <path
-        d="M18.2 15.2L19.1 18.1L22 19L19.1 19.9L18.2 22.8L17.3 19.9L14.4 19L17.3 18.1L18.2 15.2Z"
-        fill="white"
-      />
-    </svg>
-  )
-}
+const followups = ['How long will my repair take?', 'What does the warranty cover?', 'Can I get a free diagnosis?']
 
-function AssistantAvatar() {
-  return (
-    <span className="repair-assistant-avatar">
-      <SparkleIcon />
-    </span>
-  )
+function askAssistant(message) {
+  window.dispatchEvent(new CustomEvent('open-assistant', { detail: { message } }))
 }
 
 export default function RepairPage() {
   const [searchParams] = useSearchParams()
+  const requested = searchParams.get('service')
+  const service = repairServices.includes(requested) ? requested : 'Screen replacement'
 
-  const requestedService = searchParams.get('service')
-  const initialService = repairServices.includes(requestedService)
-    ? requestedService
-    : 'Screen replacement'
-
-  const [service, setService] = useState(initialService)
   const [selectedDay, setSelectedDay] = useState('Today')
   const [selectedTime, setSelectedTime] = useState('10:00')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const nameRef = useRef(null)
 
   function handleSubmit(event) {
     event.preventDefault()
     setSubmitted(true)
   }
 
+  function editDetails() {
+    setSubmitted(false)
+    window.requestAnimationFrame(() => nameRef.current?.focus())
+  }
+
   return (
-    <main className="repair-page">
-      <section className="repair-page-header">
-        <nav className="repair-breadcrumb" aria-label="Breadcrumb">
-          <Link to="/">Home</Link>
-          <svg viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M6 3.5L10.5 8L6 12.5" />
-          </svg>
-          <span>Repair</span>
+    <div className="repair-page">
+      <section className="repair-header">
+        <nav className="crumbs" aria-label="Breadcrumb">
+          <Link to="/" className="crumb-link">
+            Home <Icon src={A.chevronTeal} inset="21.49% 33.66% 21.48% 33.68%" kind="chev" />
+          </Link>
+          <span aria-current="page">Repairs</span>
         </nav>
 
-        <button
-          className="repair-assistant-prompt"
-          type="button"
-          onClick={() => {
-            window.dispatchEvent(
-              new CustomEvent('open-assistant', {
-                detail: { message: 'Help me book an iPhone repair.' },
-              }),
-            )
-          }}
-        >
-          <AssistantAvatar />
+        <button type="button" className="assistant-pill" onClick={() => askAssistant('Help me book an iPhone repair.')}>
+          <Avatar />
           <span>Ask GEN-I assistant about your repair</span>
         </button>
 
-        <h1>Book your repair.</h1>
+        <h1 className="repair-title">Book your repair.</h1>
       </section>
 
       <section className="repair-summary-wrap">
-        <div className="repair-assistant-summary">
-          <div className="repair-summary-title">
-            <AssistantAvatar />
+        <div className="assistant-box">
+          <div className="assistant-box-title">
+            <Avatar />
             <h2>Our take for you</h2>
           </div>
-
           <p>
-            Book your repair online and bring your device to a GEN-I store.
-            Our team will diagnose the issue and confirm the repair price
-            before any work begins.
+            Book your repair online and bring your device to a GEN-I store. Our team will diagnose the issue and
+            confirm the repair price before any work begins.
           </p>
-
-          <div className="repair-followups">
-            {[
-              'How long will my repair take?',
-              'What does the warranty cover?',
-              'Can I get a free diagnosis?',
-            ].map((question) => (
-              <button
-                key={question}
-                type="button"
-                onClick={() => {
-                  window.dispatchEvent(
-                    new CustomEvent('open-assistant', {
-                      detail: { message: question },
-                    }),
-                  )
-                }}
-              >
-                {question}
-              </button>
+          <div className="assistant-box-chips">
+            {followups.map((q) => (
+              <button key={q} type="button" className="chip" onClick={() => askAssistant(q)}>{q}</button>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="repair-booking-body">
-        <aside className="repair-order-summary">
-          <h2>Your repair</h2>
-
-          <div className="repair-summary-row">
-            <span>Device</span>
-            <strong>iPhone Pro</strong>
-          </div>
-
-          <div className="repair-summary-row">
-            <span>Repair</span>
-            <strong>{service}</strong>
-          </div>
-
-          <div className="repair-summary-row">
-            <span>Ready</span>
-            <strong>Same day*</strong>
-          </div>
-
-          <div className="repair-summary-row">
-            <span>Warranty</span>
-            <strong>Included*</strong>
-          </div>
-
-          <div className="repair-summary-row">
-            <span>Price</span>
-            <strong>After free diagnosis</strong>
-          </div>
-
-          <p className="repair-summary-note">
-            *Repair time and warranty details are confirmed by the repair team
-            after diagnosis.
-          </p>
-
-          <Link to="/shop" className="repair-back-to-shop">
-            Continue shopping
-          </Link>
+      <section className="repair-body">
+        <aside className="repair-card" aria-labelledby="repair-card-title">
+          <h2 id="repair-card-title">Your repair</h2>
+          <dl className="repair-rows">
+            <div><dt>Device</dt><dd>iPhone Pro</dd></div>
+            <div><dt>Repair</dt><dd>{service}</dd></div>
+            <div><dt>Ready</dt><dd>Same day*</dd></div>
+            <div><dt>Warranty</dt><dd>Included*</dd></div>
+            <div><dt>Price</dt><dd>After free diagnosis</dd></div>
+          </dl>
+          <p className="repair-note">*Repair time and warranty details are confirmed by the repair team after diagnosis.</p>
+          <Button variant="text" size="xs" className="tight" onClick={editDetails}>Edit details</Button>
         </aside>
 
-        <form className="repair-booking-form" onSubmit={handleSubmit}>
+        <form className="repair-form" onSubmit={handleSubmit}>
           {submitted ? (
             <div className="repair-success" role="status">
-              <AssistantAvatar />
+              <Avatar />
               <h2>Request ready!</h2>
               <p>
-                Your repair request has been prepared. Connect this form to
-                your booking service to send it to the GEN-I team.
+                Your repair request for {selectedDay.toLowerCase()} at {selectedTime} has been prepared. Connect this
+                form to your booking service to send it to the GEN-I team.
               </p>
-              <button
-                type="button"
-                onClick={() => setSubmitted(false)}
-              >
-                Edit details
-              </button>
+              <Button variant="outline-teal" size="md" onClick={editDetails}>Edit details</Button>
             </div>
           ) : (
             <>
-              <div className="repair-form-group">
-                <h3>1. Pick a day</h3>
-                <div className="repair-choice-list">
+              <fieldset className="repair-group">
+                <legend>1. Pick a day</legend>
+                <div className="repair-chips">
                   {days.map((day) => (
-                    <button
-                      key={day}
-                      type="button"
-                      className={selectedDay === day ? 'selected' : ''}
-                      aria-pressed={selectedDay === day}
-                      onClick={() => setSelectedDay(day)}
-                    >
+                    <button key={day} type="button" className="chip" aria-pressed={selectedDay === day} onClick={() => setSelectedDay(day)}>
                       {day}
                     </button>
                   ))}
                 </div>
-              </div>
+              </fieldset>
 
-              <div className="repair-form-group">
-                <h3>2. Pick a time</h3>
-                <div className="repair-choice-list">
+              <fieldset className="repair-group">
+                <legend>2. Pick a time</legend>
+                <div className="repair-chips">
                   {times.map((time) => (
-                    <button
-                      key={time}
-                      type="button"
-                      className={selectedTime === time ? 'selected' : ''}
-                      aria-pressed={selectedTime === time}
-                      onClick={() => setSelectedTime(time)}
-                    >
+                    <button key={time} type="button" className="chip" aria-pressed={selectedTime === time} onClick={() => setSelectedTime(time)}>
                       {time}
                     </button>
                   ))}
                 </div>
-              </div>
+              </fieldset>
 
-              <div className="repair-form-group">
-                <h3>3. Your details</h3>
-                <div className="repair-input-row">
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    value={name}
-                    onChange={(event) => setName(event.target.value)}
-                    required
-                  />
-
-                  <input
-                    type="tel"
-                    placeholder="Phone number"
-                    value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
-                    required
-                  />
+              <fieldset className="repair-group">
+                <legend>3. Your details</legend>
+                <div className="repair-inputs">
+                  <label>
+                    <span className="sr-only">Full name</span>
+                    <input ref={nameRef} type="text" placeholder="Full name" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} required />
+                  </label>
+                  <label>
+                    <span className="sr-only">Mobile number</span>
+                    <input type="tel" placeholder="Mobile number" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+                  </label>
                 </div>
-              </div>
+              </fieldset>
 
-              <button className="repair-submit-button" type="submit">
-                Request a repair booking
-              </button>
-
-              <p className="repair-form-footnote">
-                No payment is taken now. The repair price is confirmed after
-                diagnosis.
-              </p>
+              <Button type="submit" className="block">Confirm booking</Button>
+              <p className="repair-footnote">No payment is taken now. The repair price is confirmed after diagnosis.</p>
             </>
           )}
         </form>
       </section>
-    </main>
+    </div>
   )
 }

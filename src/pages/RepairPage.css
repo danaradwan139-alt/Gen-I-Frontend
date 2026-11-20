@@ -1,475 +1,60 @@
+/* Repair booking (Figma frame "5.2 Repair") */
 
-.repair-page {
-  width: 100%;
-  color: #212121;
-  background: #fff;
-}
+.repair-page { background: #fff; }
 
-.repair-page-header {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 40px 120px 32px;
-}
+.repair-header { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 40px 120px 32px; }
+.repair-title { font-family: var(--font-title); font-size: 56px; font-weight: 700; color: var(--black); }
 
-.repair-breadcrumb {
-  height: 28px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 12px;
-  line-height: 14px;
-}
+.repair-summary-wrap { padding: 40px 120px; }
 
-.repair-breadcrumb a {
-  min-width: 70px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 8px;
-  color: #107D93;
-  text-decoration: none;
-  border-radius: 8px;
-}
+.repair-body { display: flex; align-items: flex-start; gap: 16px; padding: 40px 120px; }
 
-.repair-breadcrumb svg {
-  width: 16px;
-  height: 16px;
-  fill: none;
-  stroke: #107D93;
-  stroke-width: 1.5;
+/* "Your repair" card: 440px, light gry 3, 32px padding; rows in Inter 15 / 1.35 */
+.repair-card { display: flex; flex-direction: column; align-items: flex-start; flex: none; width: 440px; padding: 32px; border-radius: 8px; background: var(--light-3); overflow: clip; }
+.repair-card > h2 { font-size: 20px; font-weight: 700; }
+.repair-rows { width: 100%; margin: 0; }
+.repair-rows div {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 16px 0;
+  border-bottom: 1px solid var(--light); font-family: 'Inter', var(--font-body); font-size: 15px; line-height: 1.35; letter-spacing: -0.045px;
 }
+.repair-rows dt { color: var(--grey-2); }
+.repair-rows dd { margin: 0; font-weight: 600; color: var(--black); text-align: right; }
+.repair-note { margin: 16px 0 0; font-size: 12px; color: var(--grey-2); }
+.repair-card .btn.tight { margin-top: 12px; padding: 6px 0; }
+.repair-card .btn-text:hover { background: none; box-shadow: none; text-decoration: underline; }
 
-.repair-breadcrumb span {
-  height: 26px;
-  display: flex;
-  align-items: center;
-  padding: 6px 0;
-  color: #212121;
+/* Booking form: 1px light gry border, 32px padding, 28px gap */
+.repair-form { display: flex; flex-direction: column; gap: 28px; flex: 1; min-width: 0; padding: 32px; border: 1px solid var(--light); border-radius: 8px; overflow: clip; }
+.repair-group { min-width: 0; margin: 0; padding: 0; border: 0; }
+.repair-group > legend { margin-bottom: 12px; padding: 0; font-size: 16px; font-weight: 700; color: var(--black); }
+.repair-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.repair-inputs { display: flex; gap: 16px; }
+.repair-inputs label { flex: 1; min-width: 0; }
+.repair-inputs input {
+  width: 100%; height: 32px; padding: 0 16px 0 8px; border: 1px solid transparent; border-radius: 8px;
+  background: var(--light-3); color: var(--black); font: inherit; font-size: 14px;
+  transition: border-color var(--dur-hover) var(--ease-in-out);
 }
+.repair-inputs input::placeholder { color: var(--grey-1); }
+.repair-inputs input:focus { outline: none; border-color: var(--shade-1); }
+.repair-footnote { margin-top: -16px; font-size: 14px; color: var(--grey-2); }
 
-.repair-assistant-prompt {
-  box-sizing: border-box;
-  width: 598px;
-  max-width: 100%;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 4px 14px;
-  border: 0;
-  border-radius: 980px;
-  background: #fff;
-  color: #666;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 16px;
-  line-height: 19px;
-  text-align: left;
-  cursor: pointer;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
-}
-
-.repair-assistant-avatar {
-  width: 32px;
-  height: 32px;
-  flex: 0 0 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: linear-gradient(180deg, #203A5B 0%, rgba(24, 184, 189, 0.6) 100%);
-}
-
-.repair-assistant-avatar svg {
-  width: 24px;
-  height: 24px;
-}
-
-.repair-page-header h1 {
-  margin: 0;
-  color: #212121;
-  font-family: 'Montserrat Alternates', sans-serif;
-  font-size: 56px;
-  font-weight: 700;
-  line-height: 68px;
-}
-
-.repair-summary-wrap {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 40px 120px;
-}
-
-.repair-assistant-summary {
-  box-sizing: border-box;
-  width: 100%;
-  min-height: 188px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 28px 32px;
-  border-radius: 8px;
-  background: #F5F5F5;
-}
-
-.repair-summary-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.repair-summary-title h2 {
-  margin: 0;
-  color: #212121;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 21px;
-}
-
-.repair-assistant-summary > p {
-  max-width: 1133px;
-  margin: 0;
-  color: #212121;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 19px;
-}
-
-.repair-followups {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.repair-followups button,
-.repair-choice-list button {
-  box-sizing: border-box;
-  min-height: 35px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #fff;
-  color: #212121;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 17px;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: border-color 160ms ease, background 160ms ease;
-}
-
-.repair-followups button:hover,
-.repair-choice-list button:hover {
-  border-color: #107D93;
-}
-
-.repair-booking-body {
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 40px 120px;
-}
-
-.repair-order-summary {
-  box-sizing: border-box;
-  width: 440px;
-  flex: 0 0 440px;
-  padding: 32px;
-  border-radius: 8px;
-  background: #F5F5F5;
-}
-
-.repair-order-summary h2 {
-  margin: 0 0 12px;
-  color: #212121;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 24px;
-}
-
-.repair-summary-row {
-  box-sizing: border-box;
-  min-height: 53px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 16px 0;
-  border-bottom: 1px solid #ccc;
-  font-family: Inter, sans-serif;
-  font-size: 15px;
-  line-height: 20px;
-  letter-spacing: -0.003em;
-}
-
-.repair-summary-row span {
-  color: #8f8f8f;
-}
-
-.repair-summary-row strong {
-  color: #212121;
-  font-weight: 600;
-  text-align: right;
-}
-
-.repair-summary-note {
-  margin: 16px 0;
-  color: #8f8f8f;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 12px;
-  line-height: 16px;
-}
-
-.repair-back-to-shop {
-  display: inline-flex;
-  align-items: center;
-  margin-top: 8px;
-  color: #107D93;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 12px;
-  line-height: 14px;
-  text-decoration: none;
-}
-
-.repair-booking-form {
-  box-sizing: border-box;
-  min-width: 0;
-  flex: 1;
-  min-height: 429px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 28px;
-  padding: 32px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.repair-form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.repair-form-group h3 {
-  margin: 0;
-  color: #212121;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 19px;
-}
-
-.repair-choice-list {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.repair-choice-list button.selected {
-  border-color: #107D93;
-  background: #DAF5FB;
-  color: #107D93;
-}
-
-.repair-input-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.repair-input-row input {
-  box-sizing: border-box;
-  width: 100%;
-  min-width: 0;
-  height: 32px;
-  padding: 0 8px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  outline: none;
-  background: #F5F5F5;
-  color: #212121;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 14px;
-  line-height: 17px;
-}
-
-.repair-input-row input::placeholder {
-  color: #666;
-}
-
-.repair-input-row input:focus {
-  border-color: #107D93;
-}
-
-.repair-submit-button {
-  width: 100%;
-  min-height: 39px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 16px;
-  border: 0;
-  border-radius: 8px;
-  background: #107D93;
-  color: #fff;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 29px;
-  cursor: pointer;
-  transition: background 160ms ease;
-}
-
-.repair-submit-button:hover {
-  background: #0b6678;
-}
-
-.repair-form-footnote {
-  margin: -16px 0 0;
-  color: #8f8f8f;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 14px;
-  line-height: 17px;
-}
-
-.repair-success {
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 16px;
-}
-
-.repair-success h2 {
-  margin: 0;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 24px;
-}
-
-.repair-success p {
-  max-width: 480px;
-  margin: 0;
-  color: #666;
-  font-family: 'SF Pro', sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.repair-success button {
-  padding: 8px 14px;
-  border: 1px solid #107D93;
-  border-radius: 8px;
-  background: #fff;
-  color: #107D93;
-  cursor: pointer;
-}
+.repair-success { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 16px; min-height: 300px; }
+.repair-success h2 { font-size: 24px; font-weight: 700; }
+.repair-success p { max-width: 480px; font-size: 16px; line-height: 1.5; color: var(--grey-1); }
 
 @media (max-width: 1100px) {
-  .repair-page-header {
-    padding-right: 48px;
-    padding-left: 48px;
-  }
-
-  .repair-summary-wrap,
-  .repair-booking-body {
-    padding-right: 48px;
-    padding-left: 48px;
-  }
-
-  .repair-order-summary {
-    width: 36%;
-    flex-basis: 36%;
-    padding: 24px;
-  }
-
-  .repair-booking-form {
-    padding: 24px;
-  }
+  .repair-header, .repair-summary-wrap, .repair-body { padding-right: 48px; padding-left: 48px; }
+  .repair-card { width: 36%; padding: 24px; }
+  .repair-form { padding: 24px; }
 }
 
 @media (max-width: 760px) {
-  .repair-page-header {
-    padding: 28px 20px 24px;
-  }
-
-  .repair-page-header h1 {
-    font-size: 38px;
-    line-height: 46px;
-  }
-
-  .repair-assistant-prompt {
-    width: 100%;
-    font-size: 14px;
-  }
-
-  .repair-summary-wrap {
-    padding: 24px 20px;
-  }
-
-  .repair-assistant-summary {
-    padding: 22px 18px;
-  }
-
-  .repair-followups {
-    width: 100%;
-  }
-
-  .repair-followups button {
-    white-space: normal;
-    text-align: left;
-  }
-
-  .repair-booking-body {
-    flex-direction: column;
-    padding: 24px 20px 40px;
-  }
-
-  .repair-order-summary {
-    width: 100%;
-    flex-basis: auto;
-  }
-
-  .repair-booking-form {
-    width: 100%;
-    padding: 22px 18px;
-  }
-
-  .repair-input-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-}
-
-@media (max-width: 420px) {
-  .repair-page-header h1 {
-    font-size: 32px;
-    line-height: 40px;
-  }
-
-  .repair-choice-list button {
-    padding-right: 11px;
-    padding-left: 11px;
-  }
-
-  .repair-submit-button {
-    font-size: 16px;
-  }
+  .repair-header { padding: 28px 20px 24px; }
+  .repair-title { font-size: 38px; }
+  .repair-summary-wrap { padding: 16px 20px; }
+  .repair-body { flex-direction: column; padding: 24px 20px 40px; }
+  .repair-card, .repair-form { width: 100%; }
+  .repair-inputs { flex-direction: column; gap: 12px; }
+  .chip { white-space: normal; text-align: left; }
 }
