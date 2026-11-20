@@ -1,0 +1,69 @@
+/* Prototype interactions ("hooks") from the GEN-I Figma file that apply across pages. */
+
+/* Page change: every NAVIGATE in the prototype is SMART_ANIMATE 300ms ease-out */
+.route-view { animation: route-in var(--dur-page) var(--ease-out); }
+@keyframes route-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* Category tile: hover → Categories/Variant2 (gradient, white label, shadow), DISSOLVE 300ms ease in-and-out */
+.cat { position: relative; isolation: isolate; border-radius: 8px; transition: color var(--dur-page) var(--ease-in-out), box-shadow var(--dur-page) var(--ease-in-out); }
+.cat::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--grad); opacity: 0; transition: opacity var(--dur-page) var(--ease-in-out); }
+.cat:hover { color: #fff; box-shadow: var(--shadow); }
+.cat:hover::before { opacity: 1; }
+.cat:hover img { filter: brightness(0) invert(1); transition: filter var(--dur-page) var(--ease-in-out); }
+
+/* "Why buy" card: hover → white with shadow, DISSOLVE 100ms */
+.why { transition: background-color 100ms var(--ease-in-out), box-shadow 100ms var(--ease-in-out); }
+.why:hover { background: #fff; box-shadow: var(--shadow); }
+
+/* Header links: hover → fill tint 2 */
+.bar-links a { border-radius: 8px; transition: background-color var(--dur-hover) var(--ease-back), color var(--dur-hover) var(--ease-back), box-shadow var(--dur-hover) var(--ease-back); }
+.bar-links a:hover { background: var(--tint-3); color: var(--shade-1); box-shadow: inset 0 0 0 1px var(--shade-1); }
+
+/* Popup overlay: OVERLAY, DISSOLVE 300ms ease-out */
+.overlay { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(33, 33, 33, .45); animation: overlay-in var(--dur-page) var(--ease-out); }
+.overlay-panel { animation: panel-in var(--dur-page) var(--ease-out); }
+@keyframes overlay-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes panel-in { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+
+/* ===== Product page: same hover language as the rest of the site =====
+   Prefixed with .product-detail-page so these win over ProductPage.css's own :hover colours. */
+.product-detail-page .product-add-button,
+.product-detail-page .product-compare-button {
+  position: relative; isolation: isolate; overflow: hidden;
+  transition: color var(--dur-hover) var(--ease-back), border-color var(--dur-hover) var(--ease-back), box-shadow var(--dur-hover) var(--ease-back), transform .1s;
+}
+.product-detail-page .product-add-button::before,
+.product-detail-page .product-compare-button::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+  background: var(--grad); opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-hover) var(--ease-back);
+}
+.product-detail-page .product-add-button:hover,
+.product-detail-page .product-compare-button:hover { color: #fff; border-color: transparent; }
+.product-detail-page .product-add-button:hover::before,
+.product-detail-page .product-compare-button:hover::before { opacity: 1; }
+.product-detail-page .product-add-button:active,
+.product-detail-page .product-compare-button:active { transform: scale(.97); }
+
+/* Option tiles (storage, colour, delivery/pickup) and tabs: tint on hover, like the filter pills */
+.product-detail-page button[aria-pressed]:not(.heart-btn),
+.product-detail-page .product-details-tab,
+.product-detail-page .product-thumbnail {
+  transition: background-color var(--dur-hover) var(--ease-in-out), border-color var(--dur-hover) var(--ease-in-out), color var(--dur-hover) var(--ease-in-out), box-shadow var(--dur-hover) var(--ease-in-out);
+}
+.product-detail-page button[aria-pressed]:not(.heart-btn):not([aria-pressed='true']):hover,
+.product-detail-page .product-details-tab:not(.is-active):hover {
+  border-color: var(--shade-1); background-color: var(--tint-3); color: var(--shade-1);
+}
+.product-detail-page .product-thumbnail:hover { border-color: var(--shade-1); box-shadow: var(--shadow); }
+
+/* Save / Share links */
+.product-detail-page .product-detail-links button { border-radius: 8px; transition: background-color var(--dur-hover) var(--ease-back), color var(--dur-hover) var(--ease-back); }
+.product-detail-page .product-detail-links button:hover { background: var(--tint-3); color: var(--shade-1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .route-view, .overlay, .overlay-panel { animation: none; }
+  .cat, .cat::before, .why, .bar-links a,
+  .product-detail-page .product-add-button, .product-detail-page .product-compare-button,
+  .product-detail-page .product-add-button::before, .product-detail-page .product-compare-button::before { transition: none; }
+}
