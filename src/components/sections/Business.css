@@ -1,0 +1,13 @@
+.biz { display: flex; align-items: center; gap: 16px; padding: 72px 120px; background: var(--shade-2); overflow: clip; }
+.biz-copy { display: flex; flex-direction: column; justify-content: center; gap: 24px; flex: none; width: 580px; }
+.checks { display: flex; flex-wrap: wrap; gap: 16px; width: 580px; padding: 8px 0; align-content: flex-start; }
+.chk { display: flex; align-items: center; gap: 10px; width: 282px; color: #fff; font-size: 16px; }
+.chk.w278 { width: 278px; }
+.biz-visual { position: relative; flex: none; width: 580px; height: 600px; }
+.biz-photo { position: absolute; left: 40px; top: 0; width: 500px; height: 600px; border-radius: 8px; object-fit: cover; }
+.quote { position: absolute; display: flex; align-items: center; gap: 12px; padding: 8px 16px; border-radius: 8px; background: #fff; box-shadow: var(--shadow); overflow: clip; }
+.q1 { left: 0; top: 40px; } .q2 { left: 339px; top: 372px; }
+.q-ico { display: flex; padding: 8px; border-radius: 8px; background: var(--tint-3); }
+.quote > div { display: flex; flex-direction: column; gap: 2px; white-space: nowrap; }
+.q-t { font-size: 14px; font-weight: 700; color: var(--black); } .q-s { font-size: 12px; color: var(--grey-2); }
+.approved { display: flex; padding: 4px 10px; border-radius: 8px; background: var(--light-green); color: var(--green); font-size: 12px; font-weight: 700; }

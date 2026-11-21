@@ -1,0 +1,9 @@
+/* Type scale (SF Pro body, Montserrat Alternates titles) */
+.t80, .t72, .t56, .t40 { font-family: var(--font-title); font-weight: 700; }
+.t80 { font-size: 80px; } .t72 { font-size: 72px; } .t56 { font-size: 56px; } .t40 { font-size: 40px; }
+.t32 { font-size: 32px; font-weight: 700; } .t24 { font-size: 24px; } .t20 { font-size: 20px; } .t18b { font-size: 18px; font-weight: 700; }
+.body16 { font-size: 16px; } .sub14 { font-size: 14px; color: var(--grey-2); }
+.bold { font-weight: 700; } .center { text-align: center; } .pre { white-space: pre-line; }
+.white { color: #fff; } .light { color: var(--light); } .grey { color: var(--grey-1); } .dim { color: var(--grey-2); } .teal { color: var(--shade-1); }
+.eyebrow { font-size: 20px; color: #fff; }
+.kicker { font-size: 14px; font-weight: 700; color: var(--tint-2); }

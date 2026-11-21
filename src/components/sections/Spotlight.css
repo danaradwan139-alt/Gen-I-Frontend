@@ -1,0 +1,14 @@
+.spot { display: flex; align-items: center; gap: 16px; padding: 0 120px; background: var(--shade-2); }
+.spot-img { position: relative; flex: none; width: 580px; height: 569px; background: var(--shade-2); }
+.spot-backdrop { position: absolute; left: 104px; top: 98px; width: 372.89px; height: 372.89px; }
+.spot-frame { position: absolute; inset: -63.29% -67.04% -70.8% -67.04%; opacity: 0; animation: spot-morph linear infinite; }
+.spot-frame img { display: block; width: 100%; height: 100%; }
+@keyframes spot-morph { 0% { opacity: 0; } 12.5% { opacity: 1; } 25% { opacity: 0; } 100% { opacity: 0; } }
+.spot-phone { position: absolute; width: 195px; height: 217px; left: calc(50% - 7.5px); top: calc(50% - 11px); transform: translate(-50%, -50%); -webkit-mask-position: -185px -165px, -51.541px -61px; mask-position: -185px -165px, -51.541px -61px; -webkit-mask-size: 580px 569px, 312.956px 380.24px; mask-size: 580px 569px, 312.956px 380.24px; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+.spot-phone img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.spot-copy { color: #fff; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; width: 580px; flex: none; }
+@media (min-width: 1281px) { .spot-copy { width: auto; flex: 1 1 0; min-width: 0; } .spot-copy h2 { white-space: nowrap; } }
+
+
+.row24 { display: flex; gap: 24px; }
+@media (prefers-reduced-motion: reduce) { .spot-frame { animation: none; } .spot-frame:first-child { opacity: 1; } }
