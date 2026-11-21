@@ -9,7 +9,8 @@
 .cat::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--grad); opacity: 0; transition: opacity var(--dur-page) var(--ease-in-out); }
 .cat:hover { color: #fff; box-shadow: var(--shadow); }
 .cat:hover::before { opacity: 1; }
-.cat:hover img { filter: brightness(0) invert(1); transition: filter var(--dur-page) var(--ease-in-out); }
+.cat-ico { display: block; flex: none; width: 48px; height: 48px; color: var(--black); transition: color var(--dur-page) var(--ease-in-out), transform var(--dur-page) var(--ease-out); }
+.cat:hover .cat-ico { color: #fff; transform: translateY(-2px) scale(1.06); }
 
 /* "Why buy" card: hover → white with shadow, DISSOLVE 100ms */
 .why { transition: background-color 100ms var(--ease-in-out), box-shadow 100ms var(--ease-in-out); }

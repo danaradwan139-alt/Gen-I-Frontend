@@ -35,6 +35,18 @@
   font-size: clamp(15px, 8.4cqi, 24px); overflow: hidden; text-overflow: ellipsis;
 }
 
+/* Compact grid + "Pair it with" card */
+.shop-grid.is-compact { grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); }
+.shop-card.is-pair { align-items: stretch; gap: 16px; padding: 16px; }
+.pair-card-img { display: flex; align-items: center; justify-content: center; height: 200px; padding: 12px; border-radius: 8px; background: #fff; overflow: hidden; }
+.pair-card-img img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 500ms var(--ease-out); }
+.pair-card-img span { font-size: 14px; color: var(--grey-2); text-align: center; }
+.shop-card.is-pair:hover .pair-card-img img { transform: scale(1.08); }
+.pair-card-text { display: flex; flex-direction: column; gap: 8px; }
+.shop-card.is-pair h3 { font-size: 20px; line-height: 1.2; text-align: left; }
+.pair-card-price { font-size: 20px; font-weight: 700; color: var(--grey-2); }
+.shop-card.is-pair .shop-reserve { font-size: clamp(14px, 8cqi, 18px); }
+
 .shop-card-notice { font-size: 12px; color: var(--error-text, #8d3434); text-align: center; }
 
 /* "Pair it with" popup (Figma "popup", 600px) */
@@ -69,6 +81,10 @@
   .shop-card-row { gap: 6px; }
   .shop-card .heart-btn { width: 34px; height: 34px; }
   .shop-card .shop-buy, .shop-card .shop-reserve { font-size: clamp(13px, 9cqi, 18px); padding-block: 6px; }
+  .shop-grid.is-compact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .shop-card.is-pair { padding: 10px; gap: 10px; }
+  .pair-card-img { height: 120px; }
+  .shop-card.is-pair h3, .pair-card-price { font-size: 15px; }
 
   .pair-panel { align-self: flex-end; width: 100%; border-radius: 16px 16px 0 0; padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
   .overlay:has(.pair-panel) { align-items: flex-end; padding: 0; }

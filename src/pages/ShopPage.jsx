@@ -5,7 +5,7 @@ import { assets as A } from '@/assets/assets'
 import { Icon } from '@/components/ui/Icon'
 import { Avatar } from '@/components/ui/Avatar'
 import { Button } from '@/components/ui/Button'
-import { ProductCard, ProductGrid } from '@/components/shop/ProductCard'
+import { ProductCard, PairCard, ProductGrid } from '@/components/shop/ProductCard'
 import { useFavorites } from '@/hooks/useFavorites'
 import './ShopPage.css'
 
@@ -147,6 +147,13 @@ export default function ShopPage() {
     setMinPrice(''); setMaxPrice('')
   }
 
+
+  // Search results: "Pair it with" accessories that aren't already in the results (Figma "4 · Search results")
+  const pairProducts = useMemo(() => {
+    if (!query) return []
+    const shown = new Set(results.map((p) => p.id))
+    return products.filter((p) => p.category === 'Accessories' && !shown.has(p.id) && p.variants?.length).slice(0, 4)
+  }, [query, results])
 
   const title = query ? `Results for “${searchParams.get('q')}”` : category
 
@@ -356,6 +363,15 @@ export default function ShopPage() {
                 </Button>
               ))}
             </nav>
+          )}
+
+          {pairProducts.length > 0 && (
+            <section className="shop-pair" aria-labelledby="pair-heading">
+              <h2 id="pair-heading">Pair it with</h2>
+              <ProductGrid compact>
+                {pairProducts.map((product, index) => <PairCard key={product.id} product={product} index={index} />)}
+              </ProductGrid>
+            </section>
           )}
         </div>
       </section>

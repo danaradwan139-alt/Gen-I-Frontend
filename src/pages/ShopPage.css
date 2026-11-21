@@ -76,6 +76,9 @@
 .shop-empty h2 { font-size: 24px; font-weight: 700; }
 .shop-empty p { color: var(--grey-1); }
 
+.shop-pair { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
+.shop-pair h2 { font-size: 18px; font-weight: 700; }
+
 .shop-pages { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 
 /* ===== Responsive ===== */

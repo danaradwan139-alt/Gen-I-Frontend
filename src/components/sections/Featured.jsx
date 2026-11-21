@@ -1,15 +1,14 @@
-import { assets as A } from '@/assets/assets'
-import { Icon } from '@/components/ui/Icon'
-import { Button } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
-import { Link } from 'react-router-dom'
-import { formatPrice, products } from '@/data/products'
-import { getIphoneImage } from '@/data/iphoneImages'
+import { products } from '@/data/products'
+import { ProductCard, ProductGrid } from '@/components/shop/ProductCard'
 import './section.css'
 import './Featured.css'
 
+// Same card as the Shop and Product pages (components/shop/ProductCard).
 const featuredIds = ['iphone-16', 'samsung-qled-55', 'philips-hue-starter-kit', 'lg-front-load-washer']
-const featured = featuredIds.map((id) => products.find((item) => item.id === id)).filter(Boolean)
+const picked = featuredIds.map((id) => products.find((item) => item.id === id)).filter(Boolean)
+// If any featured id is missing from the data, fill up to 4 with other products
+const featured = [...picked, ...products.filter((p) => !picked.includes(p) && p.variants?.length)].slice(0, 4)
+
 export default function Featured() {
   return (
     <section className="sec feat">
@@ -17,32 +16,11 @@ export default function Featured() {
         <h2 className="t40">Featured this week</h2>
         <p className="featured-demo-note">Sample catalog prices and availability.</p>
       </div>
-      <div className="products">
-        {featured.map((item) => {
-          const image = getIphoneImage(item) || item.image
-
-          return (
-            <article key={item.id} className="product">
-            <Link to={`/shop/${item.id}`} className="phone" aria-label={`View ${item.name}`}>
-              {image ? <img src={image} alt={item.name} /> : <span className="featured-art">{item.category}</span>}
-            </Link>
-            <Badge>New</Badge>
-            <h3 className="t20">{item.name}</h3>
-            <p className="stock">
-              <Icon src={A.ellipse} size={8} />
-              {item.variants.reduce((total, variant) => total + variant.stock, 0) > 0
-                ? 'In stock'
-                : 'Out of stock'}
-            </p>
-            <p className="price">From {formatPrice(Math.min(...item.variants.map((variant) => variant.price)))}</p>
-            <div className="btns">
-              <Button className="block" href={`/shop/${item.id}`}>View details</Button>
-              <Button variant="outline-teal" className="block" href={`/shop/${item.id}#store-info-title`}>Store availability</Button>
-            </div>
-          </article>
-          )
-        })}
-      </div>
+      <ProductGrid>
+        {featured.map((product, index) => (
+          <ProductCard key={product.id} product={product} index={index} />
+        ))}
+      </ProductGrid>
     </section>
   )
 }
