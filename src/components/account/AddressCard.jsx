@@ -28,8 +28,15 @@ export default function AddressCard({ address, onEdit, onRemove, onSetDefault })
         title="Remove this address?"
         message={`${address.type} (${line}) will be deleted from your saved addresses.`}
         confirmLabel="Remove"
+        secondStep={{
+          title: 'Are you absolutely sure?',
+          message: address.isDefault
+            ? 'This is your default address. Deliveries will need a new address before you check out.'
+            : 'Once removed, you will need to enter this address again to use it.',
+          confirmLabel: 'Yes, remove address',
+        }}
         onClose={() => setConfirming(false)}
-        onConfirm={() => onRemove(address.id)}
+        onConfirm={() => { setConfirming(false); onRemove(address.id) }}
       />
     </article>
   )

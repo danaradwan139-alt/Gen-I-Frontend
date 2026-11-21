@@ -11,7 +11,7 @@ export default function DevicesModal({ open, devices, onRevoke, onClose }) {
               <p className="pf-row-title">{device.name}</p>
               <p className="pf-row-sub">{device.detail}</p>
             </div>
-            {!device.current && <Button variant="outline-teal" size="xs" onClick={() => onRevoke(device.id)}>Sign out</Button>}
+            {!device.current && <Button variant="outline-teal" size="xs" onClick={() => onRevoke(device)}>Sign out</Button>}
           </li>
         ))}
       </ul>

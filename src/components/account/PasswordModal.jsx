@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Modal } from '@/components/ui/Modal'
 import { useAuth } from '@/context/AuthContext'
+import { useConfirm } from '@/context/ConfirmContext'
 import useForm from '@/hooks/useForm'
 import { changePassword } from '@/services/authService'
 import { validateConfirmPassword, validatePassword } from '@/utils/validators'
@@ -16,10 +17,19 @@ const validate = ({ currentPassword, newPassword, confirmPassword }) => ({
 
 function PasswordForm({ onChanged, onClose }) {
   const { session } = useAuth()
+  const confirm = useConfirm()
   const { values, errors, submitError, submitting, handleChange, handleBlur, handleSubmit } = useForm({
     initialValues,
     validate,
     onSubmit: async ({ currentPassword, newPassword }) => {
+      const ok = await confirm({
+        tone: 'save',
+        icon: 'shield',
+        title: 'Update your password?',
+        message: 'You’ll use the new password the next time you sign in on any device.',
+        confirmLabel: 'Update password',
+      })
+      if (!ok) return
       await changePassword({ currentPassword, newPassword }, session?.token)
       onChanged()
       onClose()

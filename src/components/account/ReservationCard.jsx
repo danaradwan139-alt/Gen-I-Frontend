@@ -50,8 +50,14 @@ export default function ReservationCard({ reservation, onExtend, onCancel }) {
         title="Cancel this reservation?"
         message={`${reservation.name} will go back on the shelf and #${reservation.id} will be released.`}
         confirmLabel="Cancel reservation"
+        cancelLabel="Keep it"
+        secondStep={{
+          title: 'Release this device?',
+          message: 'Someone else may buy it as soon as the hold is released. This can’t be undone.',
+          confirmLabel: 'Yes, cancel reservation',
+        }}
         onClose={() => setConfirming(false)}
-        onConfirm={() => onCancel(reservation.id)}
+        onConfirm={() => { setConfirming(false); onCancel(reservation.id) }}
       />
     </article>
   )

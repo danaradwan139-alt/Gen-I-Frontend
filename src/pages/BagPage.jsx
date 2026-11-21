@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { products, formatPrice } from '@/data/products'
 import { getIphoneImage } from '@/data/iphoneImages'
 import { useCart } from '@/context/CartContext'
+import { useConfirm } from '@/context/ConfirmContext'
 import { assets as A } from '@/assets/assets'
 import { Button } from '@/components/ui/Button'
 import { Check } from '@/components/ui/Check'
@@ -22,6 +23,17 @@ function resolve(item) {
 export default function BagPage() {
   const { items, addToCart, updateQuantity, removeFromCart } = useCart()
   const [saved, setSaved] = useState([])
+  const confirm = useConfirm()
+
+  async function confirmRemove(item) {
+    const ok = await confirm({
+      title: 'Remove from your bag?',
+      message: `${item.product.name} (${item.variant.label}) will be taken out of your bag.`,
+      confirmLabel: 'Remove',
+      cancelLabel: 'Keep it',
+    })
+    if (ok) removeFromCart(item.productId, item.variantId)
+  }
 
   const bagItems = items.map(resolve).filter(Boolean)
   const savedItems = saved.map(resolve).filter(Boolean)
@@ -71,7 +83,7 @@ export default function BagPage() {
                   </p>
                   <div className="bag-links">
                     <Button variant="text" size="xs" className="tight" onClick={() => saveForLater(item)}>Save for later</Button>
-                    <Button variant="danger-text" size="xs" className="tight" onClick={() => removeFromCart(item.productId, item.variantId)}>Remove</Button>
+                    <Button variant="danger-text" size="xs" className="tight" onClick={() => confirmRemove(item)}>Remove</Button>
                   </div>
                 </div>
 
