@@ -7,6 +7,7 @@
 .spot-phone { position: absolute; width: 195px; height: 217px; left: calc(50% - 7.5px); top: calc(50% - 11px); transform: translate(-50%, -50%); -webkit-mask-position: -185px -165px, -51.541px -61px; mask-position: -185px -165px, -51.541px -61px; -webkit-mask-size: 580px 569px, 312.956px 380.24px; mask-size: 580px 569px, 312.956px 380.24px; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
 .spot-phone img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .spot-copy { color: #fff; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; width: 580px; flex: none; }
+@media (min-width: 1281px) { .spot-copy { width: auto; flex: 1 1 0; min-width: 0; } .spot-copy h2 { white-space: nowrap; } }
 
 
 .row24 { display: flex; gap: 24px; }

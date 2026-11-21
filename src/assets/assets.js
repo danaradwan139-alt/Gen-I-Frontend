@@ -1,6 +1,7 @@
 // Image/icon paths. The files live in /public/assets.
 export const assets = {
   heroPhoto: '/assets/heroPhoto.png', // provided photo (overlay already applied)
+  authPhoto: '/assets/auth-photo.png',
   sparkle: '/assets/sparkle.svg',
   arrowTint: '/assets/arrowTint.svg',
   logoA: '/assets/logoA.svg',
@@ -54,4 +55,8 @@ export const assets = {
   grad5: '/assets/grad5.svg',
   grad6: '/assets/grad6.svg',
   grad7: '/assets/grad7.svg',
+  accountIphoneBack: '/assets/accountIphoneBack.png',
+  accountIphoneFront: '/assets/accountIphoneFront.png',
+  accountAirpods: '/assets/accountAirpods.png',
+  accountIphoneBox: '/assets/accountIphoneBox.png',
 }

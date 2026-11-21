@@ -1,0 +1,11 @@
+.modal { margin: auto; width: min(600px, calc(100vw - 32px)); max-height: calc(100svh - 32px); padding: 0; border: 0; border-radius: 12px; background: #fff; color: var(--black); box-shadow: 0 8px 32px rgba(0, 0, 0, .18); overflow: auto; }
+.modal::backdrop { background: rgba(8, 62, 73, .45); }
+.modal-body { display: flex; flex-direction: column; gap: 16px; padding: 20px; }
+.modal-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.modal-title { font-size: 16px; font-weight: 700; }
+.modal-close { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 6px; background: none; color: var(--danger); }
+.modal-close:hover { background: #fdecec; }
+body:has(dialog.modal[open]) { overflow: hidden; }
+.modal-sm { width: min(440px, calc(100vw - 32px)); }
+.modal-text { font-size: 16px; color: var(--grey-1); }
+.modal-actions { display: flex; align-items: center; justify-content: flex-end; gap: 16px; }

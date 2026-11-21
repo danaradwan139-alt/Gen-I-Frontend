@@ -89,6 +89,13 @@
 .scroll-row img, .scroll-row a { -webkit-user-drag: none; }
 .scroll-row.bleed-right { margin-right: -120px; }
 
+/* ===== Disabled / loading ===== */
+.btn:disabled { opacity: .65; cursor: not-allowed; }
+.btn:disabled:active { transform: none; }
+.btn-primary:disabled:hover { background: var(--shade-1); }
+.btn-spinner { width: 1em; height: 1em; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: btn-spin .7s linear infinite; }
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+
 /* ===== Quantity stepper (Figma "Qty stepper": 1px light-gry-2 border, 4px padding, 12×4 cells) ===== */
 .qty-stepper { display: inline-flex; align-items: center; justify-content: center; padding: 4px; border: 1px solid var(--light-2); border-radius: 8px; background: #fff; }
 .qty-stepper > * { min-width: 36px; padding: 4px 12px; border: 0; background: none; color: var(--black); font-size: 16px; text-align: center; }
