@@ -102,4 +102,4 @@
 @media (max-width: 720px) {
   .product-detail-layout { grid-template-columns: 1fr; }
   .product-spec-grid { grid-template-columns: 1fr 1fr; }
-}
+  }

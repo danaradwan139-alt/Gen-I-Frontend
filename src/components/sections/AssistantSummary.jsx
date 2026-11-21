@@ -18,10 +18,8 @@ function SparkleIcon() {
   )
 }
 
-const askAssistant = (message) => window.dispatchEvent(new CustomEvent('open-assistant', { detail: { message } }))
-
 /**
- * chips: array of strings or { label, onClick }. A chip without onClick sends its label to the GEN-I Assistant.
+ * chips: array of strings or { label, onClick }
  */
 export default function AssistantSummary({
   title = 'Not sure which iPhone to pick?',
@@ -46,8 +44,8 @@ export default function AssistantSummary({
             <button
               key={label}
               type="button"
-              className="assistant-chip chip"
-              onClick={onClick ?? (() => askAssistant(label))}
+              className="assistant-chip"
+              onClick={onClick ?? (() => window.alert('The assistant is not connected yet.'))}
             >
               {label}
             </button>
