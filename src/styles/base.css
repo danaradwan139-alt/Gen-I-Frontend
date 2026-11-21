@@ -30,14 +30,16 @@ button { font: inherit; cursor: pointer; }
   .hero-title { white-space: normal; }
   .hero-title .t56 { font-size: clamp(34px, 9vw, 48px); }
   .prompt { width: 100%; max-width: 560px; }
-  .cats { justify-content: flex-start; gap: 8px; overflow-x: auto; padding: 20px 12px; }
+  .cats { justify-content: flex-start; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 20px 12px; }
+  .cats::-webkit-scrollbar { display: none; }
   .cat { flex: 0 0 132px; }
   .sec { gap: 28px; padding: 48px 24px; }
   .two, .repair-content, .biz, .f-top { flex-direction: column; }
   .spot { flex-direction: column; gap: 12px; padding: 0 24px 40px; }
   .spot-img { width: min(100%, 580px); height: min(480px, 90vw); }
   .spot-copy { width: 100%; }
-  .pics { overflow-x: auto; }
+  .pics { overflow-x: auto; scrollbar-width: none; }
+  .pics::-webkit-scrollbar { display: none; }
   .pic { width: min(400px, 80vw); height: min(400px, 80vw); }
   .pic-cap { top: auto; bottom: 20px; white-space: normal; }
   .two > .panel { width: 100%; }

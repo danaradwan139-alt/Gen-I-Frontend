@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/Input'
 import { Modal } from '@/components/ui/Modal'
 import { Select } from '@/components/ui/Select'
 import { Switch } from '@/components/ui/Switch'
+import { useConfirm } from '@/context/ConfirmContext'
 import useForm from '@/hooks/useForm'
 import { getAreas, governorates } from '@/data/account'
 import { validateMobile, validateRequired } from '@/utils/validators'
@@ -58,11 +59,19 @@ function MapBanner({ coords, onLocate }) {
 }
 
 function AddressForm({ address, onSave, onClose }) {
+  const confirm = useConfirm()
   const [coords, setCoords] = useState(address?.coords ?? null)
   const { values, errors, submitError, setValues, submitting, handleChange, handleBlur, handleSubmit } = useForm({
     initialValues: address ?? emptyAddress,
     validate,
     onSubmit: async (formValues) => {
+      const ok = await confirm({
+        tone: 'save',
+        title: address ? 'Save address changes?' : 'Save this address?',
+        message: `${formValues.type || 'This address'} will be ${address ? 'updated in' : 'added to'} your saved addresses.`,
+        confirmLabel: 'Save address',
+      })
+      if (!ok) return
       onSave({ ...formValues, ...(coords && { coords }) })
       onClose()
     },

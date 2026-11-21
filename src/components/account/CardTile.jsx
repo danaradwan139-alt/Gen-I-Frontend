@@ -30,8 +30,13 @@ export default function CardTile({ card, onSetDefault, onRemove }) {
         title="Remove this card?"
         message={`${label} will be removed from your saved payment methods.`}
         confirmLabel="Remove"
+        secondStep={{
+          title: 'Remove card for good?',
+          message: `You'll need to re-enter the full card details to pay with ${label} again.`,
+          confirmLabel: 'Yes, remove card',
+        }}
         onClose={() => setConfirming(false)}
-        onConfirm={() => onRemove(card.id)}
+        onConfirm={() => { setConfirming(false); onRemove(card.id) }}
       />
     </article>
   )
