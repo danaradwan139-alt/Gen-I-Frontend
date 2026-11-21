@@ -1,4 +1,4 @@
-.biz { display: flex; align-items: center; gap: 16px; padding: 72px 120px; background: var(--shade-2); overflow: clip; }
+.biz { display: flex; align-items: center; gap: 16px; padding: 72px var(--gutter); background: var(--shade-2); overflow: clip; }
 .biz-copy { display: flex; flex-direction: column; justify-content: center; gap: 24px; flex: none; width: 580px; }
 .checks { display: flex; flex-wrap: wrap; gap: 16px; width: 580px; padding: 8px 0; align-content: flex-start; }
 .chk { display: flex; align-items: center; gap: 10px; width: 282px; color: #fff; font-size: 16px; }

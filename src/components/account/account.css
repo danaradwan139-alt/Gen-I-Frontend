@@ -1,5 +1,5 @@
 /* Account area (design frame 1440 wide, content 120px from each edge) */
-.acct { padding: 43px 120px 65px; }
+.acct { padding: 43px var(--gutter) 65px; }
 .acct-title { font-family: var(--font-title); font-size: 56px; line-height: 1.1; font-weight: 700; color: var(--black); }
 .acct-sub { margin-top: 19px; font-size: 19.2px; line-height: 24px; color: var(--grey-2); }
 .acct-body { display: grid; grid-template-columns: 264px minmax(0, 1fr); gap: 32px; align-items: start; margin-top: 80px; }

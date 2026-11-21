@@ -6,7 +6,7 @@
   gap: 40px;
   width: 100%;
   min-height: 536px;
-  padding: 72px 120px;
+  padding: 72px var(--gutter);
   background: #FFFFFF;
 }
 
