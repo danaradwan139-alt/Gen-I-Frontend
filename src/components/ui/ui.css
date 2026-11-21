@@ -31,7 +31,7 @@
 .scroll-row::-webkit-scrollbar { display: none; }
 .scroll-row.dragging { cursor: grabbing; user-select: none; }
 .scroll-row img, .scroll-row a { -webkit-user-drag: none; }
-.scroll-row.bleed-right { margin-right: -120px; }
+.scroll-row.bleed-right { margin-right: calc(-1 * var(--gutter)); }
 
 /* Disabled / loading */
 .btn:disabled { opacity: .65; cursor: not-allowed; }

@@ -18,7 +18,7 @@ export default function Hero() {
           <p className="body16 white">
             iPhone, Apple Watch, laptops, TVs and home appliances —<br />plus expert iPhone repair. Online or in store.
           </p>
-          <Button href="#">Shop Now <Arrow /></Button>
+          <Button to="/shop?category=iPhone">Shop Now <Arrow /></Button>
         </div>
         <a className="prompt" href="#assistant">
           <Avatar />

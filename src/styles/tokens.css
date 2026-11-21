@@ -12,4 +12,15 @@
   /* SF Pro is Apple's font and can't be served from the web: it is used where installed (macOS/iOS), Inter is the fallback. */
   --font-body: 'SF Pro', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
   --font-title: 'Montserrat Alternates', sans-serif;
+
+  /* Motion, taken from the prototype's interactions */
+  --ease-back: cubic-bezier(0.68, -0.6, 0.32, 1.6); /* EASE_IN_AND_OUT_BACK: button hovers */
+  --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);    /* EASE_IN_AND_OUT: category hover */
+  --ease-out: cubic-bezier(0, 0, 0.58, 1);          /* EASE_OUT: page changes, popups, toggles */
+  --dur-hover: 200ms;
+  --dur-page: 300ms;
+
+  /* Side gutter: 120px on the 1440 design frame. On wider screens backgrounds stretch edge to
+     edge while the content stays in the centred 1200px column. */
+  --gutter: max(120px, calc((100vw - 1200px) / 2));
 }

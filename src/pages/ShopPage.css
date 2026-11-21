@@ -146,6 +146,24 @@
   font-weight: 700;
   color: #212121;
 }
+/* Shop – Category (Figma frames "7 Shop – Category (iPhone)" and "7.1") */
+
+.shop-page { background: #fff; }
+
+/* Header: 40 top / 32 bottom / 120 sides, 16px gap */
+.shop-header { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 40px var(--gutter) 32px; }
+.shop-title { font-family: var(--font-title); font-size: 56px; font-weight: 700; color: var(--black); }
+.shop-sub { font-size: 20px; color: var(--grey-2); }
+.shop-quick { display: flex; flex-wrap: wrap; gap: 16px; }
+
+/* Body: filters 264px + results, 32px gap */
+.shop-body { display: flex; align-items: flex-start; gap: 32px; padding: 16px var(--gutter) 72px; }
+
+.shop-filters { display: flex; flex-direction: column; gap: 24px; flex: none; width: 264px; position: sticky; top: 24px; max-height: calc(100vh - 48px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; padding-right: 4px; }
+.shop-filters-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.shop-filters-head h2 { flex: 1; }
+.shop-filters-close, .shop-filters-foot, .shop-filter-toggle, .shop-scrim { display: none; }
+.shop-filters-head h2 { font-size: 24px; font-weight: 700; }
 
 .filter-sidebar-heading button {
   padding: 4px 0;

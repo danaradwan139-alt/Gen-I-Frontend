@@ -2,12 +2,12 @@
 
 .repair-page { background: #fff; }
 
-.repair-header { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 40px 120px 32px; }
+.repair-header { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 40px var(--gutter) 32px; }
 .repair-title { font-family: var(--font-title); font-size: 56px; font-weight: 700; color: var(--black); }
 
-.repair-summary-wrap { padding: 40px 120px; }
+.repair-summary-wrap { padding: 40px var(--gutter); }
 
-.repair-body { display: flex; align-items: flex-start; gap: 16px; padding: 40px 120px; }
+.repair-body { display: flex; align-items: flex-start; gap: 16px; padding: 40px var(--gutter); }
 
 /* "Your repair" card: 440px, light gry 3, 32px padding; rows in Inter 15 / 1.35 */
 .repair-card { display: flex; flex-direction: column; align-items: flex-start; flex: none; width: 440px; padding: 32px; border-radius: 8px; background: var(--light-3); overflow: clip; }
