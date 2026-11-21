@@ -1,4 +1,3 @@
-
 import { useNavigate } from 'react-router-dom'
 import { assets as A } from '@/assets/assets'
 import { Arrow } from '@/components/ui/Icon'

@@ -72,12 +72,16 @@
 .chip[aria-pressed='true'] { border-color: var(--shade-1); background: var(--tint-3); color: var(--shade-1); }
 
 /* ===== Heart toggle (prototype: click → filled, SMART_ANIMATE 300ms ease-out) ===== */
-.heart-btn { display: inline-flex; flex: none; width: 40px; height: 40px; padding: 0; border: 0; background: none; }
-.heart-btn svg { width: 100%; height: 100%; transition: transform var(--dur-page) var(--ease-out); }
-.heart-btn path { transition: fill var(--dur-page) var(--ease-out); }
-.heart-btn:hover svg { transform: scale(1.06); }
-.heart-btn[aria-pressed='true'] svg { animation: heart-pop var(--dur-page) var(--ease-out); }
-@keyframes heart-pop { 0% { transform: scale(.8); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+.heart-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; flex: none; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: none; transition: background-color var(--dur-hover, 200ms) ease; }
+.heart-btn svg { display: block; width: 100%; height: 100%; overflow: visible; transition: transform var(--dur-page, 300ms) var(--ease-out, ease-out); }
+.heart-path { fill: transparent; stroke: var(--red, #fc3a3a); stroke-width: 1.5; stroke-linejoin: round; transition: fill var(--dur-page, 300ms) var(--ease-out, ease-out); }
+.heart-btn:hover { background: rgba(252, 58, 58, .08); }
+.heart-btn:hover svg { transform: scale(1.08); }
+.heart-btn[aria-pressed='true'] .heart-path { fill: var(--red, #fc3a3a); }
+.heart-btn[aria-pressed='true'] svg { animation: heart-pop var(--dur-page, 300ms) var(--ease-out, ease-out); }
+.heart-btn[aria-pressed='true']::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--red, #fc3a3a); opacity: 0; animation: heart-ring 450ms var(--ease-out, ease-out); pointer-events: none; }
+@keyframes heart-pop { 0% { transform: scale(.75); } 55% { transform: scale(1.2); } 100% { transform: scale(1); } }
+@keyframes heart-ring { 0% { opacity: .6; transform: scale(.6); } 100% { opacity: 0; transform: scale(1.4); } }
 
 /* ===== Horizontal scroller (see ScrollRow) ===== */
 .scroll-row { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--shade-1) var(--light-2); cursor: grab; padding-bottom: 12px; }
@@ -112,5 +116,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .btn, .btn::before, .chip, .heart-btn svg, .heart-btn path { transition: none; }
-  .heart-btn[aria-pressed='true'] svg { animation: none; }
+  .heart-btn[aria-pressed='true'] svg, .heart-btn[aria-pressed='true']::after { animation: none; }
 }

@@ -156,7 +156,58 @@ export function ProductCard({ product, variants = product.variants, index = 0 })
   )
 }
 
+// "Pair it with" card (Figma "4 · Search results"): same card styling, image in a white box,
+// price under the name, and "Add to bag" with the heart.
+export function PairCard({ product, index = 0 }) {
+  const { addToCart } = useCart()
+  const { isFavorite, toggleFavorite } = useFavorites()
+  const [state, setState] = useState('idle') // idle | added | out
+  const variant = product.variants.find((v) => v.stock > 0)
+  const price = Math.min(...product.variants.map((v) => v.price))
+  const image = getIphoneImage(product) || product.image
+  const saved = isFavorite(product.id)
+
+  useEffect(() => {
+    if (state === 'idle') return undefined
+    const t = setTimeout(() => setState('idle'), 1800)
+    return () => clearTimeout(t)
+  }, [state])
+
+  function add() {
+    setState(variant && addToCart(product, variant) ? 'added' : 'out')
+  }
+
+  return (
+    <article className="shop-card is-pair" style={{ '--i': index }}>
+      <Link to={`/shop/${product.id}`} className="pair-card-img" aria-label={product.name}>
+        {image ? <img src={image} alt="" loading="lazy" /> : <span>{product.name}</span>}
+      </Link>
+      <div className="pair-card-text">
+        <h3>{product.name}</h3>
+        <p className="pair-card-price">{formatPrice(price)}</p>
+      </div>
+      <div className="shop-card-row">
+        <Button
+          variant={state === 'added' ? 'soft' : 'outline-teal'}
+          size="md"
+          className="shop-reserve"
+          onClick={add}
+          disabled={!variant}
+          aria-live="polite"
+        >
+          {state === 'added' ? 'Added ✓' : state === 'out' ? 'Limit reached' : variant ? 'Add to bag →' : 'Out of stock'}
+        </Button>
+        <HeartButton
+          pressed={saved}
+          onToggle={() => toggleFavorite(product.id)}
+          label={saved ? `Remove ${product.name} from saved` : `Save ${product.name}`}
+        />
+      </div>
+    </article>
+  )
+}
+
 // Responsive grid of cards: 3 across at 1440, 2 on phones.
-export function ProductGrid({ children }) {
-  return <div className="shop-grid">{children}</div>
+export function ProductGrid({ children, compact = false }) {
+  return <div className={compact ? 'shop-grid is-compact' : 'shop-grid'}>{children}</div>
 }

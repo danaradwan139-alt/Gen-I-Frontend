@@ -1,0 +1,64 @@
+/* Business checkout (Figma section "Business - Checkout"). Layout and form styles come from CheckoutPage.css (co-*). */
+
+/* Item lines: 1px light-gry-2 top border, 14px padding, 36px grey thumb */
+.bz-lines { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.bz-line { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid var(--light-2); animation: co-in var(--dur-page) var(--ease-out); }
+.bz-thumb { display: flex; align-items: center; justify-content: center; flex: none; width: 36px; height: 36px; border-radius: 8px; background: var(--light-2); }
+.bz-thumb svg { width: 16px; height: 16px; fill: none; stroke: var(--black); stroke-width: 1.5; stroke-linecap: round; }
+.bz-line-info { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+.bz-line-info strong { font-size: 16px; overflow-wrap: anywhere; }
+.bz-line-info small { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; font-size: 12px; color: var(--grey-1); }
+.bz-remove { padding: 0; border: 0; background: none; color: var(--red); font-size: 12px; }
+.bz-remove:hover { text-decoration: underline; }
+
+/* Quantity: Figma stepper with a typeable middle cell for bulk numbers */
+.bz-qty input { width: 64px; min-width: 0; padding: 4px; border: 0; border-radius: 6px; background: none; color: var(--black); font: inherit; font-size: 16px; font-weight: 700; text-align: center; }
+.bz-qty input:focus { outline: none; background: var(--tint-3); }
+
+.bz-add { display: flex; align-items: flex-end; gap: 24px; }
+.bz-add .co-field { flex: 1; }
+
+/* Secondary panel (company details) uses the plain light border instead of the active primary one */
+.co-panel.co-section.bz-quiet { border: 1px solid var(--light); }
+
+/* Tier pill in the summary */
+.bz-tier { align-self: flex-start; padding: 4px 10px; border-radius: 8px; background: var(--light-green); color: var(--success-text); font-size: 12px; animation: co-in var(--dur-page) var(--ease-out); }
+.bz-tier.is-locked { background: var(--light-2); color: var(--grey-1); }
+
+.bz-recap { display: flex; flex-direction: column; gap: 8px; margin: 0; }
+.bz-recap div { display: flex; justify-content: space-between; gap: 16px; }
+.bz-recap dt { font-size: 12px; color: var(--grey-1); }
+.bz-recap dd { margin: 0; font-size: 16px; text-align: right; overflow-wrap: anywhere; }
+
+/* Location cards: 1px light-gry-2, selected = 1.5px secondary border + shadow */
+.bz-locations { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.bz-location {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 24px 16px;
+  border: 1px solid var(--light-2); border-radius: 8px; background: #fff; color: var(--black); text-align: left;
+  transition: border-color var(--dur-hover) var(--ease-in-out), box-shadow var(--dur-hover) var(--ease-in-out), transform var(--dur-hover) var(--ease-out);
+}
+.bz-location:hover { border-color: var(--shade-1); transform: translateY(-2px); box-shadow: var(--shadow); }
+.bz-location[aria-pressed='true'] { border: 1.5px solid var(--secondary); box-shadow: var(--shadow); }
+.bz-location-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.bz-location-head strong { font-size: 16px; }
+.bz-location small { font-size: 12px; color: var(--grey-1); }
+.bz-location .badge { padding: 2px 8px; background: var(--tint-2); color: var(--secondary); }
+.bz-pin { width: 18px; height: 18px; fill: none; stroke: var(--shade-1); stroke-width: 1.6; }
+.bz-location[aria-pressed='true'] .bz-pin { stroke: var(--secondary); }
+.bz-add-location { align-self: flex-start; }
+.bz-new-location { display: flex; flex-direction: column; gap: 16px; padding: 16px; border-radius: 8px; background: var(--light-3); animation: co-in var(--dur-page) var(--ease-out); }
+.bz-new-location .co-field input { background: #fff; }
+.bz-row-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+@media (max-width: 640px) {
+  .bz-line { flex-wrap: wrap; }
+  .bz-line .bz-qty { margin-left: 50px; }
+  .bz-add { flex-direction: column; align-items: stretch; gap: 12px; }
+  .bz-locations { grid-template-columns: minmax(0, 1fr); }
+  .bz-qty input { font-size: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bz-line, .bz-tier, .bz-new-location { animation: none; }
+  .bz-location:hover { transform: none; }
+}
