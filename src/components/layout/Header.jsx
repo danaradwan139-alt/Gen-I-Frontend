@@ -39,7 +39,7 @@ export default function Header() {
           variant="text"
           size="xs"
           className="tight"
-          href="/shop?category=iPhone"
+          to="/shop?category=iPhone"
         >
           Shop now <Arrow src={A.arrowTint} />
         </Button>

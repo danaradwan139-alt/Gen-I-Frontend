@@ -40,7 +40,7 @@ export default function Footer() {
         ))}
         <div className="f-cta">
           <p className="f-head">Compare the details before you decide.</p>
-          <Button href="/shop">Shop Now <Arrow src={A.arrowFooter} /></Button>
+          <Button to="/shop?category=iPhone">Shop Now <Arrow src={A.arrowFooter} /></Button>
           <div className="socials">
             {socials.map(([n, s]) => <a key={n} href="#" aria-label={n}><img src={s} alt="" /></a>)}
           </div>
