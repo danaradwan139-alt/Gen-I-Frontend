@@ -41,7 +41,7 @@ export default function AccountLayout() {
 
   async function handleLogout() {
     const ok = await confirm({
-      tone: 'warning',
+      tone: 'danger',
       icon: 'logout',
       title: 'Log out of GEN-I?',
       message: 'You’ll need to sign in again to see your orders, repairs and saved details.',
