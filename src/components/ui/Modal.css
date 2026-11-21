@@ -1,41 +1,90 @@
-/* ===== Modal: white card in the site's style (8px radii, teal palette, soft shadow) ===== */
+/* ===== Modal: frosted white glass in the GEN-I palette, with a mirror sheen ===== */
 .modal {
+  --modal-accent: var(--primary);
+  --modal-accent-deep: var(--shade-1);
   margin: auto;
   width: min(600px, calc(100vw - 32px));
   max-height: calc(100svh - 32px);
   padding: 0;
-  border: 1px solid var(--light-2);
-  border-radius: 12px;
-  background: #fff;
+  border: 1px solid rgba(255, 255, 255, .8);
+  border-radius: 16px;
+  background: linear-gradient(165deg, #fff 0%, #fbfeff 50%, var(--tint-3) 100%);
   color: var(--black);
-  box-shadow: 0 16px 40px rgba(8, 62, 73, .18), var(--shadow);
+  box-shadow:
+    0 1px 0 #fff inset,
+    0 24px 48px -12px rgba(8, 62, 73, .35),
+    var(--shadow);
   overflow: auto;
   overscroll-behavior: contain;
 }
-.modal[open] { animation: modal-in var(--dur-page) var(--ease-out) both; }
-.modal::backdrop { background: rgba(8, 62, 73, .5); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+.modal[open] { animation: modal-in 360ms var(--ease-out) both; }
+.modal::backdrop {
+  background:
+    radial-gradient(1000px 520px at 15% 10%, rgba(24, 184, 217, .22), transparent 60%),
+    radial-gradient(900px 500px at 85% 90%, rgba(32, 58, 91, .4), transparent 60%),
+    rgba(8, 62, 73, .45);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
 .modal[open]::backdrop { animation: modal-fade var(--dur-page) var(--ease-out) both; }
 
-.modal-body { position: relative; display: flex; flex-direction: column; gap: 16px; padding: 24px; }
+/* Teal accent line along the top edge (the site's gradient) */
+.modal::before {
+  content: '';
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: block;
+  height: 4px;
+  margin-bottom: -4px;
+  background: linear-gradient(90deg, var(--modal-accent-deep), var(--modal-accent), var(--modal-accent-deep));
+}
 
-.modal-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.modal-title { font-size: 18px; font-weight: 700; color: var(--black); }
+.modal-body { position: relative; display: flex; flex-direction: column; gap: 16px; padding: 24px; isolation: isolate; }
+
+/* Mirror shine that sweeps across the glass once on open, plus a soft highlight on the top half */
+.modal-sheen { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; pointer-events: none; }
+.modal-sheen::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -40%;
+  width: 40%;
+  height: 220%;
+  background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, .9) 50%, transparent 80%);
+  transform: rotate(18deg) translateX(-120%);
+  animation: modal-sheen 1.1s 150ms var(--ease-in-out) both;
+}
+.modal-sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 60% 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, .7), rgba(255, 255, 255, 0));
+}
+
+.modal-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--light-2); }
+.modal-title { font-size: 18px; font-weight: 700; color: var(--shade-2); }
 .modal-close {
   display: flex; align-items: center; justify-content: center; flex: none;
-  width: 32px; height: 32px; padding: 0; border: 0; border-radius: 8px;
-  background: none; color: var(--grey-1);
-  transition: background-color var(--dur-hover) var(--ease-in-out), color var(--dur-hover) var(--ease-in-out);
+  width: 32px; height: 32px; padding: 0;
+  border: 1px solid var(--light-2); border-radius: 8px;
+  background: rgba(255, 255, 255, .8); color: var(--grey-1);
+  transition: transform var(--dur-hover) var(--ease-back), background-color var(--dur-hover), color var(--dur-hover), border-color var(--dur-hover);
 }
-.modal-close:hover { background: var(--light-3); color: var(--black); }
-.modal-close-float { position: absolute; top: 16px; right: 16px; z-index: 1; }
+.modal-close:hover { transform: rotate(90deg); background: var(--tint-3); border-color: var(--shade-1); color: var(--shade-1); }
+.modal-close-float { position: absolute; top: 16px; right: 16px; z-index: 3; }
 
 body:has(dialog.modal[open]) { overflow: hidden; }
 .modal-sm { width: min(460px, calc(100vw - 32px)); }
 .modal-text { font-size: 16px; line-height: 1.5; color: var(--grey-1); }
 .modal-actions { display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
 
-@keyframes modal-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  to { opacity: 1; transform: none; }
+}
 @keyframes modal-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modal-sheen { to { transform: rotate(18deg) translateX(420%); } }
 
 @media (max-width: 560px) {
   .modal-body { padding: 20px 16px; }
@@ -44,5 +93,6 @@ body:has(dialog.modal[open]) { overflow: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .modal[open], .modal[open]::backdrop { animation: none; }
+  .modal[open], .modal[open]::backdrop, .modal-sheen::before { animation: none; }
+  .modal-close:hover { transform: none; }
 }

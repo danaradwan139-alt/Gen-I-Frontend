@@ -23,13 +23,17 @@ const toneIcons = {
 }
 
 function ToneIcon({ icon }) {
+  const glyph = (
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      {toneIcons[icon] ?? toneIcons.warning}
+    </svg>
+  )
+  // The second copy is flipped and faded to read as a reflection on a glossy floor
+  // (browsers with native -webkit-box-reflect use that instead and hide this copy).
   return (
     <div className="cd-icon-wrap" aria-hidden="true">
-      <div className="cd-icon">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          {toneIcons[icon] ?? toneIcons.warning}
-        </svg>
-      </div>
+      <div className="cd-icon">{glyph}</div>
+      <div className="cd-icon cd-icon-mirror">{glyph}</div>
     </div>
   )
 }
