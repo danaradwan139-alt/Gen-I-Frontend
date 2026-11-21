@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Modal } from '@/components/ui/Modal'
 import { Switch } from '@/components/ui/Switch'
+import { useConfirm } from '@/context/ConfirmContext'
 import useForm from '@/hooks/useForm'
 import { cardBrand, digitsOnly, formatCardNumber, formatExpiry, validateCardNumber, validateCvv, validateExpiry } from '@/utils/cards'
 import { validateRequired } from '@/utils/validators'
@@ -17,11 +18,19 @@ const validate = ({ holder, number, expiry, cvv }) => ({
 })
 
 function CardForm({ onSave, onClose }) {
+  const confirm = useConfirm()
   const { values, errors, setValues, submitting, handleChange, handleBlur, handleSubmit } = useForm({
     initialValues,
     validate,
     // Only display data is kept: the full number and CVV are dropped here.
     onSubmit: async ({ holder, number, expiry, isDefault }) => {
+      const ok = await confirm({
+        tone: 'save',
+        title: 'Save this card?',
+        message: `${cardBrand(number)} card ending in ${digitsOnly(number).slice(-4)} will be added to your payment methods${isDefault ? ' as your default' : ''}.`,
+        confirmLabel: 'Save card',
+      })
+      if (!ok) return
       onSave({ brand: cardBrand(number), last4: digitsOnly(number).slice(-4), holder: holder.trim(), expiry, isDefault })
       onClose()
     },

@@ -10,6 +10,7 @@ import { Select } from '@/components/ui/Select'
 import { Switch } from '@/components/ui/Switch'
 import { useAccount } from '@/context/AccountContext'
 import { useAuth } from '@/context/AuthContext'
+import { useConfirm } from '@/context/ConfirmContext'
 import { languages } from '@/data/account'
 import useForm from '@/hooks/useForm'
 import { deleteAccount } from '@/services/authService'
@@ -33,11 +34,19 @@ const validate = ({ firstName, lastName, email, mobile, birthDate }) => ({
 
 function PersonalInfo() {
   const { profile, updateProfile } = useAccount()
+  const confirm = useConfirm()
   const [saved, setSaved] = useState(false)
   const { values, errors, setValues, submitting, handleChange, handleBlur, handleSubmit } = useForm({
     initialValues: profile,
     validate,
     onSubmit: async (formValues) => {
+      const ok = await confirm({
+        tone: 'save',
+        title: 'Save your changes?',
+        message: 'Your name, contact details and preferences will be updated on your GEN-I account.',
+        confirmLabel: 'Save changes',
+      })
+      if (!ok) return
       updateProfile(formValues)
       setSaved(true)
     },
@@ -74,6 +83,33 @@ function PersonalInfo() {
 
 function Security() {
   const { security, devices, setTwoStep, markPasswordChanged, revokeDevice } = useAccount()
+  const confirm = useConfirm()
+
+  async function handleTwoStep(event) {
+    const enable = event.target.checked
+    if (!enable) {
+      const ok = await confirm({
+        tone: 'warning',
+        title: 'Turn off two-step verification?',
+        message: 'Anyone with your password could sign in to your account without an SMS code.',
+        confirmLabel: 'Turn off',
+        cancelLabel: 'Keep it on',
+      })
+      if (!ok) return
+    }
+    setTwoStep(enable)
+  }
+
+  async function handleRevoke(device) {
+    const ok = await confirm({
+      tone: 'warning',
+      icon: 'logout',
+      title: `Sign out ${device.name}?`,
+      message: 'That device will need your password to get back into your account.',
+      confirmLabel: 'Sign out device',
+    })
+    if (ok) revokeDevice(device.id)
+  }
   const [passwordOpen, setPasswordOpen] = useState(false)
   const [devicesOpen, setDevicesOpen] = useState(false)
   const others = devices.length - 2
@@ -95,7 +131,7 @@ function Security() {
             <p className="pf-row-title">Two-step verification</p>
             <p className="pf-row-sub">Get a code by SMS when you sign in</p>
           </div>
-          <Switch aria-label="Two-step verification" checked={security.twoStep} onChange={(event) => setTwoStep(event.target.checked)} />
+          <Switch aria-label="Two-step verification" checked={security.twoStep} onChange={handleTwoStep} />
         </li>
         <li className="pf-row">
           <div>
@@ -106,7 +142,7 @@ function Security() {
         </li>
       </ul>
       <PasswordModal open={passwordOpen} onChanged={markPasswordChanged} onClose={() => setPasswordOpen(false)} />
-      <DevicesModal open={devicesOpen} devices={devices} onRevoke={revokeDevice} onClose={() => setDevicesOpen(false)} />
+      <DevicesModal open={devicesOpen} devices={devices} onRevoke={handleRevoke} onClose={() => setDevicesOpen(false)} />
     </section>
   )
 }
@@ -159,6 +195,13 @@ function DeleteAccount() {
         title="Delete your account?"
         message="This permanently removes your account and personal data. This can’t be undone."
         confirmLabel="Delete account"
+        cancelLabel="Keep my account"
+        secondStep={{
+          title: 'Final step: delete forever',
+          message: 'Your orders, repairs, trade-ins, saved items and payment methods will be erased.',
+          confirmLabel: 'Delete my account',
+          requireText: 'DELETE',
+        }}
         onClose={() => setConfirming(false)}
         onConfirm={handleDelete}
       />

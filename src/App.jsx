@@ -25,9 +25,11 @@ import ProfilePage from '@/pages/account/ProfilePage'
 import { CartProvider } from '@/context/CartContext'
 import { AuthProvider } from '@/context/AuthContext'
 import { AccountProvider } from '@/context/AccountContext'
+import { ConfirmProvider } from '@/context/ConfirmContext'
 
 export default function App() {
   return (
+    <ConfirmProvider>
     <AuthProvider>
       <CartProvider>
         <AccountProvider>
@@ -64,5 +66,6 @@ export default function App() {
         </AccountProvider>
       </CartProvider>
     </AuthProvider>
+    </ConfirmProvider>
   )
 }

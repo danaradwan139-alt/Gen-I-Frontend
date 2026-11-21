@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
+import { useConfirm } from '@/context/ConfirmContext'
 import {
   AddressesIcon, CardIcon, HeartIcon, InvoicesIcon, LogoutIcon, OrdersIcon,
   RepairsIcon, StoreIcon, TradeInsIcon, UserIcon,
@@ -29,6 +30,7 @@ export default function AccountLayout() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const navRef = useRef(null)
+  const confirm = useConfirm()
 
   // On narrow screens the section list scrolls sideways; keep the current section in view.
   useEffect(() => {
@@ -37,7 +39,16 @@ export default function AccountLayout() {
     if (active) nav.scrollLeft = active.offsetLeft - (nav.clientWidth - active.offsetWidth) / 2
   }, [pathname])
 
-  function handleLogout() {
+  async function handleLogout() {
+    const ok = await confirm({
+      tone: 'danger',
+      icon: 'logout',
+      title: 'Log out of GEN-I?',
+      message: 'You’ll need to sign in again to see your orders, repairs and saved details.',
+      confirmLabel: 'Log out',
+      cancelLabel: 'Stay signed in',
+    })
+    if (!ok) return
     signOut()
     navigate('/', { replace: true })
   }

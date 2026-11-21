@@ -88,6 +88,9 @@
 .assistant-chip:hover { border-color: #18b8d9; }
 .assistant-chip:focus-visible { outline: 2px solid #107d93; outline-offset: 2px; }
 
-@media (max-width: 720px) {
-  .assistant-summary { padding: 20px; }
+@media (max-width: 640px) {
+  .assistant-summary { margin: 24px 16px 0; padding: 20px; }
+  .assistant-chips::-webkit-scrollbar { display: none; }
+  .assistant-chips { flex-wrap: nowrap; overflow-x: auto; margin-right: -20px; padding-right: 20px; scrollbar-width: none; }
+  .assistant-chip { white-space: nowrap; }
 }

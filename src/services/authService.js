@@ -50,9 +50,20 @@ export async function register({ identifier, password }) {
   return request('POST', '/auth/register', { identifier, password })
 }
 
+export const isLocalAuth = !API_URL
+
 // Returns a session in local mode, otherwise redirects the browser to the provider flow.
-export async function signInWithProvider(provider) {
-  if (!API_URL) return localSession({ name: '', provider })
+// `profile` is what the local demo flow collected ({ identifier, name, email }).
+export async function signInWithProvider(provider, profile = {}) {
+  if (!API_URL) {
+    const base = profile.identifier ? localUser(profile.identifier) : {}
+    return localSession({
+      ...base,
+      ...(profile.name && { name: profile.name }),
+      ...(profile.email && { email: profile.email }),
+      provider,
+    })
+  }
   window.location.assign(`${API_URL}/auth/${provider}`)
   return null
 }

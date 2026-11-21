@@ -26,8 +26,9 @@
 .btn:hover, .promo .btn:hover { background: var(--grad); color: #fff; }
 .btn.icon-btn { padding: 6px 12px; }
 
-/* Horizontal scroller (see ScrollRow) */
-.scroll-row { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--shade-1) var(--light-2); cursor: grab; padding-bottom: 12px; }
+/* ===== Horizontal scroller (see ScrollRow) ===== */
+.scroll-row { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; -ms-overflow-style: none; cursor: grab; padding-bottom: 12px; }
+.scroll-row::-webkit-scrollbar { display: none; }
 .scroll-row.dragging { cursor: grabbing; user-select: none; }
 .scroll-row img, .scroll-row a { -webkit-user-drag: none; }
 .scroll-row.bleed-right { margin-right: -120px; }
