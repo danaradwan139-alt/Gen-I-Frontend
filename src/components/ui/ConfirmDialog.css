@@ -1,116 +1,53 @@
-/* ===== Confirmation popup (see ConfirmDialog) ===== */
-.cd { --cd-a: #ff6b6b; --cd-b: #e0313b; --cd-glow: rgba(252, 58, 58, .35); --cd-tint: #fff1f1; }
-.cd-warning { --cd-a: #ffc24d; --cd-b: #f08a00; --cd-glow: rgba(240, 138, 0, .32); --cd-tint: #fff7e8; }
-.cd-save { --cd-a: #3fd0ec; --cd-b: #107d93; --cd-glow: rgba(24, 184, 217, .35); --cd-tint: #e9f9fc; }
-.cd { --modal-accent: var(--cd-a); --modal-accent-deep: var(--cd-b); }
+/* ===== Confirmation popup (see ConfirmDialog), in the site's teal / red palette ===== */
+.cd { --cd-color: var(--danger); --cd-tint: #fdecec; --cd-hover: #e02f2f; }
+.cd-save { --cd-color: var(--shade-1); --cd-tint: var(--tint-3); }
+.cd-warning { --cd-color: var(--shade-2); --cd-tint: var(--tint-3); }
 
-.cd .modal-body { padding: 32px 28px 26px; }
-.cd-face { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; perspective: 900px; }
-.cd-face { animation: cd-face-in 420ms cubic-bezier(.2, .9, .25, 1.1) both; }
-.cd-face-final { animation-name: cd-flip-in; }
+.cd .modal-body { padding: 28px 24px 24px; }
+.cd-face { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; animation: cd-face-in var(--dur-page) var(--ease-out) both; }
 
-/* Icon badge with a mirrored reflection underneath */
-.cd-icon-wrap { position: relative; display: flex; flex-direction: column; align-items: center; width: 140px; height: 108px; overflow: hidden; margin-bottom: 2px; }
+.cd-icon-wrap { display: flex; }
 .cd-icon {
-  flex: none;
-  position: relative;
   display: flex; align-items: center; justify-content: center;
-  width: 68px; height: 68px; border-radius: 22px;
-  color: #fff;
-  background: linear-gradient(145deg, var(--cd-a), var(--cd-b));
-  box-shadow: 0 12px 26px -6px var(--cd-glow), 0 1px 0 rgba(255, 255, 255, .6) inset, 0 -6px 14px rgba(0, 0, 0, .12) inset;
-  overflow: hidden;
-  animation: cd-pop 520ms 80ms cubic-bezier(.3, 1.6, .5, 1) both;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--cd-tint); color: var(--cd-color);
 }
-.cd-icon::before {
-  /* glass highlight on the badge */
-  content: ''; position: absolute; inset: 0 0 50% 0;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, .55), rgba(255, 255, 255, .05));
-  border-radius: 22px 22px 40% 40% / 22px 22px 14px 14px;
-}
-.cd-icon::after {
-  /* glint that crosses the badge */
-  content: ''; position: absolute; top: -20%; left: -60%; width: 40%; height: 140%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .8), transparent);
-  transform: rotate(20deg);
-  animation: cd-glint 2.8s 600ms ease-in-out infinite;
-}
-.cd-icon svg { position: relative; z-index: 1; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .2)); }
-.cd-icon-mirror {
-  margin-top: 6px;
-  transform: scaleY(-1);
-  opacity: .3;
-  box-shadow: none;
-  filter: blur(.5px);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 45%, rgba(0, 0, 0, .9));
-  mask-image: linear-gradient(to bottom, transparent 45%, rgba(0, 0, 0, .9));
-  animation: cd-mirror 520ms 80ms cubic-bezier(.3, 1.6, .5, 1) both;
-}
-.cd-icon-mirror::after { display: none; }
-/* Browsers with native reflections (Chrome, Edge, Safari) mirror the real badge, glint included */
-@supports (-webkit-box-reflect: below 0) {
-  .cd-icon:not(.cd-icon-mirror) { -webkit-box-reflect: below 6px linear-gradient(transparent 50%, rgba(255, 255, 255, .35)); }
-  .cd-icon-mirror { visibility: hidden; }
-}
-/* glowing halo pulsing behind the badge */
-.cd-icon-wrap::before {
-  content: ''; position: absolute; top: -6px; left: 50%; width: 80px; height: 80px; margin-left: -40px; border-radius: 50%;
-  background: radial-gradient(circle, var(--cd-glow), transparent 70%);
-  animation: cd-halo 2.4s ease-in-out infinite;
-  z-index: -1;
-}
+.cd-icon svg { width: 24px; height: 24px; }
 
-.cd-steps { display: flex; align-items: center; gap: 6px; }
-.cd-step { width: 22px; height: 5px; border-radius: 99px; background: var(--light-2); transition: background .3s, width .3s; }
-.cd-step.is-on { width: 34px; background: linear-gradient(90deg, var(--cd-a), var(--cd-b)); }
-.cd-step-label { margin-left: 6px; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--cd-b); }
+.cd-steps { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+.cd-step { width: 20px; height: 4px; border-radius: 99px; background: var(--light-2); transition: background-color var(--dur-page) var(--ease-out); }
+.cd-step.is-on { background: var(--cd-color); }
+.cd-step-label { margin-left: 4px; font-size: 12px; font-weight: 700; color: var(--cd-color); }
 
-.cd-title { font-size: 21px; font-weight: 700; letter-spacing: -.01em; color: var(--black); }
-.cd-text { max-width: 360px; font-size: 15px; line-height: 1.55; color: var(--grey-1); }
-.cd-face-final .cd-text { padding: 10px 14px; border-radius: 12px; background: var(--cd-tint); color: var(--black); }
+.cd-title { padding-right: 32px; font-family: var(--font-title); font-size: 22px; font-weight: 700; line-height: 1.25; color: var(--black); }
+.cd-text { font-size: 16px; line-height: 1.5; color: var(--grey-1); }
+.cd-face-final .cd-text { padding: 12px 14px; border-radius: 8px; background: var(--cd-tint); color: var(--black); }
 
-.cd-type { display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 4px; text-align: left; font-size: 14px; color: var(--grey-1); }
-.cd-type strong { color: var(--cd-b); letter-spacing: .06em; }
+.cd-type { display: flex; flex-direction: column; gap: 10px; width: 100%; font-size: 14px; color: var(--black); }
+.cd-type strong { color: var(--cd-color); }
 .cd-type input {
-  height: 44px; padding: 0 14px; border: 1.5px solid var(--light); border-radius: 10px;
-  background: rgba(255, 255, 255, .9); font: inherit; font-size: 16px; letter-spacing: .08em; text-transform: uppercase; color: var(--black);
-  transition: border-color .2s, box-shadow .2s;
+  height: 40px; padding: 0 12px; border: 1px solid transparent; border-radius: 8px;
+  background: var(--light-3); color: var(--black); font: inherit; font-size: 16px; letter-spacing: .06em; text-transform: uppercase;
+  transition: border-color .15s, box-shadow .15s;
 }
-.cd-type input:focus { outline: none; border-color: var(--cd-b); box-shadow: 0 0 0 4px var(--cd-glow); }
+.cd-type input:hover { border-color: var(--light); }
+.cd-type input:focus { outline: 0; border-color: var(--cd-color); background: #fff; box-shadow: 0 0 0 3px var(--cd-tint); }
 
-.cd-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-top: 12px; }
-.cd-actions .btn { justify-content: center; width: 100%; height: 46px; border-radius: 12px; }
-.cd .cd-cancel { background: rgba(255, 255, 255, .8); }
-.cd .cd-confirm {
-  position: relative; overflow: hidden; border: 0;
-  background: linear-gradient(135deg, var(--cd-a), var(--cd-b));
-  color: #fff;
-  box-shadow: 0 10px 22px -8px var(--cd-glow), 0 1px 0 rgba(255, 255, 255, .45) inset;
-  transition: transform var(--dur-hover) var(--ease-back), box-shadow var(--dur-hover), filter var(--dur-hover);
-}
-.cd .cd-confirm::after {
-  content: ''; position: absolute; top: 0; left: -75%; width: 50%; height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
-  transform: skewX(-20deg);
-  transition: left .6s ease;
-}
-.cd .cd-confirm:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 16px 28px -10px var(--cd-glow), 0 1px 0 rgba(255, 255, 255, .45) inset; background: linear-gradient(135deg, var(--cd-a), var(--cd-b)); filter: saturate(1.15); }
-.cd .cd-confirm:hover:not(:disabled)::after { left: 130%; }
-.cd .cd-confirm:disabled { filter: grayscale(.6); opacity: .55; }
+.cd-actions { display: flex; justify-content: flex-end; gap: 12px; width: 100%; margin-top: 8px; }
+.cd-actions .btn { min-width: 120px; }
+/* Red action button: same shape and motion as the site buttons */
+.cd:not(.cd-save):not(.cd-warning) .cd-confirm { background: var(--danger); color: #fff; }
+.cd:not(.cd-save):not(.cd-warning) .cd-confirm::before { display: none; }
+.cd:not(.cd-save):not(.cd-warning) .cd-confirm:hover:not(:disabled) { background: var(--cd-hover); }
 
-@keyframes cd-face-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-@keyframes cd-flip-in { from { opacity: 0; transform: rotateY(-75deg) scale(.96); } to { opacity: 1; transform: none; } }
-@keyframes cd-pop { 0% { opacity: 0; transform: scale(.4) rotate(-12deg); } 100% { opacity: 1; transform: none; } }
-@keyframes cd-mirror { 0% { opacity: 0; transform: scaleY(-1) scale(.4); } 100% { opacity: .3; transform: scaleY(-1); } }
-@keyframes cd-glint { 0%, 60% { left: -60%; } 100% { left: 140%; } }
-@keyframes cd-halo { 0%, 100% { transform: scale(.9); opacity: .7; } 50% { transform: scale(1.25); opacity: 1; } }
+@keyframes cd-face-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
 @media (max-width: 560px) {
-  .cd .modal-body { padding: 28px 18px 20px; }
-  .cd-actions { grid-template-columns: 1fr; }
-  .cd-actions .cd-cancel { order: 2; }
+  .cd .modal-body { padding: 24px 16px 16px; }
+  .cd-actions { flex-direction: column-reverse; }
+  .cd-actions .btn { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cd-face, .cd-icon, .cd-icon-mirror, .cd-icon::after, .cd-icon-wrap::before { animation: none; }
+  .cd-face { animation: none; }
 }

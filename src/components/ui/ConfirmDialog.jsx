@@ -23,16 +23,13 @@ const toneIcons = {
 }
 
 function ToneIcon({ icon }) {
-  const glyph = (
-    <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      {toneIcons[icon] ?? toneIcons.warning}
-    </svg>
-  )
-  // The second copy is flipped and faded to read as a reflection on a glossy floor.
   return (
     <div className="cd-icon-wrap" aria-hidden="true">
-      <div className="cd-icon">{glyph}</div>
-      <div className="cd-icon cd-icon-mirror">{glyph}</div>
+      <div className="cd-icon">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          {toneIcons[icon] ?? toneIcons.warning}
+        </svg>
+      </div>
     </div>
   )
 }
@@ -108,7 +105,7 @@ export function ConfirmDialog({
         )}
 
         <div className="cd-actions">
-          <Button variant="outline-grey" size="md" className="cd-cancel" onClick={onClose}>{cancelLabel}</Button>
+          <Button variant="outline-teal" size="md" className="cd-cancel" onClick={onClose}>{cancelLabel}</Button>
           <Button size="md" className="cd-confirm" disabled={!textOk} loading={busy} onClick={handleConfirm}>
             {onFinal ? current.confirmLabel : 'Continue'}
           </Button>

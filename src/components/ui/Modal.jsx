@@ -27,7 +27,6 @@ export function Modal({ open, onClose, title, className = '', headless = false, 
     >
       {open && (
         <div className="modal-body">
-          <span className="modal-sheen" aria-hidden="true" />
           {headless ? (
             <button type="button" className="modal-close modal-close-float" onClick={onClose} aria-label="Close">
               <CloseIcon size={20} />
