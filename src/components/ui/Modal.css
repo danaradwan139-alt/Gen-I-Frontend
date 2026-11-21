@@ -17,7 +17,9 @@
   overflow: auto;
   overscroll-behavior: contain;
 }
-.modal[open] { animation: modal-in 360ms var(--ease-out) both; }
+/* "backwards" (not "both") so no transform is left on the dialog afterwards: a lingering
+   transform would make it the containing block for fixed-position dropdown menus. */
+.modal[open] { animation: modal-in 360ms var(--ease-out) backwards; }
 .modal::backdrop {
   background:
     radial-gradient(1000px 520px at 15% 10%, rgba(24, 184, 217, .22), transparent 60%),

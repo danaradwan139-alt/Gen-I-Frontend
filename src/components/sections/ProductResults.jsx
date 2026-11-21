@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { products } from '@/data/products'
 import { ProductCard, ProductGrid } from '@/components/shop/ProductCard'
+import { Dropdown } from '@/components/ui/Dropdown'
 import './ProductResults.css'
 
 const sortOptions = [
@@ -33,12 +34,10 @@ export default function ProductResults({ currentProduct = {} }) {
     <section className="results" aria-labelledby="results-title">
       <div className="results-toolbar">
         <h2 id="results-title">You might also like</h2>
-        <label className="results-sort">
-          <span>Sort by</span>
-          <select value={sort} onChange={(e) => setSort(e.target.value)}>
-            {sortOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-          </select>
-        </label>
+        <div className="results-sort">
+          <span aria-hidden="true">Sort by</span>
+          <Dropdown variant="pill" aria-label="Sort by" value={sort} options={sortOptions} onChange={(e) => setSort(e.target.value)} />
+        </div>
       </div>
 
       <ProductGrid>

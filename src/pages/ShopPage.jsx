@@ -5,6 +5,7 @@ import { assets as A } from '@/assets/assets'
 import { Icon } from '@/components/ui/Icon'
 import { Avatar } from '@/components/ui/Avatar'
 import { Button } from '@/components/ui/Button'
+import { Dropdown } from '@/components/ui/Dropdown'
 import { ProductCard, PairCard, ProductGrid } from '@/components/shop/ProductCard'
 import { useFavorites } from '@/hooks/useFavorites'
 import './ShopPage.css'
@@ -326,12 +327,10 @@ export default function ShopPage() {
               >
                 ♥ Saved{favorites.length > 0 ? ` (${favorites.length})` : ''}
               </Button>
-            <label className="shop-sort">
-              <span>Sort by</span>
-              <select value={sort} onChange={(e) => setSort(e.target.value)}>
-                {sortOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-              </select>
-            </label>
+            <div className="shop-sort">
+              <span aria-hidden="true">Sort by</span>
+              <Dropdown variant="pill" aria-label="Sort by" value={sort} options={sortOptions} onChange={(e) => setSort(e.target.value)} />
+            </div>
             </div>
           </div>
 

@@ -71,7 +71,7 @@
 .co-field input::placeholder { color: var(--grey-1); }
 .co-field input:hover, .co-field select:hover { border-color: var(--light); }
 .co-field input:focus, .co-field select:focus { outline: none; border-color: var(--shade-1); background-color: #fff; box-shadow: 0 0 0 3px var(--tint-3); }
-.co-field.has-error input, .co-field.has-error select { border-color: var(--red); background-color: #fff6f6; }
+.co-field.has-error input, .co-field.has-error select, .co-field.has-error .dd-field { border-color: var(--red); background-color: #fff6f6; }
 .co-error { font-size: 12px; color: var(--red); animation: co-shake 300ms var(--ease-out); }
 @keyframes co-shake { 0%, 100% { transform: none; } 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
 
@@ -198,7 +198,7 @@
   .co-fields, .co-card-fields { grid-template-columns: minmax(0, 1fr); }
   .co-date { max-width: none; }
   .co-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .co-field input, .co-field select { height: 40px; font-size: 16px; } /* 16px stops iOS zooming into fields */
+  .co-field input, .co-field select, .co-field .dd-field { height: 40px; font-size: 16px; } /* 16px stops iOS zooming into fields */
   .co-summary { padding: 20px; }
   .co-collapsed { padding: 16px; font-size: 16px; }
   .co-confirm { gap: 16px; padding: 32px 16px; }
