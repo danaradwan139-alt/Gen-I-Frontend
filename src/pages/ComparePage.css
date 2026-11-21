@@ -3,13 +3,13 @@
 .cmp-page { background: #fff; }
 
 /* Header: 40 / 32 / 120 sides, 16px gap */
-.cmp-header { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 40px 120px 32px; }
+.cmp-header { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 40px var(--gutter) 32px; }
 .cmp-title { font-family: var(--font-title); font-size: 56px; font-weight: 700; color: var(--black); }
 
-.cmp-summary { padding: 40px 120px; }
+.cmp-summary { padding: 40px var(--gutter); }
 
 /* Model columns: 3 × ~389px with 16px gap */
-.cmp-models { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 16px; padding: 40px 120px; }
+.cmp-models { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 16px; padding: 40px var(--gutter); }
 .cmp-column { display: flex; flex-direction: column; min-width: 0; }
 
 .cmp-card { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 40px 16px; border-radius: 8px; background: var(--light-3); overflow: clip; }
@@ -37,7 +37,7 @@
 .cmp-add-icon { display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background: var(--grad); color: #fff; font-size: 32px; }
 
 /* Lineup */
-.cmp-lineup { display: flex; flex-direction: column; gap: 40px; padding: 72px 120px; }
+.cmp-lineup { display: flex; flex-direction: column; gap: 40px; padding: 72px var(--gutter); }
 .cmp-lineup-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .cmp-lineup-head h2 { font-family: var(--font-title); font-size: 40px; font-weight: 700; }
 .cmp-lineup-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }

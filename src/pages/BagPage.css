@@ -2,11 +2,11 @@
 
 .bag-page { background: #fff; }
 
-.bag-header { display: flex; flex-direction: column; gap: 16px; padding: 40px 120px 32px; }
+.bag-header { display: flex; flex-direction: column; gap: 16px; padding: 40px var(--gutter) 32px; }
 .bag-title { font-family: var(--font-title); font-size: 56px; font-weight: 700; color: var(--black); }
 .bag-sub { font-size: 20px; color: var(--grey-2); }
 
-.bag-body { display: flex; align-items: flex-start; gap: 32px; padding: 48px 120px 72px; }
+.bag-body { display: flex; align-items: flex-start; gap: 32px; padding: 48px var(--gutter) 72px; }
 
 /* Items: rows separated by a 1px light-gry-2 top border, 14px padding */
 .bag-items { display: flex; flex-direction: column; flex: 1; min-width: 0; }

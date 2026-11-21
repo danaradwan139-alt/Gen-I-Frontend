@@ -1,4 +1,4 @@
-.spot { display: flex; align-items: center; gap: 16px; padding: 0 120px; background: var(--shade-2); }
+.spot { display: flex; align-items: center; gap: 16px; padding: 0 var(--gutter); background: var(--shade-2); }
 .spot-img { position: relative; flex: none; width: 580px; height: 569px; background: var(--shade-2); }
 .spot-backdrop { position: absolute; left: 104px; top: 98px; width: 372.89px; height: 372.89px; }
 .spot-frame { position: absolute; inset: -63.29% -67.04% -70.8% -67.04%; opacity: 0; animation: spot-morph linear infinite; }

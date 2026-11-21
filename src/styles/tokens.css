@@ -20,4 +20,8 @@
   --ease-out: cubic-bezier(0, 0, 0.58, 1);          /* EASE_OUT: page changes, popups, toggles */
   --dur-hover: 200ms;
   --dur-page: 300ms;
+
+  /* Side gutter: 120px on the 1440 design frame. On wider screens backgrounds stretch edge to
+     edge while the content stays in the centred 1200px column. */
+  --gutter: max(120px, calc((100vw - 1200px) / 2));
 }
