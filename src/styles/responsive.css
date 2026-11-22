@@ -154,3 +154,88 @@
   .repair .row16, .biz-copy .row16 { flex-direction: column; align-items: stretch; width: 100%; }
   .repair .row16 .btn, .biz-copy .row16 .btn { justify-content: center; }
 }
+
+/* ---------- Phones: account area, trackers, tables (≤ 760px) ---------- */
+@media (max-width: 760px) {
+  /* Account section tabs: swipeable strip that fades at the edges so it's clear there's more */
+  .acct-nav { -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 24px), transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 24px), transparent 100%); padding-inline: 12px 24px; }
+  .acct-logout { height: 40px; padding: 0 12px; font-size: 14px; }
+
+  /* Progress trackers (repairs, order tracking): vertical timeline so every step is visible */
+  .track { flex-direction: column; overflow: visible; }
+  .track-step { flex: none; flex-direction: row; gap: 12px; min-width: 0; min-height: 0; }
+  .track-line { flex-direction: column; align-items: center; width: 28px; height: auto; }
+  .track-bar { flex: 1 1 auto; width: 3px; height: auto; min-height: 18px; margin: 4px 0; }
+  .track-step:last-child .track-bar { display: none; }
+  .track-text { padding: 4px 0 16px; }
+  .track-note { font-size: 13px; }
+
+  /* Repair quote: buttons full width, same size */
+  .rpr { padding: 16px; gap: 20px; }
+  .rpr-id { font-size: 26px; line-height: 32px; }
+  .rpr-quote { align-items: flex-start; padding: 16px; }
+  .rpr-quote-actions { width: 100%; flex-direction: column; align-items: stretch; gap: 10px; }
+  .rpr-quote-actions .btn { width: 100%; justify-content: center; min-height: 44px; }
+
+  /* Saved items: proper-sized buttons (they were squashed to ~20px when stacked) */
+  .saved-top { align-items: flex-start; gap: 12px; }
+  .saved-img { width: 96px; height: 96px; }
+  .saved-name { font-size: 20px; line-height: 26px; }
+  .saved-heart { width: 40px; height: 40px; }
+  .saved-actions { gap: 10px; }
+  .saved-actions .btn { flex: none; height: 44px; font-size: 16px; }
+
+  /* Buttons that were too small to tap */
+  .addr-actions .btn { min-height: 38px; padding-inline: 14px; font-size: 14px; }
+  .pcard-btn.pcard-default { min-height: 32px; padding: 6px 12px; font-size: 13px; }
+  .resv-actions .btn, .acct-card .btn { min-height: 44px; }
+
+  /* Invoices: each row becomes a card instead of a table cut off at the side */
+  .inv-wrap { overflow: visible; border: 0; background: none; box-shadow: none; }
+  .inv { min-width: 0; table-layout: auto; text-align: left; font-size: 14px; }
+  .inv thead { display: none; }
+  .inv, .inv tbody, .inv tr, .inv td { display: block; width: 100%; }
+  .inv tr { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; margin-bottom: 12px; padding: 16px; border: 1px solid var(--light-2); border-radius: 8px; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .05); }
+  .inv td { height: auto; padding: 0; border: 0; }
+  .inv td[data-label]::before { content: attr(data-label); display: block; margin-bottom: 2px; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--grey-2); }
+  /* card layout: invoice no. + status / date + amount / what it's for / PDF button */
+  .inv .inv-id { order: 1; font-size: 16px; }
+  .inv .inv-status-cell { order: 2; text-align: right; }
+  .inv td[data-label='Date'] { order: 3; }
+  .inv .inv-amount { order: 4; font-weight: 700; text-align: right; }
+  .inv td[data-label='For'] { order: 5; grid-column: 1 / -1; }
+  .inv .inv-action { order: 6; grid-column: 1 / -1; padding-top: 10px; border-top: 1px solid var(--light-2); }
+  .inv-pdf { width: 100%; justify-content: center; min-height: 40px; border: 1px solid var(--shade-1); border-radius: 8px; font-size: 14px; }
+
+  /* Business section photo: keep both floating cards inside the picture */
+  .biz-visual .quote { max-width: calc(100% - 16px); }
+  .biz-visual .quote > div { white-space: normal; }
+  .q1 { left: 8px; top: 16px; }
+  .q2 { top: auto; right: 8px; left: auto; bottom: 16px; }
+
+  /* Floating assistant button: a little smaller so it covers less content */
+  .launcher { padding: 6px; }
+}
+
+/* ---------- Phones: home sections, product cards, tap targets (≤ 760px) ---------- */
+@media (max-width: 760px) {
+  /* "A New Era" spotlight: draw the 580px artwork at a smaller zoom so its parts stay aligned,
+     and clip the glow so it doesn't run over the heading */
+  .spot-img { width: 580px; height: 569px; zoom: .6; overflow: hidden; -webkit-mask-image: radial-gradient(closest-side, #000 70%, transparent 100%); mask-image: radial-gradient(closest-side, #000 70%, transparent 100%); }
+
+  /* Repair section buttons: full width, same size */
+  .repair .row16 .btn { width: 100%; justify-content: center; }
+  .svc .btn, .svc a { padding: 10px 4px; }
+
+  /* Product cards: bigger Buy / Reserve buttons */
+  .shop-card .shop-buy, .shop-card .shop-reserve { min-height: 40px; font-size: 15px; }
+
+  /* Shop toolbar and product page links: easier to tap */
+  .shop-tools .btn, .shop-filter-toggle, .sort-control .dd, .results-sort .dd, .shop-sort .dd { min-height: 36px; padding-inline: 14px; font-size: 14px; }
+  .product-detail-links { flex-wrap: wrap; gap: 8px; }
+  .product-detail-links > button, .product-detail-links > span { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 6px 12px; border: 1px solid var(--light-2); border-radius: 18px; font-size: 14px; }
+}
+
+@media (max-width: 380px) {
+  .spot-img { zoom: .54; }
+}

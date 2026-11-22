@@ -88,12 +88,12 @@ export default function InvoicesPage() {
             <tbody>
               {visible.map((invoice) => (
                 <tr key={invoice.id}>
-                  <td className="inv-id">{invoice.id}</td>
-                  <td>{formatDate(invoice.date)}</td>
-                  <td>{invoice.reference}</td>
-                  <td>{formatEgp(invoice.amount)}</td>
-                  <td><span className="inv-status">{invoice.status}</span></td>
-                  <td>
+                  <td className="inv-id" data-label="Invoice">{invoice.id}</td>
+                  <td data-label="Date">{formatDate(invoice.date)}</td>
+                  <td data-label="For">{invoice.reference}</td>
+                  <td className="inv-amount" data-label="Amount">{formatEgp(invoice.amount)}</td>
+                  <td className="inv-status-cell" data-label="Status"><span className="inv-status">{invoice.status}</span></td>
+                  <td className="inv-action">
                     <button type="button" className="inv-pdf" onClick={() => downloadInvoices([pdfRow(invoice)], `${invoice.id}.pdf`)} aria-label={`Download ${invoice.id} as PDF`}>
                       <InvoicesIcon size={16} strokeWidth={2.2} />
                       PDF
