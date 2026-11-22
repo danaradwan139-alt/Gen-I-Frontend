@@ -1,0 +1,5 @@
+/* Shared section shell. Figma: 72px top/bottom, 120px sides, 40px gap (1440). */
+.sec { display: flex; flex-direction: column; gap: 28px; padding: 48px var(--gutter); background: #fff; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; width: 100%; }
+@media (min-width: 640px) { .sec { gap: 32px; padding-block: 56px; } }
+@media (min-width: 1024px) { .sec { gap: 40px; padding-block: 72px; } .sec-head { flex-wrap: nowrap; } }
