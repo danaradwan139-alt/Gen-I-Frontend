@@ -1,0 +1,135 @@
+/* =====================================================================
+   Responsive layer for tablets and phones.
+   Imported last (from styles/index.css, after every component stylesheet),
+   so at equal specificity these rules win. Laptop/desktop (> 1100px) is untouched.
+   ===================================================================== */
+
+/* ---------- Tablets and small laptops (≤ 1100px) ---------- */
+@media (max-width: 1100px) {
+  :root { --gutter: 40px; }
+
+  /* Header: logo · search · icons · menu button, instead of a squeezed row of tiny links */
+  .bar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: 16px; padding: 10px var(--gutter); }
+  .bar-links { display: none; }
+  .search { grid-column: 2; grid-row: 1; justify-self: center; width: 100%; min-width: 0; max-width: 460px; height: 40px; }
+  .bar-actions { grid-column: 3; grid-row: 1; }
+  .menu-toggle {
+    display: inline-flex; grid-column: 4; grid-row: 1; align-items: center; justify-content: center;
+    width: 44px; height: 44px; border: 1px solid var(--light); border-radius: 8px; background: #fff; color: var(--black); font-size: 24px;
+  }
+  .mobile-navigation:not([hidden]) {
+    position: sticky; top: 64px; z-index: 29;
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px;
+    padding: 8px var(--gutter) 16px; background: #fff; box-shadow: 0 8px 16px rgba(8, 62, 73, .1);
+  }
+  .mobile-navigation a { padding: 12px; border-radius: 8px; color: var(--black); font-size: 15px; }
+  .mobile-navigation a:hover { background: var(--tint-3); color: var(--shade-1); }
+
+  /* Headings scale down so they don't fill the screen */
+  .t80 { font-size: 60px; } .t72 { font-size: 54px; } .t56 { font-size: 44px; } .t40 { font-size: 34px; }
+
+  /* "A New Era" spotlight: stack the phone above the copy */
+  .spot { flex-direction: column; gap: 8px; padding: 32px var(--gutter) 56px; }
+  .spot-img { width: min(100%, 580px); }
+  .spot-copy { width: 100%; max-width: 640px; align-items: center; text-align: center; }
+  .spot-copy h2 { white-space: normal; }
+  .row24 { flex-wrap: wrap; justify-content: center; gap: 12px; }
+
+  /* Repair: photo on top, list of repairs full width under it */
+  .repair-content { flex-direction: column; }
+  .tech { width: 100%; height: 360px; }
+  .services { padding: 32px; }
+  .svc { width: 100%; }
+
+  /* Business: copy, then the photo */
+  .biz { flex-direction: column; align-items: stretch; gap: 40px; }
+  .biz-copy, .checks { width: 100%; }
+  .chk, .chk.w278 { width: auto; flex: 1 1 260px; }
+  .biz-visual { align-self: center; width: min(100%, 580px); height: 520px; }
+  .biz-photo { left: 8%; width: 84%; height: 100%; }
+  .q2 { right: 0; left: auto; }
+
+  /* Featured this week: 4 products as 2 × 2 rather than 3 + 1 left on its own */
+  .feat .shop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* Footer: link columns side by side instead of one long list */
+  .f-top { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 24px; }
+  .f-col { overflow: visible; }
+  .f-list a { display: inline-block; font-size: 14px; }
+  .f-cta { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; }
+  .f-legal { flex-wrap: wrap; gap: 8px 24px; white-space: normal; }
+}
+
+/* ---------- Phones and small tablets (≤ 760px) ---------- */
+@media (max-width: 760px) {
+  :root { --gutter: 20px; }
+
+  .bar { grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; padding: 8px 16px; }
+  .search { grid-column: 1 / -1; grid-row: 2; max-width: none; }
+  .bar-actions { grid-column: 2; justify-self: end; }
+  .menu-toggle { grid-column: 3; }
+  .mobile-navigation:not([hidden]) { top: 112px; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 8px 16px 16px; }
+
+  .t80 { font-size: 42px; } .t72 { font-size: 38px; } .t56 { font-size: 32px; } .t40 { font-size: 28px; }
+  .t80, .t72, .t56, .t40 { line-height: 1.12; }
+
+  /* Section headings with a side link ("Made for how you live." · "See what's new") */
+  .sec-head { flex-wrap: wrap; align-items: flex-end; gap: 8px 16px; }
+  .sec-head h2 br { display: none; }
+
+  .spot { padding: 16px var(--gutter) 48px; }
+  .spot-img { height: min(420px, 100vw); }
+  .row24 .btn { flex: 1 1 auto; }
+
+  .repair .row16 { flex-wrap: wrap; justify-content: center; }
+  .tech { height: 240px; }
+  .services { padding: 20px; }
+  .steps { flex-direction: column; }
+
+  .biz { gap: 32px; }
+  .biz-visual { height: clamp(320px, 95vw, 460px); }
+  .biz-copy .row16 { flex-wrap: wrap; }
+
+  .trade { padding: 48px var(--gutter); }
+  .trade .t72, .trade .t56 { text-align: center; }
+
+  /* Product cards (2 per row): the heart moves to the card's corner so "Reserve in store" gets the full width */
+  .shop-card .shop-card-row { position: static; }
+  .shop-card .heart-btn { position: absolute; top: 8px; right: 8px; z-index: 1; background: rgba(255, 255, 255, .9); border-radius: 50%; }
+  .shop-card .shop-reserve { flex: 1 1 100%; }
+
+  /* Assistant suggestion chips: one swipeable row instead of tall wrapped boxes */
+  .assistant-chips, .assistant-box-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .assistant-chips::-webkit-scrollbar, .assistant-box-chips::-webkit-scrollbar { display: none; }
+  .assistant-chip, .assistant-box-chips > * { flex: none; white-space: nowrap; font-size: 14px; line-height: 20px; padding: 8px 14px; }
+
+  /* Product page: show the product first, the assistant box after it; tabs swipe sideways */
+  .product-detail-layout { order: -1; }
+  .product-details-tabs { overflow-x: auto; scrollbar-width: none; }
+  .product-details-tabs::-webkit-scrollbar { display: none; }
+  .product-details-tab { flex: none; white-space: nowrap; }
+
+  /* Checkout / business quote progress: one row, shorter connectors */
+  .co-steps { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .co-steps::-webkit-scrollbar { display: none; }
+  .co-step { flex: none; font-size: 14px; }
+  .co-step + .co-step::before { width: 20px; }
+
+  /* Profile: switches stay on the same line as their label */
+  .pf-row-sm { flex-wrap: nowrap; }
+  .pf-row-sm .pf-row-label { flex: 1; min-width: 0; }
+
+  /* Footer: two columns of bigger, easier-to-tap links */
+  .f-top { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; }
+  .f-cta { flex-direction: column; align-items: flex-start; }
+
+}
+
+/* ---------- Small phones (≤ 420px) ---------- */
+@media (max-width: 420px) {
+  :root { --gutter: 16px; }
+  .t80 { font-size: 36px; } .t72 { font-size: 34px; } .t56 { font-size: 30px; } .t40 { font-size: 26px; }
+  .row24 { flex-direction: column; align-items: stretch; }
+  .repair .row16, .biz-copy .row16 { flex-direction: column; align-items: stretch; width: 100%; }
+  .repair .row16 .btn, .biz-copy .row16 .btn { justify-content: center; }
+}
