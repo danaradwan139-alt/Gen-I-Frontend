@@ -8,6 +8,7 @@ import {
   validateCard, formatCardNumber, formatExpiry, tomorrow, prettyDate,
 } from '@/components/checkout/CheckoutParts'
 import { Button } from '@/components/ui/Button'
+import { Dropdown } from '@/components/ui/Dropdown'
 import { useBagItems } from '@/hooks/useBagItems'
 import { useSessionState } from '@/hooks/useSessionState'
 import './CheckoutPage.css'
@@ -308,9 +309,7 @@ export default function CheckoutPage() {
                     <legend>3. Delivery Address</legend>
                     <div className="co-fields">
                       <Field label="City">
-                        <select name="city" autoComplete="address-level1" value={delivery.city} onChange={set('city')}>
-                          {CITIES.map((c) => <option key={c}>{c}</option>)}
-                        </select>
+                        <Dropdown name="city" value={delivery.city} options={CITIES} onChange={set('city')} />
                       </Field>
                       <Field label="Street Name" error={errors.street}>
                         <input name="street" autoComplete="address-line1" placeholder="Street Name" value={delivery.street} onChange={set('street')} />

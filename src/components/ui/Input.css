@@ -19,8 +19,6 @@
 }
 
 /* Select */
-.field-select { appearance: none; padding-right: 36px; cursor: pointer; }
-.field-select:invalid { color: var(--grey-2); }
 .field-control > svg { position: absolute; top: 50%; right: 10px; color: var(--black); pointer-events: none; transform: translateY(-50%); }
 @media (max-width: 760px) { .field-control > svg { right: 12px; } }
 

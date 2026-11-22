@@ -1,9 +1,9 @@
 import { useId } from 'react'
-import { ChevronDownIcon } from '@/components/account/icons'
+import { Dropdown } from './Dropdown'
 import './Input.css'
 
-// Labelled native <select> that shares the Input look. `options` is a list of strings.
-export function Select({ label, error, required = false, placeholder, options, className = '', ...rest }) {
+// Labelled dropdown that shares the Input look. `options` is a list of strings.
+export function Select({ label, error, required = false, placeholder, options, className = '', autoComplete, ...rest }) {
   const id = useId()
   const errorId = `${id}-error`
 
@@ -14,18 +14,15 @@ export function Select({ label, error, required = false, placeholder, options, c
         {label}
       </label>
       <div className="field-control">
-        <select
+        <Dropdown
           id={id}
-          className="field-input field-select"
+          options={options}
+          placeholder={placeholder}
           required={required}
           aria-invalid={error ? 'true' : 'false'}
           aria-describedby={error ? errorId : undefined}
           {...rest}
-        >
-          {placeholder && <option value="">{placeholder}</option>}
-          {options.map((option) => <option key={option} value={option}>{option}</option>)}
-        </select>
-        <ChevronDownIcon size={20} />
+        />
       </div>
       {error && <p id={errorId} className="field-error" role="alert">{error}</p>}
     </div>

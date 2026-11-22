@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { products, formatPrice } from '@/data/products';
 import { assets as A } from '@/assets/assets';
+import { Dropdown } from '@/components/ui/Dropdown';
 import './ShopPage.css';
 import { getIphoneImage } from '@/data/iphoneImages';
 import AssistantSummary from '@/components/sections/AssistantSummary';
@@ -493,21 +494,21 @@ export default function ShopPage() {
               {filteredProducts.length === 1 ? 'product' : 'products'}
             </p>
 
-            <label className="sort-control">
-              <span>Sort by</span>
-
-              <select
+            <div className="sort-control">
+              <span aria-hidden="true">Sort by</span>
+              <Dropdown
+                variant="pill"
+                aria-label="Sort by"
                 value={sortBy}
                 onChange={(event) => setSortBy(event.target.value)}
-              >
-                <option value="recommended">Recommended</option>
-                <option value="price-low">Price: low to high</option>
-                <option value="price-high">Price: high to low</option>
-                <option value="name">Name</option>
-              </select>
-
-              <img src={A.chevronTeal} alt="" />
-            </label>
+                options={[
+                  { value: 'recommended', label: 'Recommended' },
+                  { value: 'price-low', label: 'Price: low to high' },
+                  { value: 'price-high', label: 'Price: high to low' },
+                  { value: 'name', label: 'Name' },
+                ]}
+              />
+            </div>
           </div>
 
           {filteredProducts.length > 0 ? (

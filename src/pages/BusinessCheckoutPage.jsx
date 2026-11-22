@@ -5,6 +5,7 @@ import { getIphoneImage } from '@/data/iphoneImages'
 import { assets as A } from '@/assets/assets'
 import { Icon, Arrow } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/Button'
+import { Dropdown } from '@/components/ui/Dropdown'
 import { VAT_RATE } from '@/hooks/useBagItems'
 import { useSessionState } from '@/hooks/useSessionState'
 import {
@@ -355,10 +356,14 @@ export default function BusinessCheckoutPage() {
                   )}
                   <div className="bz-add">
                     <Field label="Add a product" required={false} error={errors.pick}>
-                      <select name="pick" value={pick} onChange={(e) => { setPick(e.target.value); clearError('pick') }}>
-                        <option value="">Choose an exact model, e.g. “iPhone 16 · 256 GB”</option>
-                        {catalog.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}
-                      </select>
+                      <Dropdown
+                        name="pick"
+                        value={pick}
+                        placeholder="Choose an exact model, e.g. “iPhone 16 · 256 GB”"
+                        options={catalog.map((c) => ({ value: c.key, label: c.label }))}
+                        aria-invalid={errors.pick ? 'true' : undefined}
+                        onChange={(e) => { setPick(e.target.value); clearError('pick') }}
+                      />
                     </Field>
                     <Button variant="outline-teal" size="md" onClick={addPicked}>Add</Button>
                   </div>

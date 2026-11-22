@@ -548,48 +548,17 @@
 }
 
 .sort-control {
-  width: 159px;
-  height: 28px;
   display: flex;
-  flex: 0 0 159px;
+  flex: none;
   align-items: center;
   gap: 8px;
   color: #8F8F8F;
   font-size: 14px;
   line-height: 17px;
-}
-
-.sort-control > span {
-  width: 48px;
-  flex: 0 0 48px;
   white-space: nowrap;
 }
 
-.sort-control select {
-  width: 103px;
-  height: 28px;
-  flex: 0 0 103px;
-  padding: 6px 28px 6px 16px;
-  appearance: none;
-  border: 1px solid #107D93;
-  border-radius: 8px;
-  outline-color: #107D93;
-  background-color: #DAF5FB;
-  color: #107D93;
-  font-family: var(--font-body);
-  font-size: 12px;
-  line-height: 14px;
-  cursor: pointer;
-}
-
-.sort-control img {
-  width: 16px;
-  height: 16px;
-  margin-left: -28px;
-  object-fit: contain;
-  pointer-events: none;
-}
-
+/* The sort menu itself is the shared ui/Dropdown (variant "pill") */
 
 /* =========================
    PRODUCT CARDS
