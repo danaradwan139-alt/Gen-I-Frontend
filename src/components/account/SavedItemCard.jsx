@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { useCart } from '@/context/CartContext'
 import { getIphoneImage } from '@/data/iphoneImages'
-import { HeartIcon } from './icons'
+import { HeartButton } from '@/components/ui/Heart'
 
 export default function SavedItemCard({ product, variant, onRemove }) {
   const { addToCart } = useCart()
@@ -31,9 +31,7 @@ export default function SavedItemCard({ product, variant, onRemove }) {
           <p className="saved-meta">{variant.label}</p>
           <p className={`saved-stock ${inStock ? '' : 'is-out'}`}>{inStock ? 'In stock · Delivers tomorrow' : 'Out of stock'}</p>
         </div>
-        <button type="button" className="saved-heart" onClick={onRemove} aria-label={`Remove ${product.name} from saved items`}>
-          <HeartIcon size={20} />
-        </button>
+        <HeartButton pressed onToggle={onRemove} label={`Remove ${product.name} from saved items`} className="saved-heart" />
       </div>
       <div className="saved-actions">
         <Button  onClick={handleAdd} disabled={!inStock}>{feedback || 'Add to bag'}</Button>

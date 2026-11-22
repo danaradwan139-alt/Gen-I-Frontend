@@ -4,6 +4,7 @@ import { products, formatPrice } from '@/data/products'
 import { getIphoneImage } from '@/data/iphoneImages'
 import { useCart } from '@/context/CartContext'
 import AssistantSummary from '@/components/sections/AssistantSummary'
+import { HeartIcon } from '@/components/ui/Heart'
 import ProductResults from '@/components/sections/ProductResults'
 import './ProductPage.css'
 
@@ -277,7 +278,7 @@ export default function ProductPage() {
 
           <div className="product-detail-links">
             <button type="button" onClick={() => setSaved((current) => !current)} aria-pressed={saved}>
-              <span className="product-link-icon">{saved ? '♥' : '♡'}</span>
+              <span className="product-link-icon"><HeartIcon size={15} filled={saved} color="#fc3a3a" /></span>
               {saved ? 'Saved' : 'Save'}
             </button>
 
