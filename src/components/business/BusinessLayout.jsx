@@ -41,7 +41,11 @@ export default function BusinessLayout() {
   return (
     <div className="acct biz-acct">
       <header className="acct-head">
-        <h1 className="acct-title">{company.name}</h1>
+        <div className="acct-title-row">
+          <h1 className="acct-title">{company.name}</h1>
+          {/* Phones: the menu scrolls sideways, so Log out lives up here where it's always visible */}
+          <button type="button" className="acct-logout-top" onClick={handleLogout}><LogoutIcon size={18} />Log out</button>
+        </div>
         <p className="acct-sub">Quote requests, quotations and approvals for your company.</p>
       </header>
       <div className="acct-body">
@@ -49,7 +53,7 @@ export default function BusinessLayout() {
           {links.map(({ to, label, icon: Icon, end }) => (
             <NavLink key={label} to={to} end={end} className="acct-link"><Icon />{label}</NavLink>
           ))}
-          <button type="button" className="acct-logout" onClick={handleLogout}><LogoutIcon size={16} />Log out</button>
+          <button type="button" className="acct-logout acct-logout-nav" onClick={handleLogout}><LogoutIcon size={16} />Log out</button>
         </nav>
         <section className="acct-content"><Outlet /></section>
       </div>
