@@ -105,7 +105,16 @@
   .repair .row16 { flex-wrap: wrap; justify-content: center; }
   .tech { height: 240px; }
   .services { padding: 20px; }
-  .steps { flex-direction: column; }
+  /* How a repair works (1 · 2 · 3): one swipeable row; the next card peeks in so it's clear there's more */
+  .steps {
+    flex-direction: row; flex-wrap: nowrap; gap: 12px;
+    width: calc(100% + 2 * var(--repair-pad, 24px)); margin-inline: calc(-1 * var(--repair-pad, 24px)); padding: 0 var(--repair-pad, 24px) 4px;
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--repair-pad, 24px);
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .steps::-webkit-scrollbar { display: none; }
+  .step { flex: 0 0 min(78%, 280px); min-width: 0; scroll-snap-align: start; gap: 10px; padding: 18px 16px; }
+  .step .num { font-size: 34px; line-height: 1; }
 
   .biz { gap: 32px; }
   .biz-visual { height: clamp(320px, 95vw, 460px); }
