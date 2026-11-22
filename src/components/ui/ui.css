@@ -72,6 +72,10 @@
 .chip[aria-pressed='true'] { border-color: var(--shade-1); background: var(--tint-3); color: var(--shade-1); }
 
 /* ===== Heart toggle (prototype: click → filled, SMART_ANIMATE 300ms ease-out) ===== */
+/* Static heart (HeartIcon): sits on the text line next to labels like "Save" / "Saved" */
+.heart-icon { display: inline-block; flex: none; vertical-align: -0.15em; }
+.product-link-icon { display: inline-flex; align-items: center; }
+.product-detail-links > button, .product-detail-links > span { display: inline-flex; align-items: center; gap: 6px; }
 .heart-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; flex: none; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: none; transition: background-color var(--dur-hover, 200ms) ease; }
 .heart-btn svg { display: block; width: 100%; height: 100%; overflow: visible; transition: transform var(--dur-page, 300ms) var(--ease-out, ease-out); }
 .heart-path { fill: transparent; stroke: var(--red, #fc3a3a); stroke-width: 1.5; stroke-linejoin: round; transition: fill var(--dur-page, 300ms) var(--ease-out, ease-out); }

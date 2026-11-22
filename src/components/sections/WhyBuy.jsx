@@ -14,7 +14,7 @@ const whys = [
 
 export default function WhyBuy() {
   return (
-    <section className="sec">
+    <section className="sec" id="why-buy">
       <h2 className="t56">Why buy from <span className="teal">GEN-I</span></h2>
       <ScrollRow className="bleed-right">
         <div className="whys">

@@ -3,7 +3,7 @@ import { Chip } from '@/components/ui/Chip'
 import './records.css'
 
 // Filter chips on the left and an optional primary link-button on the right.
-// `label` names the chip group for screen readers; `action` is { label, to }.
+// `label` names the chip group for screen readers; `action` is { label, to } or { label, onClick }.
 export default function FilterTabs({ filters, value, onChange, label, action }) {
   return (
     <div className="acct-filter">
@@ -12,7 +12,7 @@ export default function FilterTabs({ filters, value, onChange, label, action }) 
           <Chip key={id} active={value === id} onClick={() => onChange(id)}>{text}</Chip>
         ))}
       </div>
-      {action && <Button size="md" className="acct-btn" to={action.to}>{action.label}</Button>}
+      {action && <Button size="md" className="acct-btn" to={action.to} onClick={action.onClick}>{action.label}</Button>}
     </div>
   )
 }

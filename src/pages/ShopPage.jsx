@@ -6,6 +6,7 @@ import { Icon } from '@/components/ui/Icon'
 import { Avatar } from '@/components/ui/Avatar'
 import { Button } from '@/components/ui/Button'
 import { Dropdown } from '@/components/ui/Dropdown'
+import { HeartIcon } from '@/components/ui/Heart'
 import { ProductCard, PairCard, ProductGrid } from '@/components/shop/ProductCard'
 import { useFavorites } from '@/hooks/useFavorites'
 import './ShopPage.css'
@@ -325,7 +326,7 @@ export default function ShopPage() {
                 aria-pressed={savedOnly}
                 onClick={() => setSavedOnly((v) => !v)}
               >
-                ♥ Saved{favorites.length > 0 ? ` (${favorites.length})` : ''}
+                <HeartIcon size={14} filled color="#fc3a3a" /> Saved{favorites.length > 0 ? ` (${favorites.length})` : ''}
               </Button>
             <div className="shop-sort">
               <span aria-hidden="true">Sort by</span>

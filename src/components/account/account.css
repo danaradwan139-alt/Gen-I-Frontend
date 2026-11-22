@@ -30,8 +30,8 @@
 .saved-meta { font-size: 14px; color: var(--grey-1); }
 .saved-stock { font-size: 14px; color: var(--green); }
 .saved-stock.is-out { color: var(--error-text); }
-.saved-heart { display: flex; flex: none; align-items: center; justify-content: center; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 50%; background: none; color: var(--danger); }
-.saved-heart:hover { background: #fdecec; }
+/* The heart itself is the shared HeartButton (components/ui/Heart.jsx), shown filled: tap to remove */
+.saved-heart { flex: none; width: 40px; height: 40px; }
 .saved-actions { display: flex; gap: 16px; }
 .saved-actions .btn { height: 40px; padding-block: 0; flex: 1 1 0; min-width: 0; padding-inline: 8px; text-align: center; white-space: nowrap; font-size: 18px; }
 

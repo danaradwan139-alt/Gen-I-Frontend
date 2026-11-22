@@ -16,7 +16,7 @@ export default function Hero() {
             <p className="t56">Know More. Choose Better</p>
           </div>
           <p className="body16 white">
-            iPhone, Apple Watch, laptops, TVs and home appliances —<br />plus expert iPhone repair. Online or in store.
+            iPhone, Apple Watch, laptops, TVs and home appliances — <br />plus expert iPhone repair. Online or in store.
           </p>
           <Button to="/shop?category=iPhone">Shop Now <Arrow /></Button>
         </div>

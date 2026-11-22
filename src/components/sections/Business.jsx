@@ -1,4 +1,5 @@
 import { assets as A } from '@/assets/assets'
+import { askAssistant } from '@/utils/assistant'
 import { Icon, Arrow } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/Button'
 import { Check } from '@/components/ui/Check'
@@ -17,7 +18,7 @@ export default function Business() {
           ))}
         </div>
         <div className="row16">
-          <Button href="#">Explore business solutions <Arrow src={A.arrowBiz} /></Button>
+          <Button onClick={() => askAssistant('Tell me about GEN-I business solutions')}>Explore business solutions <Arrow src={A.arrowBiz} /></Button>
           <Button variant="outline-white" to="/business/checkout">Request a quote</Button>
         </div>
       </div>

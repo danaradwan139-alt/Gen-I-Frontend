@@ -2,6 +2,8 @@ import { useState } from 'react'
 import FilterTabs from '@/components/account/FilterTabs'
 import RecordCard from '@/components/account/RecordCard'
 import { useAccount } from '@/context/AccountContext'
+import { downloadInvoices } from '@/utils/invoicePdf'
+import { repairRow } from '@/utils/invoiceRows'
 
 const filters = [
   { id: 'all', label: 'All', empty: 'No orders yet.' },
@@ -11,7 +13,7 @@ const filters = [
 ]
 
 export default function OrdersPage() {
-  const { orders } = useAccount()
+  const { orders, addresses } = useAccount()
   const [filter, setFilter] = useState('all')
   const visible = orders.filter((order) => filter === 'all' || order.filter === filter)
 
@@ -21,7 +23,13 @@ export default function OrdersPage() {
       {visible.length === 0 ? (
         <p className="acct-empty">{filters.find((item) => item.id === filter).empty}</p>
       ) : (
-        visible.map((order) => <RecordCard key={order.id} {...order} />)
+        visible.map((order) => (
+          <RecordCard
+            key={order.id}
+            {...order}
+            onAction={(action) => action.invoice && downloadInvoices([repairRow({ id: order.id, ...action.invoice }, addresses)], `INV-${order.id.replace('#', '')}.pdf`)}
+          />
+        ))
       )}
     </div>
   )

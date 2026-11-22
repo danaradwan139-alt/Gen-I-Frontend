@@ -100,7 +100,8 @@
 /* ----- Phones: launcher shrinks to the avatar, panel becomes a bottom sheet ----- */
 @media (max-width: 640px) {
   .launcher { right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); padding: 8px; font-size: 0; gap: 0; }
-  .launcher span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  /* hide only the text label; the round sparkle icon (.avatar) stays visible */
+  .launcher > span:not(.avatar) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .chat-panel { inset: auto 0 0 0; width: 100%; height: min(85dvh, 640px); border-radius: 16px 16px 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); transform-origin: bottom center; }
   .chat-content { max-width: calc(100vw - 90px); }
   .chat-input input { font-size: 16px; } /* stops iOS zooming in */

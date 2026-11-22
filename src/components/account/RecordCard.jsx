@@ -5,7 +5,7 @@ import './records.css'
 
 // Order / trade-in row: id, meta and status on top; thumbnail, two lines of text and one action below.
 // `muted` greys the description line (trade-ins); orders keep it in the main text colour.
-export default function RecordCard({ id, meta, status, image, title, total, action, muted = false }) {
+export default function RecordCard({ id, meta, status, image, title, total, action, muted = false, onAction }) {
   return (
     <article className="rec">
       <header className="rec-head">
@@ -22,7 +22,7 @@ export default function RecordCard({ id, meta, status, image, title, total, acti
           <p className={muted ? 'is-muted' : undefined}>{title}</p>
           <p className="rec-total">{total}</p>
         </div>
-        <Button variant={action.variant} size="md" className="acct-btn rec-action" to={action.to}>{action.label}</Button>
+        <Button variant={action.variant} size="md" className="acct-btn rec-action" to={action.to} onClick={action.to ? undefined : () => onAction?.(action)}>{action.label}</Button>
       </div>
     </article>
   )

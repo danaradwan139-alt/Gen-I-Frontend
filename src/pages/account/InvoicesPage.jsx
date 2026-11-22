@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { Chip } from '@/components/ui/Chip'
 import { useAccount } from '@/context/AccountContext'
 import { downloadInvoices } from '@/utils/invoicePdf'
+import { invoiceRow } from '@/utils/invoiceRows'
 import { formatDate, formatEgp } from '@/utils/format'
 
 const filters = [
@@ -15,16 +16,9 @@ const filters = [
 
 const columns = ['INVOICE', 'DATE', 'FOR', 'AMOUNT', 'STATUS', 'Actions']
 
-const toPdfRow = (invoice) => ({
-  id: invoice.id,
-  dateLabel: formatDate(invoice.date),
-  reference: invoice.reference,
-  amountLabel: formatEgp(invoice.amount),
-  status: invoice.status,
-})
-
 export default function InvoicesPage() {
-  const { invoices } = useAccount()
+  const { invoices, orderDetails, addresses } = useAccount()
+  const pdfRow = (invoice) => invoiceRow(invoice, { orderDetails, addresses })
   const [filter, setFilter] = useState('all')
   const visible = invoices.filter((invoice) => filter === 'all' || invoice.kind === filter)
   const year = new Date().getFullYear()
@@ -40,7 +34,7 @@ export default function InvoicesPage() {
         </div>
         <Button
           variant="outline-teal" size="md" className="acct-download" disabled={thisYear.length === 0}
-          onClick={() => downloadInvoices(thisYear.map(toPdfRow), `gen-i-invoices-${year}.pdf`)}
+          onClick={() => downloadInvoices(thisYear.map(pdfRow), `gen-i-invoices-${year}.pdf`)}
         >
           Download all ({year})
         </Button>
@@ -57,13 +51,13 @@ export default function InvoicesPage() {
             <tbody>
               {visible.map((invoice) => (
                 <tr key={invoice.id}>
-                  <td className="inv-id">{invoice.id}</td>
-                  <td>{formatDate(invoice.date)}</td>
-                  <td>{invoice.reference}</td>
-                  <td>{formatEgp(invoice.amount)}</td>
-                  <td><span className="inv-status">{invoice.status}</span></td>
-                  <td>
-                    <button type="button" className="inv-pdf" onClick={() => downloadInvoices([toPdfRow(invoice)], `${invoice.id}.pdf`)} aria-label={`Download ${invoice.id} as PDF`}>
+                  <td className="inv-id" data-label="Invoice">{invoice.id}</td>
+                  <td data-label="Date">{formatDate(invoice.date)}</td>
+                  <td data-label="For">{invoice.reference}</td>
+                  <td className="inv-amount" data-label="Amount">{formatEgp(invoice.amount)}</td>
+                  <td className="inv-status-cell" data-label="Status"><span className="inv-status">{invoice.status}</span></td>
+                  <td className="inv-action">
+                    <button type="button" className="inv-pdf" onClick={() => downloadInvoices([pdfRow(invoice)], `${invoice.id}.pdf`)} aria-label={`Download ${invoice.id} as PDF`}>
                       <InvoicesIcon size={16} strokeWidth={2.2} />
                       PDF
                     </button>
