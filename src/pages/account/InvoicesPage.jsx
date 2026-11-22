@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { Chip } from '@/components/ui/Chip'
 import { useAccount } from '@/context/AccountContext'
 import { downloadInvoices } from '@/utils/invoicePdf'
+import { invoiceRow } from '@/utils/invoiceRows'
 import { formatDate, formatEgp } from '@/utils/format'
 
 const filters = [
@@ -15,47 +16,9 @@ const filters = [
 
 const columns = ['INVOICE', 'DATE', 'FOR', 'AMOUNT', 'STATUS', 'Actions']
 
-const parseEgp = (text) => Number(String(text).replace(/[^\d.]/g, '')) || 0
-
-// Everything the PDF needs: line items from the matching order, who it's billed to, how it was paid.
-function toPdfRow(invoice, { orderDetails, addresses }) {
-  const orderId = invoice.reference.match(/#?([A-Z]{2}-\d+)/)?.[1]
-  const order = orderId ? orderDetails[orderId] : undefined
-  const address = addresses.find((a) => a.isDefault) ?? addresses[0]
-
-  const items = order?.items?.map((item) => {
-    const qty = Number(item.spec?.match(/Qty\s*(\d+)/i)?.[1]) || 1
-    return {
-      name: item.name,
-      spec: item.spec?.replace(/\s*·\s*Qty\s*\d+/i, ''),
-      qty,
-      unitPrice: parseEgp(item.price) / qty,
-    }
-  })
-
-  const billTo = order?.delivery?.length
-    ? [order.delivery[0].split(' · ')[0], order.delivery[1], order.delivery[0].split(' · ')[1]].filter(Boolean)
-    : address
-      ? [address.fullName, [address.street, address.floor].filter(Boolean).join(', '), `${address.area}, ${address.governorate}`, address.mobile]
-      : []
-
-  return {
-    id: invoice.id,
-    // a real calendar date on the document (the table may say "Today")
-    dateLabel: new Date(invoice.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
-    reference: invoice.reference,
-    amount: invoice.amount,
-    status: invoice.status,
-    items,
-    billTo,
-    payment: order?.payment?.method,
-    delivery: order?.payment?.delivery && order.payment.delivery !== 'Free' ? parseEgp(order.payment.delivery) : 0,
-  }
-}
-
 export default function InvoicesPage() {
   const { invoices, orderDetails, addresses } = useAccount()
-  const pdfRow = (invoice) => toPdfRow(invoice, { orderDetails, addresses })
+  const pdfRow = (invoice) => invoiceRow(invoice, { orderDetails, addresses })
   const [filter, setFilter] = useState('all')
   const visible = invoices.filter((invoice) => filter === 'all' || invoice.kind === filter)
   const year = new Date().getFullYear()

@@ -113,7 +113,7 @@ export const initialOrders = [
     image: A.accountAirpods,
     title: 'AirPods-style wireless earbuds',
     total: 'Total 8,999 EGP',
-    action: { label: 'Buy again', variant: 'outline-teal' },
+    action: { label: 'Buy again', variant: 'outline-teal', to: '/shop?category=Accessories' },
   },
   {
     id: '#RP-10433',
@@ -123,7 +123,7 @@ export const initialOrders = [
     image: A.accountIphoneFront,
     title: 'Screen replacement · iPhone 15',
     total: 'Total 4,500 EGP',
-    action: { label: 'View invoice', variant: 'outline-teal' },
+    action: { label: 'View invoice', variant: 'outline-teal', invoice: { amount: 4500, service: 'Screen replacement', device: 'iPhone 15', date: '2026-08-02T10:00:00.000Z' } },
   },
 ]
 
@@ -206,6 +206,7 @@ export const initialPastRepairs = [
     date: '14 Mar 2026',
     image: A.accountIphoneBack,
     summary: 'Battery replacement · iPhone 13 · Warranty until Feb 2027',
+    amount: 2499,
     status: { label: 'Completed', tone: 'green' },
   },
   {
@@ -213,6 +214,7 @@ export const initialPastRepairs = [
     date: '14 Mar 2026',
     image: A.accountIphoneBack,
     summary: 'Battery replacement · iPhone 13 · Warranty until Feb 2027',
+    amount: 2499,
     status: { label: 'Completed', tone: 'green' },
   },
 ]
@@ -232,7 +234,7 @@ export const initialTradeIns = [
     image: A.accountIphoneBack,
     title: 'Good condition · Inspection booked tomorrow, Trivium Zayed',
     total: 'Up to 18,500 EGP',
-    action: { label: 'Reschedule', variant: 'outline-teal' },
+    action: { label: 'Reschedule', variant: 'outline-teal', kind: 'reschedule' },
   },
   {
     id: '#TI-2987',
@@ -242,7 +244,14 @@ export const initialTradeIns = [
     image: A.accountIphoneBack,
     title: 'Fair condition · Inspected 4 Oct 2026',
     total: '12,000 EGP',
-    action: { label: 'View details', variant: 'outline-teal' },
+    action: { label: 'View details', variant: 'outline-teal', kind: 'details' },
+    details: [
+      ['Device', 'iPhone 13 · 128GB · Midnight'],
+      ['Condition', 'Fair: light scratches on the screen, battery health 84%'],
+      ['Inspected', '4 Oct 2026 · Trivium Zayed Branch'],
+      ['Credit', '12,000 EGP added to your account'],
+      ['Use it by', '31 Jan 2027, on any order'],
+    ],
   },
 ]
 

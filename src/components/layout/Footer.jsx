@@ -2,6 +2,7 @@ import { assets as A } from '@/assets/assets'
 import { Arrow } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/Button'
 import { Link } from 'react-router-dom'
+import { SOCIAL_LINKS } from '@/data/contact'
 import './footer.css'
 
 const cols = [
@@ -13,12 +14,12 @@ const socials = [['Facebook', A.facebook], ['Instagram', A.instagram], ['LinkedI
 const sectionPaths = {
   'iPhone Repair': '/#repair',
   'Trade In': '/#trade-in',
-  Installments: '/#installments',
+  Installments: '/#why-buy',
   'Setup Help': '/#setup-help',
-  Delivery: '/#delivery',
+  Delivery: '/#why-buy',
   'Find a Store': '/#stores',
   'Opening Hours': '/#stores',
-  'Book a Repair': '/#repair',
+  'Book a Repair': '/repair',
 }
 
 export default function Footer() {
@@ -42,7 +43,7 @@ export default function Footer() {
           <p className="f-head">Compare the details before you decide.</p>
           <Button to="/shop?category=iPhone">Shop Now <Arrow src={A.arrowFooter} /></Button>
           <div className="socials">
-            {socials.map(([n, s]) => <a key={n} href="#" aria-label={n}><img src={s} alt="" /></a>)}
+            {socials.map(([n, s]) => <a key={n} href={SOCIAL_LINKS[n]} target="_blank" rel="noreferrer" aria-label={`GEN-I on ${n}`}><img src={s} alt="" /></a>)}
           </div>
         </div>
       </div>

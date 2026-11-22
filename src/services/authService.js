@@ -3,6 +3,7 @@
 //   POST   /auth/login            { identifier, password }                 -> { token, user }
 //   POST   /auth/register         { identifier, password }                 -> { token, user }
 //   GET    /auth/:provider        (facebook | apple | google) starts the OAuth redirect flow
+//   POST   /auth/forgot-password  { identifier }                          (sends a reset link / code)
 //   POST   /auth/change-password  { currentPassword, newPassword }  (Bearer token)
 //   DELETE /account               (Bearer token)
 //
@@ -66,6 +67,12 @@ export async function signInWithProvider(provider, profile = {}) {
   }
   window.location.assign(`${API_URL}/auth/${provider}`)
   return null
+}
+
+// POST /auth/forgot-password { identifier } -> sends a reset link (email) or code (SMS)
+export async function requestPasswordReset(identifier) {
+  if (!API_URL) return
+  await request('POST', '/auth/forgot-password', { identifier })
 }
 
 export async function changePassword(payload, token) {

@@ -33,9 +33,9 @@ export function AccountProvider({ children }) {
   // Read-only until the orders / repairs / trade-ins API exists.
   const [orders, setOrders] = useState(initialOrders)
   const [orderDetails, setOrderDetails] = useState(initialOrderDetails)
-  const [activeRepair] = useState(initialActiveRepair)
+  const [activeRepair, setActiveRepair] = useState(initialActiveRepair)
   const [pastRepairs] = useState(initialPastRepairs)
-  const [tradeIns] = useState(initialTradeIns)
+  const [tradeIns, setTradeIns] = useState(initialTradeIns)
   const [tradeInCredit] = useState(initialTradeInCredit)
   const [profile, setProfile] = useState(() => buildProfile(user))
   const [security, setSecurity] = useState(initialSecurity)
@@ -121,18 +121,47 @@ export function AccountProvider({ children }) {
   const revokeDevice = useCallback((id) => setDevices((items) => items.filter((item) => item.id !== id)), [])
   const setNotification = useCallback((key, value) => setNotifications((current) => ({ ...current, [key]: value })), [])
 
+  // Repair quote: approving moves the repair to "Repairing"; declining ends it with no charge.
+  const approveRepair = useCallback(() => setActiveRepair((repair) => ({
+    ...repair,
+    status: { label: 'Repair in progress', tone: 'blue' },
+    currentStep: 3,
+    quote: { ...repair.quote, decision: 'approved', title: `Quote approved: ${repair.quote.title.replace(/^Quote ready:\s*/, '')}`, note: 'Our technician has started. We’ll message you as soon as it’s ready for pickup.' },
+  })), [])
+  const declineRepair = useCallback(() => setActiveRepair((repair) => ({
+    ...repair,
+    status: { label: 'Quote declined', tone: 'grey' },
+    quote: { ...repair.quote, decision: 'declined', title: 'Quote declined · no charge', note: 'Collect your device from the store any time during opening hours.' },
+  })), [])
+
+  const updateOrder = (orderId, patch, listPatch) => {
+    setOrderDetails((current) => ({ ...current, [orderId]: { ...current[orderId], ...patch } }))
+    if (listPatch) setOrders((current) => current.map((order) => (order.id === `#${orderId}` ? { ...order, ...listPatch } : order)))
+  }
+  const cancelOrder = useCallback((orderId) => updateOrder(orderId,
+    { status: { label: 'Cancelled', tone: 'grey' }, cancelled: true, arriving: 'Order cancelled · refund on its way (3–5 working days)' },
+    { status: { label: 'Cancelled', tone: 'grey' }, meta: 'Cancelled today', filter: 'delivered', action: { label: 'View details', variant: 'outline-teal', to: `/account/orders/${orderId}` } }), [])
+  const rescheduleTradeIn = useCallback((id, slotLabel) => setTradeIns((items) => items.map((item) => (item.id === id
+    ? { ...item, title: item.title.replace(/Inspection booked .*/, `Inspection booked ${slotLabel}`) }
+    : item))), [])
+  const changeDeliverySlot = useCallback((orderId, slotLabel) => updateOrder(orderId, {
+    arriving: `Arriving ${slotLabel}`,
+  }), [])
+
   const value = useMemo(
     () => ({
       savedItems, reservations, addresses, cards, invoices, profile, security, devices, notifications,
       orders, orderDetails, activeRepair, pastRepairs, tradeIns, tradeInCredit,
       removeSavedItem, extendReservation, cancelReservation, submitReturn, saveAddress, removeAddress, setDefaultAddress,
       addCard, removeCard, setDefaultCard, updateProfile, setTwoStep, markPasswordChanged, revokeDevice, setNotification,
+      approveRepair, declineRepair, cancelOrder, changeDeliverySlot, rescheduleTradeIn,
     }),
     [
       savedItems, reservations, addresses, cards, invoices, profile, security, devices, notifications,
       orders, orderDetails, activeRepair, pastRepairs, tradeIns, tradeInCredit,
       removeSavedItem, extendReservation, cancelReservation, submitReturn, saveAddress, removeAddress, setDefaultAddress,
       addCard, removeCard, setDefaultCard, updateProfile, setTwoStep, markPasswordChanged, revokeDevice, setNotification,
+      approveRepair, declineRepair, cancelOrder, changeDeliverySlot, rescheduleTradeIn,
     ]
   )
 

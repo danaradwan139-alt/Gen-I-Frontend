@@ -11,6 +11,7 @@ import ComparePage from '@/pages/ComparePage'
 import RepairPage from '@/pages/RepairPage'
 import LoginPage from '@/pages/LoginPage'
 import RegisterPage from '@/pages/RegisterPage'
+import ForgotPasswordPage from '@/pages/ForgotPasswordPage'
 import GuestRoute from '@/components/auth/GuestRoute'
 import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import AccountLayout from '@/components/account/AccountLayout'
@@ -40,6 +41,7 @@ export default function App() {
             <Route element={<GuestRoute />}>
               <Route path="login" element={<LoginPage />} />
               <Route path="register" element={<RegisterPage />} />
+              <Route path="forgot-password" element={<ForgotPasswordPage />} />
             </Route>
             <Route element={<Layout />}>
               <Route index element={<LandingPage />} />

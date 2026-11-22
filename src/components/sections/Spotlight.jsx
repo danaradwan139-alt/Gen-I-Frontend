@@ -29,8 +29,8 @@ export default function Spotlight() {
         <h2 className="t80">A New Era.<br />In Your Hands.</h2>
         <p className="body16 stack4"><span>Experience the iPhone 18.</span><span>Designed to inspire, built to impress</span></p>
         <div className="row24">
-          <Button href="#">Explore iPhone 18 <Arrow /></Button>
-          <Button variant="outline-white" href="#">Shop all iPhones</Button>
+          <Button to="/shop/iphone-18-pro">Explore iPhone 18 <Arrow /></Button>
+          <Button variant="outline-white" to="/shop?category=iPhone">Shop all iPhones</Button>
         </div>
       </div>
     </section>

@@ -1,24 +1,43 @@
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { Navigate, useParams } from 'react-router-dom'
 import AskAssistantButton from '@/components/account/AskAssistantButton'
 import Breadcrumb from '@/components/account/Breadcrumb'
 import DeliveryCard from '@/components/account/DeliveryCard'
 import ItemsCard from '@/components/account/ItemsCard'
 import PaymentSummary from '@/components/account/PaymentSummary'
 import ProgressSteps from '@/components/account/ProgressSteps'
+import SlotPickerModal from '@/components/account/SlotPickerModal'
 import StatusBadge from '@/components/account/StatusBadge'
 import { Button } from '@/components/ui/Button'
 import { useAccount } from '@/context/AccountContext'
+import { useConfirm } from '@/context/ConfirmContext'
+import { downloadInvoices } from '@/utils/invoicePdf'
+import { orderRow } from '@/utils/invoiceRows'
 
 // Reached from "Track order" / "View details" on the Orders page: /account/orders/:orderId
 // A delivered order (`completed`) shows every step as done and, while it is `returnable`, a "Start a return" button.
 export default function OrderDetailsPage() {
   const { orderId } = useParams()
-  const { orderDetails } = useAccount()
+  const { orderDetails, addresses, cancelOrder, changeDeliverySlot } = useAccount()
+  const confirm = useConfirm()
+  const [slotOpen, setSlotOpen] = useState(false)
   const order = orderDetails[orderId]
 
   if (!order) return <Navigate to="/account/orders" replace />
 
-  const { returnable, returnRequest, completed } = order
+  const { returnable, returnRequest, completed, cancelled } = order
+  const active = !completed && !cancelled
+
+  async function handleCancel() {
+    const ok = await confirm({
+      title: `Cancel order ${order.id}?`,
+      message: 'Your items won’t be delivered and the full amount is refunded to your card.',
+      confirmLabel: 'Cancel order',
+      cancelLabel: 'Keep order',
+      secondStep: { title: 'Cancel for good?', message: `Refund of ${order.payment.total} goes back to ${order.payment.method.replace(/^Paid with /, '')} within 3–5 working days.`, confirmLabel: 'Yes, cancel order' },
+    })
+    if (ok) cancelOrder(orderId)
+  }
 
   return (
     <div className="od">
@@ -37,7 +56,7 @@ export default function OrderDetailsPage() {
       <section className="acct-card od-track">
         <div className="od-track-head">
           <h3 className="od-arriving">{order.arriving}</h3>
-          {!completed && <Link to="/account/orders" className="od-slot">Change delivery slot</Link>}
+          {active && <button type="button" className="od-slot" onClick={() => setSlotOpen(true)}>Change delivery slot</button>}
         </div>
         <ProgressSteps
           steps={order.steps} current={order.currentStep} complete={completed}
@@ -67,11 +86,18 @@ export default function OrderDetailsPage() {
             </div>
           )}
           <PaymentSummary payment={order.payment} />
-          <Button variant="outline-teal" size="md" className="acct-btn block">Download invoice</Button>
-          {!completed && <Button variant="outline-teal" size="md" className="acct-btn block">Cancel order</Button>}
-          <AskAssistantButton>Ask GEN-I about this order</AskAssistantButton>
+          <Button variant="outline-teal" size="md" className="acct-btn block" onClick={() => downloadInvoices([orderRow(order, addresses)], `INV-${orderId}.pdf`)}>Download invoice</Button>
+          {active && <Button variant="outline-teal" size="md" className="acct-btn block" onClick={handleCancel}>Cancel order</Button>}
+          <AskAssistantButton message={`I have a question about my order ${order.id}`}>Ask GEN-I about this order</AskAssistantButton>
         </div>
       </div>
+      <SlotPickerModal
+        open={slotOpen}
+        title="Change delivery slot"
+        times={['10 AM – 2 PM', '2 PM – 6 PM', '6 PM – 10 PM']}
+        onSave={(slot) => changeDeliverySlot(orderId, slot)}
+        onClose={() => setSlotOpen(false)}
+      />
     </div>
   )
 }

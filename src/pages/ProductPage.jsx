@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { products, formatPrice } from '@/data/products'
 import { getIphoneImage } from '@/data/iphoneImages'
 import { useCart } from '@/context/CartContext'
@@ -87,6 +87,7 @@ function ProductDetails() {
 }
 
 export default function ProductPage() {
+  const navigate = useNavigate()
   const { productId } = useParams()
   const product = products.find((item) => item.id === productId)
 
@@ -130,7 +131,7 @@ export default function ProductPage() {
   }
 
   function handleCompare() {
-    window.alert('Product comparison will be available soon.')
+    navigate('/compare')
   }
 
   return (

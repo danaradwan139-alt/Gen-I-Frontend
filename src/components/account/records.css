@@ -11,6 +11,7 @@
 .acct-status { display: inline-flex; flex: none; align-items: center; height: 22px; padding: 0 10px; border-radius: 8px; font-size: 12px; font-weight: 700; white-space: nowrap; }
 .acct-status.is-blue { background: var(--info-tint); color: var(--info); }
 .acct-status.is-green { background: var(--light-green); color: var(--green); }
+.acct-status.is-grey { background: var(--light-2); color: var(--grey-1); }
 
 /* Thumbnail */
 .acct-thumb { display: flex; flex: none; width: 56px; height: 56px; overflow: hidden; border: 1px solid var(--light-2); border-radius: 8px; background: #fff; }
@@ -86,7 +87,7 @@
 .od-track { gap: 26px; }
 .od-track-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 16px; min-height: 24px; }
 .od-arriving { font-size: 20px; line-height: 24px; font-weight: 700; color: var(--black); }
-.od-slot { margin-right: 17px; font-size: 12px; color: var(--shade-1); }
+.od-slot { margin-right: 17px; padding: 0; border: 0; background: none; font: inherit; font-size: 12px; color: var(--shade-1); cursor: pointer; }
 .od-slot:hover { text-decoration: underline; }
 .od-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
 .od-main { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
@@ -164,3 +165,19 @@
   .rec-meta { overflow: visible; white-space: normal; }
   .rec-action { width: 100%; }
 }
+
+/* Slot picker (delivery slot, trade-in inspection) */
+.slot-group { display: flex; flex-direction: column; gap: 8px; }
+.slot-label { font-size: 14px; font-weight: 700; color: var(--black); }
+.slot-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.slot-chips .chip { font-size: 15px; }
+
+/* Repair quote after a decision */
+.rpr-quote.is-decided .rpr-quote-title { color: var(--shade-1); }
+.rpr-quote.is-declined { background: var(--light-3); }
+.rpr-quote.is-declined .rpr-quote-title { color: var(--grey-1); }
+
+/* Trade-in details */
+.ti-details { display: grid; grid-template-columns: max-content 1fr; gap: 10px 16px; margin: 0; font-size: 15px; }
+.ti-details dt { color: var(--grey-2); }
+.ti-details dd { margin: 0; color: var(--black); }

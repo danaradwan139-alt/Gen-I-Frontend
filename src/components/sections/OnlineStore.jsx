@@ -1,4 +1,5 @@
 import { assets as A } from '@/assets/assets'
+import { directionsUrl } from '@/data/contact'
 import { Icon } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/Button'
 import './section.css'
@@ -23,7 +24,7 @@ export default function OnlineStore() {
               <p className="store-name">Trivium Zayed Branch</p>
               <p className="store-sub">{' Trivium Zayed Branch  ·  Open today · 10 AM – 11 PM'}</p>
             </div>
-            <Button variant="text" size="md" href="#">Directions <Icon src={A.chevronDir} inset="21.48% 33.67% 21.49% 33.68%" kind="chev" /></Button>
+            <Button variant="text" size="md" href={directionsUrl()} target="_blank" rel="noreferrer">Directions <Icon src={A.chevronDir} inset="21.48% 33.67% 21.49% 33.68%" kind="chev" /></Button>
           </div>
         </div>
       </div>
