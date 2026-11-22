@@ -25,6 +25,11 @@
   .mobile-navigation a { padding: 12px; border-radius: 8px; color: var(--black); font-size: 15px; }
   .mobile-navigation a:hover { background: var(--tint-3); color: var(--shade-1); }
 
+  /* Hero: the photo is cropped narrower here, so the copy moves to the bottom over a dark fade
+     and the woman's face stays clear at the top right */
+  .hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(8, 30, 40, 0) 25%, rgba(8, 30, 40, .55) 55%, rgba(8, 30, 40, .92) 100%); }
+  .hero-content { top: auto; bottom: 56px; transform: none; z-index: 1; gap: 40px; }
+
   /* Headings scale down so they don't fill the screen */
   .t80 { font-size: 60px; } .t72 { font-size: 54px; } .t56 { font-size: 44px; } .t40 { font-size: 34px; }
 
@@ -76,6 +81,20 @@
   /* Section headings with a side link ("Made for how you live." · "See what's new") */
   .sec-head { flex-wrap: wrap; align-items: flex-end; gap: 8px 16px; }
   .sec-head h2 br { display: none; }
+
+  /* fill the screen under the header (promo + logo row + search ≈ 150px) so the prompt isn't below the fold */
+  .hero { height: max(580px, calc(100svh - 150px)); min-height: 0; }
+  .hero-photo { object-position: 80% 12%; }
+  .hero-content { bottom: 24px; gap: 20px; }
+  .hero-copy { gap: 12px; }
+  .hero .eyebrow { font-size: 13px; letter-spacing: .02em; }
+  .hero-title { gap: 4px; }
+  .hero-title .t72 { font-size: 34px; }
+  .hero-title .t56 { font-size: 24px; }
+  .hero-copy .body16 { font-size: 15px; }
+  .hero-copy .body16 br { display: none; }
+  /* leave room on the right for the floating assistant button so they sit side by side */
+  .prompt { width: calc(100% - 60px); height: 52px; font-size: 14px; }
 
   .spot { padding: 16px var(--gutter) 48px; }
   .spot-img { height: min(420px, 100vw); }
