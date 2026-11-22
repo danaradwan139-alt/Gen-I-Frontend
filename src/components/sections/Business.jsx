@@ -18,7 +18,7 @@ export default function Business() {
         </div>
         <div className="row16">
           <Button href="#">Explore business solutions <Arrow src={A.arrowBiz} /></Button>
-          <Button variant="outline-white" href="#">Request a quote</Button>
+          <Button variant="outline-white" to="/business/checkout">Request a quote</Button>
         </div>
       </div>
       <div className="biz-visual">

@@ -1,8 +1,4 @@
-// Image/icon URLs exported from the Figma file.
-// They EXPIRE after 7 days – run `npm run assets` once to download them into /public/assets
-// and rewrite this file to use local paths.
-const F = 'https://www.figma.com/api/mcp/asset/'
-
+// Image/icon paths. The files live in /public/assets.
 export const assets = {
   heroPhoto: '/assets/heroPhoto.png', // provided photo (overlay already applied)
   authPhoto: '/assets/auth-photo.png',

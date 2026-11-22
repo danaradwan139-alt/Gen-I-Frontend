@@ -1,3 +1,0 @@
-/* "Why buy from GEN-I" (Figma 78:1011): five 227.2px cards that exactly fill 1200px; narrower screens scroll sideways. */
-.whys { display: flex; gap: 16px; width: max-content; padding-right: var(--gutter); }
-.why { display: flex; flex-direction: column; gap: 16px; flex: none; width: var(--why-w, 227.2px); padding: 16px; border-radius: 8px; background: var(--light-3); }
