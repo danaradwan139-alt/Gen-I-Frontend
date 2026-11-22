@@ -103,7 +103,7 @@ function invoicePage(invoice, pageNo, pageCount) {
   pdf.text('GEN-', M, 788, { size: 30, bold: true, color: C.white })
   pdf.text('I', M + textWidth('GEN-', 30, true), 788, { size: 30, bold: true, color: C.primary })
   pdf.text('Tech Lifestyle Stores', M, 770, { size: 9.5, color: C.tint2 })
-  pdf.text('TAX INVOICE', RIGHT, 792, { size: 20, bold: true, color: C.white, align: 'right' })
+  pdf.text(invoice.docTitle ?? 'TAX INVOICE', RIGHT, 792, { size: 20, bold: true, color: C.white, align: 'right' })
   pdf.text(invoice.id, RIGHT, 772, { size: 10, color: C.tint2, align: 'right' })
 
   /* From / Bill to / Invoice details */
@@ -177,7 +177,7 @@ function invoicePage(invoice, pageNo, pageCount) {
   })
   const bandY = y - totals.length * 18 - 14
   pdf.roundRect(totalsX - 12, bandY - 10, RIGHT - totalsX + 12, 30, 6, C.shade2)
-  pdf.text(isPaid ? 'TOTAL PAID' : 'TOTAL DUE', totalsX, bandY + 1, { size: 9.5, bold: true, color: C.tint2 })
+  pdf.text(invoice.totalLabel ?? (isPaid ? 'TOTAL PAID' : 'TOTAL DUE'), totalsX, bandY + 1, { size: 9.5, bold: true, color: C.tint2 })
   pdf.text(money(total), RIGHT - 12, bandY + 1, { size: 12, bold: true, color: C.white, align: 'right' })
 
   /* Payment & notes (left) */
@@ -185,7 +185,7 @@ function invoicePage(invoice, pageNo, pageCount) {
   pdf.text(pdf.fit(invoice.payment || 'Paid online', 250, 9.5), M, y - 15, { size: 9.5 })
   if (isPaid) pdf.text(`Paid on ${invoice.dateLabel}`, M, y - 29, { size: 8.5, color: C.grey2 })
   label('NOTES', M, y - 54)
-  ;['All prices include 14% VAT.', 'Keep this invoice for warranty claims.', 'Returns accepted within 14 days of delivery.']
+  ;(invoice.notes ?? ['All prices include 14% VAT.', 'Keep this invoice for warranty claims.', 'Returns accepted within 14 days of delivery.'])
     .forEach((note, i) => pdf.text(note, M, y - 69 - i * 12, { size: 8.5, color: C.grey1 }))
 
   /* Footer */

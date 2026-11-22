@@ -45,6 +45,7 @@ export function AuthProvider({ children }) {
       session,
       user: session?.user ?? null,
       isAuthenticated: Boolean(session?.token),
+      isBusiness: session?.user?.accountType === 'business',
       signIn,
       signOut,
     }),

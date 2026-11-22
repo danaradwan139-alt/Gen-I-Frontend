@@ -58,17 +58,17 @@ function MapBanner({ coords, onLocate }) {
   )
 }
 
-function AddressForm({ address, onSave, onClose }) {
+function AddressForm({ address, onSave, onClose, location = false }) {
   const confirm = useConfirm()
   const [coords, setCoords] = useState(address?.coords ?? null)
   const { values, errors, submitError, setValues, submitting, handleChange, handleBlur, handleSubmit } = useForm({
-    initialValues: address ?? emptyAddress,
-    validate,
+    initialValues: address ?? (location ? { ...emptyAddress, type: '' } : emptyAddress),
+    validate: (v) => ({ ...validate(v), ...(location && { type: v.type.trim() ? '' : 'Name this location, e.g. Smart Village HQ.' }) }),
     onSubmit: async (formValues) => {
       const ok = await confirm({
         tone: 'save',
         title: address ? 'Save address changes?' : 'Save this address?',
-        message: `${formValues.type || 'This address'} will be ${address ? 'updated in' : 'added to'} your saved addresses.`,
+        message: `${formValues.type || 'This address'} will be ${address ? 'updated in' : 'added to'} your ${location ? 'delivery locations' : 'saved addresses'}.`,
         confirmLabel: 'Save address',
       })
       if (!ok) return
@@ -83,11 +83,15 @@ function AddressForm({ address, onSave, onClose }) {
     <form className="addr-form" onSubmit={handleSubmit} noValidate>
       <MapBanner coords={coords} onLocate={setCoords} />
 
+      {location ? (
+        <Input label="Location name" required placeholder="e.g. Smart Village HQ" {...field('type')} />
+      ) : (
       <div className="addr-types" role="group" aria-label="Address type">
         {types.map((type) => (
           <Chip key={type} active={values.type === type} onClick={() => setValues((current) => ({ ...current, type }))}>{type}</Chip>
         ))}
       </div>
+      )}
 
       <div className="addr-grid">
         <Input label="Full name" required autoComplete="name" placeholder="Mohamed Ahmed" {...field('fullName')} />
@@ -118,10 +122,10 @@ function AddressForm({ address, onSave, onClose }) {
 }
 
 // `address` set -> edit mode, otherwise "Add a new address".
-export default function AddressModal({ open, address, onSave, onClose }) {
+export default function AddressModal({ open, address, onSave, onClose, location = false }) {
   return (
-    <Modal open={open} onClose={onClose} title={address ? 'Edit address' : 'Add a new address'} className="modal-address">
-      <AddressForm address={address} onSave={onSave} onClose={onClose} />
+    <Modal open={open} onClose={onClose} title={address ? (location ? 'Edit location' : 'Edit address') : (location ? 'Add a delivery location' : 'Add a new address')} className="modal-address">
+      <AddressForm address={address} onSave={onSave} onClose={onClose} location={location} />
     </Modal>
   )
 }

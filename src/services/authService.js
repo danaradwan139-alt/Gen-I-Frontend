@@ -41,14 +41,19 @@ async function request(method, path, body, token) {
   return data
 }
 
-export async function login({ identifier, password }) {
-  if (!API_URL) return localSession(localUser(identifier))
-  return request('POST', '/auth/login', { identifier, password })
+// accountType: 'personal' | 'business'. Business sessions carry the company name.
+const withType = (user, accountType, company) => (accountType === 'business'
+  ? { ...user, accountType, company: company?.trim() || 'Nile Logistics' }
+  : { ...user, accountType: 'personal' })
+
+export async function login({ identifier, password, accountType = 'personal' }) {
+  if (!API_URL) return localSession(withType(localUser(identifier), accountType))
+  return request('POST', '/auth/login', { identifier, password, accountType })
 }
 
-export async function register({ identifier, password }) {
-  if (!API_URL) return localSession(localUser(identifier))
-  return request('POST', '/auth/register', { identifier, password })
+export async function register({ identifier, password, accountType = 'personal', company }) {
+  if (!API_URL) return localSession(withType(localUser(identifier), accountType, company))
+  return request('POST', '/auth/register', { identifier, password, accountType, company })
 }
 
 export const isLocalAuth = !API_URL
