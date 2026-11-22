@@ -18,7 +18,7 @@ export default function Header() {
   const navigate = useNavigate()
   const location = useLocation()
   const { cartCount } = useCart()
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, isBusiness } = useAuth()
 
   useEffect(() => {
     setMenuOpen(false)
@@ -113,8 +113,8 @@ export default function Header() {
 
             <Link
               className="user-link"
-              to="/account"
-              aria-label="My account"
+              to={isBusiness ? '/business/account' : '/account'}
+              aria-label={isBusiness ? 'Business account' : 'My account'}
             >
               <svg
                 viewBox="0 0 24 24"

@@ -26,5 +26,6 @@ export const LocateIcon = (p) => <Svg {...p}><circle cx="12" cy="12" r="8" /><ci
 export const PlusIcon = (p) => <Svg {...p}><path d="M12 4v16M4 12h16" /></Svg>
 export const CalendarIcon = (p) => <Svg {...p}><rect x="4" y="5" width="16" height="15" rx="3" /><path d="M4 10h16M8 3v4M16 3v4M9 15h6" /></Svg>
 export const TrashIcon = (p) => <Svg {...p}><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" /></Svg>
+export const TagIcon = (p) => <Svg {...p}><path d="M3 12V4h8l10 10-8 8L3 12z" /><circle cx="7.5" cy="8.5" r="1.5" /></Svg>
 export const CheckIcon = (p) => <Svg {...p}><path d="M20 6L9 17l-5-5" /></Svg>
 export const ChevronRightIcon = (p) => <Svg {...p}><path d="M9 18l6-6-6-6" /></Svg>

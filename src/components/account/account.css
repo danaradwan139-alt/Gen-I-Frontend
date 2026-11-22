@@ -183,3 +183,16 @@
   .pf-delete { flex-wrap: wrap; }
   .acct-bar-tabs { flex-wrap: wrap; }
 }
+
+/* Log out button next to the title: phones / small tablets only (the side menu has its own on wider screens) */
+.acct-title-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.acct-title-row .acct-title { min-width: 0; overflow-wrap: anywhere; }
+.acct-logout-top { display: none; flex: none; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border: 1.5px solid var(--danger); border-radius: 20px; background: #fff; color: var(--danger); font-size: 15px; font-weight: 600; cursor: pointer; transition: background-color .15s, color .15s; }
+.acct-logout-top:hover, .acct-logout-top:active { background: var(--danger); color: #fff; }
+@media (max-width: 900px) {
+  .acct-logout-top { display: inline-flex; }
+  .acct-nav .acct-logout-nav { display: none; }
+}
+@media (max-width: 360px) {
+  .acct-logout-top { height: 36px; padding: 0 10px; font-size: 14px; }
+}

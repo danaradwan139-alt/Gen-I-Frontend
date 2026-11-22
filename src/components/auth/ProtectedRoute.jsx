@@ -3,8 +3,9 @@ import { useAuth } from '@/context/AuthContext'
 
 // Sends signed-out visitors to /login and brings them back afterwards (see GuestRoute).
 export default function ProtectedRoute() {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, isBusiness } = useAuth()
   const location = useLocation()
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace state={{ from: location.pathname }} />
+  if (!isAuthenticated) return <Navigate to="/login" replace state={{ from: location.pathname }} />
+  return isBusiness ? <Navigate to="/business/account" replace /> : <Outlet />
 }

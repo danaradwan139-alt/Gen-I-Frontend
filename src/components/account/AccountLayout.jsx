@@ -56,7 +56,11 @@ export default function AccountLayout() {
   return (
     <div className="acct">
       <header className="acct-head">
-        <h1 className="acct-title">Hi, {firstName(user)}.</h1>
+        <div className="acct-title-row">
+          <h1 className="acct-title">Hi, {firstName(user)}.</h1>
+          {/* Phones: the menu scrolls sideways, so Log out lives up here where it's always visible */}
+          <button type="button" className="acct-logout-top" onClick={handleLogout}><LogoutIcon size={18} />Log out</button>
+        </div>
         <p className="acct-sub">Manage your orders, repairs, trade-ins and saved details.</p>
       </header>
       <div className="acct-body">
@@ -67,7 +71,7 @@ export default function AccountLayout() {
               {label}
             </NavLink>
           ))}
-          <button type="button" className="acct-logout" onClick={handleLogout}>
+          <button type="button" className="acct-logout acct-logout-nav" onClick={handleLogout}>
             <LogoutIcon size={16} />
             Log out
           </button>

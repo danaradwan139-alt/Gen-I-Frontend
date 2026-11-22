@@ -30,6 +30,15 @@ import { CartProvider } from '@/context/CartContext'
 import { AuthProvider } from '@/context/AuthContext'
 import { AccountProvider } from '@/context/AccountContext'
 import { ConfirmProvider } from '@/context/ConfirmContext'
+import { BusinessProvider } from '@/context/BusinessContext'
+import BusinessRoute from '@/components/auth/BusinessRoute'
+import BusinessLayout from '@/components/business/BusinessLayout'
+import BusinessOverviewPage from '@/pages/business/BusinessOverviewPage'
+import QuoteRequestsPage from '@/pages/business/QuoteRequestsPage'
+import ReviewQuotePage from '@/pages/business/ReviewQuotePage'
+import QuotationsPage from '@/pages/business/QuotationsPage'
+import DeliveryLocationsPage from '@/pages/business/DeliveryLocationsPage'
+import CompanyProfilePage from '@/pages/business/CompanyProfilePage'
 
 export default function App() {
   return (
@@ -37,6 +46,7 @@ export default function App() {
     <AuthProvider>
       <CartProvider>
         <AccountProvider>
+        <BusinessProvider>
           <Routes>
             <Route element={<GuestRoute />}>
               <Route path="login" element={<LoginPage />} />
@@ -51,6 +61,16 @@ export default function App() {
               <Route path="bag" element={<BagPage />} />
               <Route path="checkout" element={<CheckoutPage />} />
               <Route path="business/checkout" element={<BusinessCheckoutPage />} />
+              <Route path="business/account" element={<BusinessRoute />}>
+                <Route element={<BusinessLayout />}>
+                  <Route index element={<BusinessOverviewPage />} />
+                  <Route path="quotes" element={<QuoteRequestsPage />} />
+                  <Route path="quotes/:quoteId" element={<ReviewQuotePage />} />
+                  <Route path="quotations" element={<QuotationsPage />} />
+                  <Route path="locations" element={<DeliveryLocationsPage />} />
+                  <Route path="profile" element={<CompanyProfilePage />} />
+                </Route>
+              </Route>
               <Route path="repair" element={<RepairPage />} />
               <Route path="account" element={<ProtectedRoute />}>
                 <Route element={<AccountLayout />}>
@@ -71,6 +91,7 @@ export default function App() {
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
+        </BusinessProvider>
         </AccountProvider>
       </CartProvider>
     </AuthProvider>

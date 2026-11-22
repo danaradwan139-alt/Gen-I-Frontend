@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import AccountTypeToggle from '@/components/auth/AccountTypeToggle'
 import AuthLayout from '@/components/auth/AuthLayout'
 import SocialAuth from '@/components/auth/SocialAuth'
 import { Button } from '@/components/ui/Button'
@@ -17,11 +19,12 @@ const validate = ({ identifier, password }) => ({
 
 export default function LoginPage() {
   const { signIn } = useAuth()
+  const [accountType, setAccountType] = useState('personal')
   const { values, errors, submitError, setSubmitError, submitting, handleChange, handleBlur, handleSubmit } = useForm({
     initialValues,
     validate,
     onSubmit: async ({ identifier, password, remember }) => {
-      const session = await login({ identifier: identifier.trim(), password })
+      const session = await login({ identifier: identifier.trim(), password, accountType })
       signIn(session, { remember })
     },
   })
@@ -29,12 +32,13 @@ export default function LoginPage() {
   return (
     <AuthLayout title="Welcome back." subtitle="Sign in to track orders, book repairs and check out faster.">
       <form className="auth-form" onSubmit={handleSubmit} noValidate>
+        <AccountTypeToggle value={accountType} onChange={setAccountType} />
         {submitError && <p className="auth-alert" role="alert">{submitError}</p>}
         <Input
-          label="Email or mobile number"
+          label={accountType === 'business' ? 'Work email or mobile number' : 'Email or mobile number'}
           name="identifier"
           autoComplete="username"
-          placeholder="name@email.com"
+          placeholder={accountType === 'business' ? 'name@company.com' : 'name@email.com'}
           required
           value={values.identifier}
           error={errors.identifier}
@@ -63,7 +67,7 @@ export default function LoginPage() {
         </div>
         <Button type="submit" size="md" className="auth-submit" loading={submitting}>Sign in</Button>
       </form>
-      <SocialAuth onError={setSubmitError} />
+      {accountType === 'personal' && <SocialAuth onError={setSubmitError} />}
     </AuthLayout>
   )
 }
