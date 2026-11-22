@@ -7,6 +7,9 @@
 .bz-stat { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px 18px; border: 1px solid var(--light-2); border-radius: 8px; background: #fff; }
 .bz-stat-label { font-size: 13px; color: var(--grey-2); }
 .bz-stat-num { font-size: 32px; line-height: 1; font-weight: 700; color: var(--black); }
+/* Badges in the counter cards wrap onto two lines instead of spilling out of the card */
+.bz-stat { min-width: 0; }
+.bz-stat .acct-status { max-width: 100%; height: auto; min-height: 22px; padding: 3px 10px; line-height: 1.3; white-space: normal; }
 
 .bz-card-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
 .bz-attn { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 16px; border-top: 1px solid var(--light-2); }
