@@ -1,4 +1,3 @@
-
 .sec:has(.two) {
   box-sizing: border-box;
   display: flex;

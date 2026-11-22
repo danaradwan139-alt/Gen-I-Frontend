@@ -1,5 +1,0 @@
-/* Trade-in band (Figma 78:1888): centred, 72px padding. Side padding added for narrow screens. */
-.trade { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 48px var(--gutter); background: #fff; overflow: clip; color: var(--black); }
-.trade > .t24 { font-size: 18px; }
-@media (min-width: 640px) { .trade > .t24 { font-size: 24px; } }
-@media (min-width: 1024px) { .trade { padding-block: 72px; } }

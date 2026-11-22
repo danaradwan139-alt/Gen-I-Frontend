@@ -1,9 +1,0 @@
-/* Highlights marquee (Figma "Move", 53:772): 100px band, 288px items, seamless left loop. */
-.move { position: relative; height: 100px; background: #fff; overflow: clip; }
-.move-track { position: absolute; left: 24px; top: -11px; display: flex; width: max-content; animation: move-left 30s linear infinite; }
-.move-group { display: flex; gap: 16px; padding-right: 16px; }
-@keyframes move-left { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .move-track { animation: none; } }
-.move-item { position: relative; flex: none; width: 288px; height: 122px; border: 1px solid #fff; border-radius: 8px; overflow: clip; }
-.move-label { position: absolute; left: 29px; top: 48px; display: flex; align-items: center; gap: 32px; font-size: 20px; color: var(--grey-1); white-space: nowrap; }
-.dot { display: block; width: 12px; height: 12px; border-radius: 16px; background: var(--grad); }
