@@ -1,0 +1,52 @@
+/* Design tokens from the Figma file */
+:root {
+  --shade-2: #083e49; --shade-1: #107d93; --primary: #18b8d9;
+  --tint-2: #c8f1f9; --tint-3: #daf5fb;
+  --black: #212121; --grey-1: #666; --grey-2: #8f8f8f;
+  --light: #ccc; --light-2: #ebebeb; --light-3: #f5f5f5;
+  --green: #24c108; --light-green: #e6f6ec; --secondary: #203a5b;
+  --success-text: #176f35; --error-text: #8d3434; --danger: #fc3a3a;
+  --info: #0b4fb3; --info-tint: #d9e8fb;
+  --shadow: 0 4px 4px rgba(132, 132, 132, 0.25);
+  --grad: linear-gradient(to bottom, #203a5b, rgba(24, 184, 189, 0.6));
+  /* SF Pro is Apple's font and can't be served from the web: it is used where installed (macOS/iOS), Inter is the fallback. */
+  --font-body: 'SF Pro', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  --font-title: 'Montserrat Alternates', sans-serif;
+
+  /* Motion, taken from the prototype's interactions */
+  --ease-back: cubic-bezier(0.68, -0.6, 0.32, 1.6); /* EASE_IN_AND_OUT_BACK: button hovers */
+  --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);    /* EASE_IN_AND_OUT: category hover */
+  --ease-out: cubic-bezier(0, 0, 0.58, 1);          /* EASE_OUT: page changes, popups, toggles */
+  --dur-hover: 200ms;
+  --dur-page: 300ms;
+
+  /* Side gutter, mobile-first. Desktop: 120px on the 1440 design frame, scaling down to ~85px at
+     1024, and on wider screens the content stays in the centred 1200px column. Below 1024 there is
+     no Figma frame: 16px (mobile) / 32px (tablet) are assumptions on the design's 8px spacing scale. */
+  --gutter: 16px;
+
+  /* Figma "red" (#FC3A3A). Several stylesheets reference --red, which was never defined. */
+  --red: var(--danger);
+
+  /* Aliases used by ShopPage.css that were never defined (their declarations were being dropped).
+     Mapped to the matching Figma tokens. */
+  --color-text: var(--black);
+  --color-muted: var(--grey-2);
+  --color-teal: var(--shade-1);
+  --color-cyan: var(--primary);
+  --color-white: #fff;
+  --color-surface: var(--light-3);
+  --color-divider: var(--light-2);
+  --radius-small: 8px;
+
+  /* Minimum touch target on phones */
+  --tap: 44px;
+}
+
+@media (min-width: 640px) {
+  :root { --gutter: 32px; }
+}
+
+@media (min-width: 1024px) {
+  :root { --gutter: max(clamp(32px, 8.3333vw, 120px), calc((100vw - 1200px) / 2)); }
+}

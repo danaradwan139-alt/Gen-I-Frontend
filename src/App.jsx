@@ -4,11 +4,8 @@ import LandingPage from '@/pages/LandingPage'
 import NotFoundPage from '@/pages/NotFoundPage'
 import ProductPage from '@/pages/ProductPage'
 import BagPage from '@/pages/BagPage'
-import CheckoutPage from '@/pages/CheckoutPage'
-import BusinessCheckoutPage from '@/pages/BusinessCheckoutPage'
 import ShopPage from '@/pages/ShopPage'
 import ComparePage from '@/pages/ComparePage'
-import RepairPage from '@/pages/RepairPage'
 import LoginPage from '@/pages/LoginPage'
 import RegisterPage from '@/pages/RegisterPage'
 import GuestRoute from '@/components/auth/GuestRoute'
@@ -47,9 +44,6 @@ export default function App() {
               <Route path="shop" element={<ShopPage />} />
               <Route path="shop/:productId" element={<ProductPage />} />
               <Route path="bag" element={<BagPage />} />
-              <Route path="checkout" element={<CheckoutPage />} />
-              <Route path="business/checkout" element={<BusinessCheckoutPage />} />
-              <Route path="repair" element={<RepairPage />} />
               <Route path="account" element={<ProtectedRoute />}>
                 <Route element={<AccountLayout />}>
                   <Route index element={<Navigate to="orders" replace />} />

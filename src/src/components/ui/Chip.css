@@ -1,0 +1,6 @@
+.chip { position: relative; padding: 6px 16px; border: 1px solid var(--grey-1); border-radius: 8px; background: #fff; color: var(--black); font-size: 18px; line-height: 23px; transition: background .15s, color .15s, border-color .15s; }
+.chip:hover { border-color: var(--shade-1); color: var(--shade-1); }
+.chip.is-active { border-color: var(--shade-1); background: var(--shade-1); color: #fff; }
+
+.chip::after { content: ''; position: absolute; inset: min(0px, calc((100% - var(--tap)) / 2)) 0; }
+@media (min-width: 640px) { .chip::after { content: none; } }

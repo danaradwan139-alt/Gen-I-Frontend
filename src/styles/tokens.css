@@ -5,8 +5,7 @@
   --black: #212121; --grey-1: #666; --grey-2: #8f8f8f;
   --light: #ccc; --light-2: #ebebeb; --light-3: #f5f5f5;
   --green: #24c108; --light-green: #e6f6ec; --secondary: #203a5b;
-  --red: #fc3a3a; --danger: #fc3a3a;
-  --success-text: #176f35; --error-text: #8d3434;
+  --success-text: #176f35; --error-text: #8d3434; --danger: #fc3a3a;
   --info: #0b4fb3; --info-tint: #d9e8fb;
   --shadow: 0 4px 4px rgba(132, 132, 132, 0.25);
   --grad: linear-gradient(to bottom, #203a5b, rgba(24, 184, 189, 0.6));

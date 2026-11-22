@@ -22,10 +22,7 @@ export default function Layout() {
     <div className="page">
       <Header />
       <main>
-        {/* Keyed by path so each page plays the prototype's 300ms ease-out entrance */}
-        <div key={pathname} className="route-view">
-          <Outlet />
-        </div>
+        <Outlet />
       </main>
       <Footer />
       <AssistantLauncher />

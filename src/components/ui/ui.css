@@ -7,81 +7,24 @@
 .ico-flip { position: relative; flex: none; width: 100cqw; height: 100cqh; transform: scaleX(-1); }
 .ico-chev { position: relative; flex: none; height: 97.8336cqw; width: 99.3002cqh; transform: rotate(-90.72deg); }
 
-/* ===== Buttons =====
-   Figma variants: primary (fill shade 1), stroke primary (1px inside stroke), flat primary (text only).
-   Outlines use an inset shadow so they keep the Figma height (stroke is drawn inside in Figma). */
-.btn {
-  position: relative; isolation: isolate;
-  display: inline-flex; align-items: center; justify-content: center; gap: 4px;
-  border: 0; border-radius: 8px; background: none; white-space: nowrap; text-decoration: none;
-  transition:
-    color var(--dur-hover) var(--ease-back),
-    background-color var(--dur-hover) var(--ease-back),
-    box-shadow var(--dur-hover) var(--ease-back),
-    transform .1s;
-}
+/* ===== Buttons / badge / avatar ===== */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; border: 0; border-radius: 8px; background: none; white-space: nowrap; transition: background .15s, transform .1s; }
 .btn:active { transform: scale(.97); }
-.btn:disabled, .btn[aria-disabled='true'] { opacity: .45; cursor: not-allowed; }
 .btn-lg { font-size: 24px; padding: 5px 16px; } .btn-md { font-size: 18px; padding: 6px 16px; } .btn-xs { font-size: 12px; padding: 6px 16px; }
 .btn.tight { padding: 6px 4px; }
-.btn.block { width: 100%; }
-
 .btn-primary { background: var(--shade-1); color: #fff; }
 .btn-text { color: var(--shade-1); }
-.btn-danger-text { color: var(--red); }
-.btn-soft { background: var(--tint-3); color: var(--shade-1); box-shadow: inset 0 0 0 1px var(--shade-1); }
-.btn-outline-teal { color: var(--shade-1); box-shadow: inset 0 0 0 1px var(--shade-1); }
-.btn-outline-grey { color: var(--black); box-shadow: inset 0 0 0 1px var(--grey-2); }
-.btn-outline-white { color: #fff; box-shadow: inset 0 0 0 1px #fff; }
-
-/* Hover "Change to → linear" (prototype: DISSOLVE 200ms, ease in-and-out back).
-   A gradient can't be transitioned, so it fades in on a layer behind the label. */
-.btn::before {
-  content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
-  background: var(--grad); opacity: 0; pointer-events: none;
-  transition: opacity var(--dur-hover) var(--ease-back);
-}
-.btn-primary:hover::before,
-.btn-outline-white:hover::before,
-.promo .btn:hover::before { opacity: 1; }
-.btn-outline-white:hover, .promo .btn:hover { color: #fff; box-shadow: none; }
-
-/* Hover "Change to → fill tint" for stroke and flat buttons */
-.btn-outline-teal:hover, .btn-outline-grey:hover, .btn-soft:hover, .btn-text:hover {
-  background: var(--tint-3); color: var(--shade-1); box-shadow: inset 0 0 0 1px var(--shade-1);
-}
-.btn-danger-text:hover { text-decoration: underline; }
-.btn:disabled::before, .btn[aria-disabled='true']::before { opacity: 0 !important; }
-
-.btn.icon-btn { padding: 6px 12px; }
-.w188 { width: 188px; }
-
-/* ===== Badge / avatar / check ===== */
+.btn-soft { background: var(--tint-3); color: var(--shade-1); }
+.btn-outline-white { border: 1px solid #fff; color: #fff; }
+.btn-outline-teal { border: 1px solid var(--shade-1); color: var(--shade-1); }
+.block { width: 100%; } .w188 { width: 188px; }
 .badge { display: flex; background: var(--tint-3); color: var(--primary); font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 8px; overflow: clip; }
 .avatar { display: flex; align-items: center; justify-content: center; flex: none; width: 32px; height: 32px; border-radius: 16px; background: var(--grad); }
 .check-dot { display: flex; align-items: center; justify-content: center; flex: none; width: 24px; height: 24px; border-radius: 24px; background: var(--shade-1); overflow: clip; }
 
-/* ===== Assistant chip (Figma: "Hover: border → accent blue. Click sends the label as a message.") ===== */
-.chip {
-  display: inline-flex; align-items: center; padding: 8px 14px;
-  border: 1px solid var(--light); border-radius: 8px; background: #fff;
-  color: var(--black); font-size: 14px; white-space: nowrap;
-  transition: border-color var(--dur-hover) var(--ease-in-out), background-color var(--dur-hover) var(--ease-in-out), color var(--dur-hover) var(--ease-in-out);
-}
-.chip:hover { border-color: var(--primary); }
-.chip[aria-pressed='true'] { border-color: var(--shade-1); background: var(--tint-3); color: var(--shade-1); }
-
-/* ===== Heart toggle (prototype: click → filled, SMART_ANIMATE 300ms ease-out) ===== */
-.heart-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; flex: none; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: none; transition: background-color var(--dur-hover, 200ms) ease; }
-.heart-btn svg { display: block; width: 100%; height: 100%; overflow: visible; transition: transform var(--dur-page, 300ms) var(--ease-out, ease-out); }
-.heart-path { fill: transparent; stroke: var(--red, #fc3a3a); stroke-width: 1.5; stroke-linejoin: round; transition: fill var(--dur-page, 300ms) var(--ease-out, ease-out); }
-.heart-btn:hover { background: rgba(252, 58, 58, .08); }
-.heart-btn:hover svg { transform: scale(1.08); }
-.heart-btn[aria-pressed='true'] .heart-path { fill: var(--red, #fc3a3a); }
-.heart-btn[aria-pressed='true'] svg { animation: heart-pop var(--dur-page, 300ms) var(--ease-out, ease-out); }
-.heart-btn[aria-pressed='true']::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--red, #fc3a3a); opacity: 0; animation: heart-ring 450ms var(--ease-out, ease-out); pointer-events: none; }
-@keyframes heart-pop { 0% { transform: scale(.75); } 55% { transform: scale(1.2); } 100% { transform: scale(1); } }
-@keyframes heart-ring { 0% { opacity: .6; transform: scale(.6); } 100% { opacity: 0; transform: scale(1.4); } }
+/* Hover: every button turns into the Figma "linear" gradient button */
+.btn:hover, .promo .btn:hover { background: var(--grad); color: #fff; }
+.btn.icon-btn { padding: 6px 12px; }
 
 /* ===== Horizontal scroller (see ScrollRow) ===== */
 .scroll-row { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; -ms-overflow-style: none; cursor: grab; padding-bottom: 12px; }
@@ -90,39 +33,9 @@
 .scroll-row img, .scroll-row a { -webkit-user-drag: none; }
 .scroll-row.bleed-right { margin-right: calc(-1 * var(--gutter)); }
 
-/* ===== Disabled / loading ===== */
+/* Disabled / loading */
 .btn:disabled { opacity: .65; cursor: not-allowed; }
 .btn:disabled:active { transform: none; }
 .btn-primary:disabled:hover { background: var(--shade-1); }
 .btn-spinner { width: 1em; height: 1em; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: btn-spin .7s linear infinite; }
 @keyframes btn-spin { to { transform: rotate(360deg); } }
-
-/* ===== Quantity stepper (Figma "Qty stepper": 1px light-gry-2 border, 4px padding, 12×4 cells) ===== */
-.qty-stepper { display: inline-flex; align-items: center; justify-content: center; padding: 4px; border: 1px solid var(--light-2); border-radius: 8px; background: #fff; }
-.qty-stepper > * { min-width: 36px; padding: 4px 12px; border: 0; background: none; color: var(--black); font-size: 16px; text-align: center; }
-.qty-stepper > span { font-weight: 700; }
-.qty-stepper button { border-radius: 6px; transition: background-color var(--dur-hover) var(--ease-in-out); }
-.qty-stepper button:hover:not(:disabled) { background: var(--tint-3); color: var(--shade-1); }
-.qty-stepper button:disabled { color: var(--light); cursor: not-allowed; }
-
-/* ===== Breadcrumbs (Figma: flat primary "Home" + chevron, then current page in black) ===== */
-.crumbs { display: flex; align-items: center; gap: 4px; font-size: 12px; }
-.crumb-link { display: inline-flex; align-items: center; gap: 4px; padding: 6px 8px; border-radius: 8px; color: var(--shade-1); transition: background-color var(--dur-hover) var(--ease-back); }
-.crumb-link:hover { background: var(--tint-3); }
-.crumbs [aria-current] { padding: 6px 0; color: var(--black); }
-
-/* ===== Assistant summary box (Figma "Assistant Summary") ===== */
-.assistant-box { display: flex; flex-direction: column; gap: 12px; padding: 28px 32px; border: 1.5px solid var(--secondary); border-radius: 8px; background: var(--light-3); }
-.assistant-box-title { display: flex; align-items: center; gap: 10px; }
-.assistant-box-title h2 { font-size: 18px; font-weight: 700; }
-.assistant-box > p { font-size: 16px; }
-.assistant-box-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-
-/* ===== Assistant entry pill (Figma "Assistant", 980px radius, secondary border, blur) ===== */
-.assistant-pill { display: inline-flex; align-items: center; gap: 12px; align-self: flex-start; max-width: 100%; padding: 4px 8px 4px 14px; border: 1px solid var(--secondary); border-radius: 980px; background: #fff; backdrop-filter: blur(12px); color: var(--grey-1); font-size: 16px; text-align: left; transition: border-color var(--dur-hover) var(--ease-in-out), box-shadow var(--dur-hover) var(--ease-in-out); }
-.assistant-pill:hover { border-color: var(--primary); box-shadow: var(--shadow); }
-
-@media (prefers-reduced-motion: reduce) {
-  .btn, .btn::before, .chip, .heart-btn svg, .heart-btn path { transition: none; }
-  .heart-btn[aria-pressed='true'] svg, .heart-btn[aria-pressed='true']::after { animation: none; }
-}
