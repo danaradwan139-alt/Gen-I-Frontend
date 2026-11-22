@@ -85,16 +85,18 @@
   /* fill the screen under the header (promo + logo row + search ≈ 150px) so the prompt isn't below the fold */
   .hero { height: max(580px, calc(100svh - 150px)); min-height: 0; }
   .hero-photo { object-position: 80% 12%; }
-  .hero-content { bottom: 24px; gap: 20px; }
-  .hero-copy { gap: 12px; }
-  .hero .eyebrow { font-size: 13px; letter-spacing: .02em; }
+  /* text sits in the lower half with breathing room, and clears the floating assistant button */
+  .hero-content { bottom: calc(88px + env(safe-area-inset-bottom, 0px)); gap: 24px; }
+  .hero-copy { gap: 14px; }
+  .hero .eyebrow { font-size: 12px; letter-spacing: .08em; opacity: .9; }
   .hero-title { gap: 4px; }
-  .hero-title .t72 { font-size: 34px; }
-  .hero-title .t56 { font-size: 24px; }
-  .hero-copy .body16 { font-size: 15px; }
+  .hero-title .t72 { font-size: 36px; line-height: 1.1; }
+  .hero-title .t56 { font-size: 22px; line-height: 1.25; }
+  .hero-copy .body16 { max-width: 34ch; font-size: 15px; line-height: 1.45; }
   .hero-copy .body16 br { display: none; }
-  /* leave room on the right for the floating assistant button so they sit side by side */
-  .prompt { width: calc(100% - 60px); height: 52px; font-size: 14px; }
+  /* one tidy line: the question is shortened with … instead of wrapping onto three lines */
+  .prompt { width: 100%; height: 52px; font-size: 14px; }
+  .prompt p { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 
   .spot { padding: 16px var(--gutter) 48px; }
   .spot-img { height: min(420px, 100vw); }
